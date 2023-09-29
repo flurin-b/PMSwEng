@@ -1,0 +1,19 @@
+Lokale Kopie der Daten erstellen:
+	git clone https://github.com/flurin-b/PMSwEng
+	cd PMSwEng
+	git branch <name>				-> <name> mit deinem Namen in kleinbuchstaben ersetzen
+	git checkout <name>
+
+Daten vor dem Arbeiten aktualisieren:
+	git pull origin main
+	git checkout <name>
+	git merge main
+
+Daten nach dem Arbeiten hochladen:
+	git commit					-> Anschliessend muss eine Commit-Message geschrieben werden. Diese umschreibt die gemachten Änderungen.
+	git push					-> Schiebt die gemachten Anpassungen auf GitHub
+
+Gemachte Änderungen auf den main-branch laden:
+	Auf github.com einen pull request erstellen
+	ggf. Konflikte beheben
+	Pull request bestätigen
