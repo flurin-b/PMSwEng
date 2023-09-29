@@ -3,13 +3,14 @@ Lokale Kopie der Daten erstellen:
 	cd PMSwEng
 	git branch <name>				-> <name> mit deinem Namen in kleinbuchstaben ersetzen
 	git checkout <name>
+	git push --set-upstream origin <name>
 
 Daten vor dem Arbeiten aktualisieren:
 	git pull origin main
-	git checkout <name>
-	git merge main
+	git merge origin/main				-> Evtl. nur nötig bei Konflikten?
 
 Daten nach dem Arbeiten hochladen:
+	git add *
 	git commit					-> Anschliessend muss eine Commit-Message geschrieben werden. Diese umschreibt die gemachten Änderungen.
 	git push					-> Schiebt die gemachten Anpassungen auf GitHub
 
