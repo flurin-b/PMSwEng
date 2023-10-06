@@ -1,0 +1,16 @@
+PacMan Images:
+	Ghosts:
+	-Augen Links [(Qimage Instanz).transformed(QMatrix().scale(-1,1) für rechts]
+	-Augen Unten
+	-Augen Oben
+	-Nur Augen
+	-Ghost Weiss [frightend]
+	-Ghost Blau [frightend alternieren mit Weiss]
+
+	PacMan:	
+	-Eine Richtung [Andere Richtung sihe "Ghost Links" mit rotate & scale)
+
+	Items:
+	-Kleine essbare Punkte
+	-Grosse essbare Punkte
+	-Labyrinth Bild
