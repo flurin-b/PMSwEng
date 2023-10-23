@@ -24,4 +24,4 @@ void TestTest::failTest()
 
 QTEST_MAIN(TestTest)
 
-#include "tst_test.moc"
+#include "tst_Test.moc"
