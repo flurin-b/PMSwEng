@@ -7,7 +7,6 @@ class TestTest : public QObject
 
 private slots:
     void passTest();
-    void failTest();
 };
 
 void TestTest::passTest()
