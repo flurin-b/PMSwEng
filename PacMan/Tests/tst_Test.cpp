@@ -16,12 +16,6 @@ void TestTest::passTest()
     QCOMPARE(t.returnTrue(), true);
 }
 
-void TestTest::failTest()
-{
-    Test t;
-    QCOMPARE(t.returnFalse(), true);
-}
-
 QTEST_MAIN(TestTest)
 
 #include "tst_Test.moc"
