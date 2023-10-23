@@ -15,6 +15,6 @@ void TestTest::passTest()
     QCOMPARE(t.returnTrue(), true);
 }
 
-QTEST_MAIN(TestTest)
+QTEST_APPLESS_MAIN(TestTest)
 
 #include "tst_Test.moc"
