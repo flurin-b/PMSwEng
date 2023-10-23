@@ -17,7 +17,7 @@ set(PROJECT_SOURCES
 )
 
 add_library(LocalLib SHARED
-    MyWidget.h MyWidget.cpp
+    mywidget.h mywidget.cpp
 )
 target_link_libraries(LocalLib Qt${QT_VERSION_MAJOR}::Widgets)
 
