@@ -1,6 +1,6 @@
 #include "ghost.h"
 
-Ghost::Ghost()
+Ghost::Ghost(QGraphicsScene sc, Maze maze)
 {
 
 }

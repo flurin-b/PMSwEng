@@ -1,6 +1,6 @@
 #include "pacman.h"
 
-PacMan::PacMan()
+PacMan::PacMan(QGraphicsScene sc)
 {
 
 }
