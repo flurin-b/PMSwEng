@@ -6,7 +6,7 @@
 class Maze
 {
 public:
-    Maze(QGraphicsScene sc);
+    Maze(QGraphicsScene *sc);
     void paint(void);
 
     //Nicht klar ersichtbar wie die Definition gemeint ist im Klassendiagramm. Muss angepasst werden
@@ -14,7 +14,7 @@ public:
    //const std::vector<std::vector<QPoint>> maze;
 
 private:
-    QGraphicsScene sc;
+    QGraphicsScene *sc;
 };
 
 #endif // MAZE_H

@@ -1,6 +1,6 @@
 #include "pacman.h"
 
-PacMan::PacMan(QGraphicsScene sc)
+PacMan::PacMan(QGraphicsScene *sc)
 {
-
+    sc->addSimpleText("Hello World!");
 }

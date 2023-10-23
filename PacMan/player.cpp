@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(QGraphicsScene sc, Maze maze)
+Player::Player(QGraphicsScene *sc, Maze *maze)
 {
 
 }

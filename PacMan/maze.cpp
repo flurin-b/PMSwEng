@@ -1,6 +1,6 @@
 #include "maze.h"
 
-Maze::Maze(QGraphicsScene sc)
+Maze::Maze(QGraphicsScene *sc)
 {
 
 }
