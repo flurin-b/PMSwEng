@@ -10,6 +10,8 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+enable_testing()
+
 set(PROJECT_SOURCES
     main.cpp
 )
@@ -18,9 +20,8 @@ add_library(LocalLib SHARED
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
-    test.cpp
-    test.h
-
+    Test.cpp
+    Test.h
 )
 target_link_libraries(LocalLib Qt${QT_VERSION_MAJOR}::Widgets)
 
