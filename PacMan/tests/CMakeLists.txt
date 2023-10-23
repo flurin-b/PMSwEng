@@ -9,7 +9,7 @@ function(SETUP_TESTS)
             tst_${_testname}.cpp
         )
         add_test(NAME ${_testname} COMMAND ${_testname})
-        target_link_libraries(${_testname} Qt${QT_MAJOR_VERISION}::Test LocalLib)
+        target_link_libraries(${_testname} Qt${QT_MAJOR_VERISION}::Test PacManLib)
     endforeach()
 endfunction()
 

@@ -17,15 +17,16 @@ set(PROJECT_SOURCES
 )
 
 add_library(LocalLib SHARED
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-    Test.cpp
-    Test.h
+    mainwindow.cpp mainwindow.h mainwindow.ui
 )
 target_link_libraries(LocalLib Qt${QT_VERSION_MAJOR}::Widgets)
 
+add_library(PacManLib SHARED
+    Test.cpp
+    Test.h
+)
+
 add_executable(PacMan main.cpp)
-target_link_libraries(PacMan LocalLib)
+target_link_libraries(PacMan LocalLib PacManLib)
 
 add_subdirectory(Tests)
