@@ -50,7 +50,7 @@ jobs:
         
         git config --global user.email "none@none.com"
         git config --global user.name "auto-build"
-        git pull origin/main
+        git pull https://github.com/flurin-b/main
         git add ${{github.workspace}}/PacMan/build
         git commit -m "Updated compiled Output [skip ci]"
         git push origin HEAD:main
