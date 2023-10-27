@@ -45,7 +45,7 @@ jobs:
     - name: Push built output to main branch
       working-directory: ${{github.workspace}}/PacMan
       run: |
-        ls
+        tree
         [ -d ${{github.workspace}}/PacMan/build ] && git rm -r ${{github.workspace}}/PacMan/build
         mv ${{github.workspace}}/PacMan/local-build ${{github.workspace}}/PacMan/build
         
