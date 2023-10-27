@@ -48,6 +48,8 @@ jobs:
         ls
         [ -d ${{github.workspace}}/PacMan/build ] && git rm -r ${{github.workspace}}/PacMan/build
         mv ${{github.workspace}}/PacMan/local-build ${{github.workspace}}/PacMan/build
+        
+        git config --global user.email "none@none.com"
         git config --global user.name "auto-build"
         git commit -m "Updated compiled Output [skip ci]"
         git push origin main
