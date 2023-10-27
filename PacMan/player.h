@@ -10,10 +10,13 @@ public:
     Player(QGraphicsScene *sc, Maze *maze);
     void step(void);
     void paint(void);
+    QPoint getPosistion(void);
+    void MovePlayer(QPoint offset);
 
 private:
     QGraphicsScene *sc;
     Maze *maze;
+    QPoint playerPosistion;
 };
 
 #endif // PLAYER_H

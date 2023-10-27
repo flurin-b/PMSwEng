@@ -16,6 +16,7 @@ public:
     void handleKeyPress(QKeyEvent event);
 
 private:
+    QGraphicsScene *sc;
     Maze *maze;
     Ghost *ghost[4];
     Player *player;

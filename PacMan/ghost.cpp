@@ -1,11 +1,12 @@
 #include "ghost.h"
+#include "player.h"
 
-Ghost::Ghost(QGraphicsScene *sc, Maze *maze)
+Ghost::Ghost(QGraphicsScene *sc, Maze *maze, Player *playerRef)
 {
 
 }
 
-Blinky::Blinky(QGraphicsScene *sc, Maze *maze):Ghost(sc,maze)
+Blinky::Blinky(QGraphicsScene *sc, Maze *maze, Player *playerRef):Ghost(sc,maze,playerRef)
 {
 
 }
@@ -20,7 +21,7 @@ void Blinky::paint(void)
 
 }
 
-Pinky::Pinky(QGraphicsScene *sc, Maze *maze):Ghost(sc,maze)
+Pinky::Pinky(QGraphicsScene *sc, Maze *maze, Player *playerRef):Ghost(sc,maze,playerRef)
 {
 
 }
@@ -35,7 +36,7 @@ void Pinky::paint(void)
 
 }
 
-Inky::Inky(QGraphicsScene *sc, Maze *maze):Ghost(sc,maze)
+Inky::Inky(QGraphicsScene *sc, Maze *maze, Player *playerRef):Ghost(sc,maze,playerRef)
 {
 
 }
@@ -51,7 +52,7 @@ void Inky::paint(void)
 }
 
 
-Clyde::Clyde(QGraphicsScene *sc, Maze *maze):Ghost(sc,maze)
+Clyde::Clyde(QGraphicsScene *sc, Maze *maze, Player *playerRef):Ghost(sc,maze,playerRef)
 {
 
 }
