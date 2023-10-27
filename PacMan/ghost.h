@@ -16,4 +16,31 @@ private:
     Maze *maze;
 };
 
+class Blinky : public Ghost
+{
+    Blinky(QGraphicsScene *sc, Maze *maze);
+    void step(void) override;
+    void paint(void) override;
+};
+
+class Pinky : public Ghost
+{
+    Pinky(QGraphicsScene *sc, Maze *maze);
+    void step(void) override;
+    void paint(void) override;
+};
+
+class Inky : public Ghost
+{
+    Inky(QGraphicsScene *sc, Maze *maze);
+    void step(void) override;
+    void paint(void) override;
+};
+
+class Clyde : public Ghost
+{
+    Clyde(QGraphicsScene *sc, Maze *maze);
+    void step(void) override;
+    void paint(void) override;
+};
 #endif // GHOST_H

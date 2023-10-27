@@ -17,7 +17,7 @@ public:
 
 private:
     Maze *maze;
-    Ghost *ghost;
+    Ghost *ghost[4];
     Player *player;
 };
 

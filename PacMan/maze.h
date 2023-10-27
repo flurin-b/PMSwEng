@@ -3,18 +3,29 @@
 
 #include <QGraphicsScene>
 
+enum
+{
+    noItem,
+    smallPoint,
+    bigPoint,
+    cherry,
+};
+
 class Maze
 {
 public:
     Maze(QGraphicsScene *sc);
     void paint(void);
+    int getDots(QPoint position);
+    void setDots(QPoint position, int item);
+    std::vector<QPoint> getMaze(QPoint position);
 
-    //Nicht klar ersichtbar wie die Definition gemeint ist im Klassendiagramm. Muss angepasst werden
-    //std::vector<bool> dots;
-   //const std::vector<std::vector<QPoint>> maze;
+
 
 private:
     QGraphicsScene *sc;
+    int dots[28][36];
+    std::vector<QPoint> maze[28][36];
 };
 
 #endif // MAZE_H
