@@ -45,6 +45,7 @@ jobs:
     - name: Push built output to main branch
       working-directory: ${{github.workspace}}/PacMan
       run: |
+        git config --global user.name "auto-build"
         git add ./build/* -f
         git commit -m "Updated compiled Output [skip ci]"
         git push origin main
