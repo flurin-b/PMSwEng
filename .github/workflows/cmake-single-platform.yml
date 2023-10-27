@@ -30,7 +30,10 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake ./PacMan/CMakeLists.txt -B ${{github.workspace}}/PacMan/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: |
+        cmake ./PacMan/CMakeLists.txt -B ${{github.workspace}}/PacMan/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        git config --global user.name "auto-build"
+        git rm -r ./build/
 
     - name: Build
       # Build your program with the given configuration
@@ -45,7 +48,6 @@ jobs:
     - name: Push built output to main branch
       working-directory: ${{github.workspace}}/PacMan
       run: |
-        git config --global user.name "auto-build"
-        git add ./build/* -f
+        git add ./build/*
         git commit -m "Updated compiled Output [skip ci]"
         git push origin main
