@@ -52,11 +52,12 @@ jobs:
         cd ${{github.workspace}}/
         mkdir Headed_Repo
         cd Headed_Repo
-        git clone "$remote_repo" main
+        git clone "$remote_repo"
         ls
+        cd PmSwEng
 
         echo "delete old build folder and copy new built files to repo."
-        [ -d ${{github.workspace}}/PacMan/build ] && git rm -r ${{github.workspace}}/PacMan/build
+        [ -d ${{github.workspace}}/Headed_Reop/PmSwEng/PacMan/build ] && git rm -r ${{github.workspace}}/Headed_Reop/PmSwEng/PacMan/build
         mv ${{github.workspace}}/PacMan/local-build ${{github.workspace}}/Headed_Repo/PmSwEng/PacMan/build
 
         echo "Pull newest changes from GitHub."
