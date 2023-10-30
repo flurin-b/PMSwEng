@@ -52,7 +52,7 @@ jobs:
         cd ${{github.workspace}}/
         mkdir Headed_Repo
         cd Headed_Repo
-        git clone remote_repo main
+        git clone "$remote_repo" main
         cd PmSwEng
 
         echo "delete old build folder and copy new built files to repo."
