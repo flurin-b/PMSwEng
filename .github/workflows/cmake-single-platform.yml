@@ -54,7 +54,7 @@ jobs:
         cd Headed_Repo
         git clone "$remote_repo"
         cd PMSwEng
-        echo ${GITHUB_REF##*/}
+        echo ${GITHUB_REF}
         git checkout ${GITHUB_REF##*/}
 
         echo "delete old build folder and copy new built files to repo."
