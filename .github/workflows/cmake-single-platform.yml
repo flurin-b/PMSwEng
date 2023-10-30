@@ -53,17 +53,16 @@ jobs:
         mkdir Headed_Repo
         cd Headed_Repo
         git clone "$remote_repo"
-        ls
-        cd PmSwEng
+        cd PMSwEng
 
         echo "delete old build folder and copy new built files to repo."
-        [ -d ${{github.workspace}}/Headed_Reop/PmSwEng/PacMan/build ] && git rm -r ${{github.workspace}}/Headed_Reop/PmSwEng/PacMan/build
-        mv ${{github.workspace}}/PacMan/local-build ${{github.workspace}}/Headed_Repo/PmSwEng/PacMan/build
+        [ -d ${{github.workspace}}/Headed_Reop/PmSwEng/PacMan/build ] && git rm -r ${{github.workspace}}/Headed_Reop/PMSwEng/PacMan/build
+        mv ${{github.workspace}}/PacMan/local-build ${{github.workspace}}/Headed_Repo/PMSwEng/PacMan/build
 
         echo "Pull newest changes from GitHub."
         git pull "$remote_repo" main
 
         echo "Push changed version to GitHub."
-        git add ${{github.workspace}}/Headed_Repo/PmSwEng/PacMan/build
+        git add ${{github.workspace}}/Headed_Repo/PMSwEng/PacMan/build
         git commit -m "Updated compiled Output [skip ci]"
         git push origin main
