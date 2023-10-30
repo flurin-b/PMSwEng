@@ -54,6 +54,7 @@ jobs:
         cd Headed_Repo
         git clone "$remote_repo"
         cd PMSwEng
+        git checkout ${GITHUB_REF##*/}
 
         echo "delete old build folder and copy new built files to repo."
         [ -d ${{github.workspace}}/Headed_Reop/PmSwEng/PacMan/build ] && git rm -r ${{github.workspace}}/Headed_Reop/PMSwEng/PacMan/build
@@ -65,4 +66,6 @@ jobs:
         echo "Push changed version to GitHub."
         git add ${{github.workspace}}/Headed_Repo/PMSwEng/PacMan/build
         git commit -m "Updated compiled Output [skip ci]"
-        git push origin main
+        git config user.email "none@github.com"
+        git config user.name "${GITHUB_ACTOR}"
+        git push origin ${GITHUB_REF##*/}
