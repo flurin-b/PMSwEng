@@ -45,6 +45,8 @@ jobs:
     - name: Push built output to main branch
       working-directory: ${{github.workspace}}/PacMan
       run: |
+        echo "Push built Output to main branch"
+        
         echo "Setup headed Git repository."
         cd ${{github.workspace}}/
         mkdir Headed_Repo
@@ -59,7 +61,10 @@ jobs:
         echo "Pull newest changes from GitHub."
         remote_repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
         git pull "$remote_repo" main
-        
+
+        echo "Push changed version to GitHub."
         git add ${{github.workspace}}/Headed_Repo/PmSwEng/PacMan/build
         git commit -m "Updated compiled Output [skip ci]"
+        git remote rm origin
+        git remote add origin '${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git'
         git push origin main
