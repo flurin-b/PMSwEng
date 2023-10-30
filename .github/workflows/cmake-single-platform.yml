@@ -42,10 +42,10 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
 
-    - name: Push built output to main branch
+    - name: Push built output to GitHub
       working-directory: ${{github.workspace}}/PacMan
       run: |
-        echo "Push built Output to main branch"
+        echo "Push built Output to GitHub"
         
         echo "Setup headed Git repository."
         remote_repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
@@ -54,6 +54,7 @@ jobs:
         cd Headed_Repo
         git clone "$remote_repo"
         cd PMSwEng
+        echo ${GITHUB_REF##*/}
         git checkout ${GITHUB_REF##*/}
 
         echo "delete old build folder and copy new built files to repo."
