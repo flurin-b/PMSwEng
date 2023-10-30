@@ -53,7 +53,7 @@ jobs:
         mkdir Headed_Repo
         cd Headed_Repo
         git clone "$remote_repo" main
-        cd PmSwEng
+        ls
 
         echo "delete old build folder and copy new built files to repo."
         [ -d ${{github.workspace}}/PacMan/build ] && git rm -r ${{github.workspace}}/PacMan/build
