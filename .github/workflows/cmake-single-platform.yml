@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+defaults:
+  run:
+    shell: cmd
+
 env:
   BUILD_TYPE: Release
 #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
@@ -31,9 +35,7 @@ jobs:
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: |
-        if (Test-Path -Path ${{github.workspace}}/PacMan/build/) {
-          git rm -r ${{github.workspace}}/PacMan/build
-        }
+        IF ESIST ${{github.workspace}}/PacMan/build/) git rm -r ${{github.workspace}}/PacMan/build
         cmake ${{github.workspace}}/PacMan/CMakeLists.txt -B ${{github.workspace}}/PacMan/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
