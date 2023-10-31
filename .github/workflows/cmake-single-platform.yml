@@ -1,5 +1,4 @@
-# This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
-# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
+# This Workflow builds and tests the project and commits the build output to the main branch on push.
 name: CMake single platform
 
 on:
@@ -9,9 +8,10 @@ on:
     branches: [ "main" ]
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
+  CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
+  CI_COMMIT_AUTHOR: Continuous Integration
 
 jobs:
   build:
@@ -30,43 +30,53 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake ./PacMan/CMakeLists.txt -B ${{github.workspace}}/PacMan/local-build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake ./PacMan/CMakeLists.txt -B ${{github.workspace}}/PacMan/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/PacMan/local-build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/PacMan/build --config ${{env.BUILD_TYPE}}
 
     - name: Test
-      working-directory: ${{github.workspace}}/PacMan/local-build
+      working-directory: ${{github.workspace}}/PacMan/build
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
 
-    - name: Push built output to GitHub
-      working-directory: ${{github.workspace}}/PacMan
+# Commit and push all changed files.
+    - name: GIT Commit Build Artifacts
+      # Only run on main branch push (e.g. after pull request merge).
+      if: github.event_name == 'push'
       run: |
-        echo "Push built Output to GitHub"
-        
-        echo "Setup headed Git repository."
-        remote_repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-        cd ${{github.workspace}}/
-        mkdir Headed_Repo
-        cd Headed_Repo
-        git clone "$remote_repo"
-        cd PMSwEng
-        echo ${GITHUB_REF}
-        git checkout ${GITHUB_REF##*/}
+        git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+        git config --global user.email "username@users.noreply.github.com"
+        git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+        git push
 
-        echo "delete old build folder and copy new built files to repo."
-        [ -d ${{github.workspace}}/Headed_Reop/PmSwEng/PacMan/build ] && git rm -r ${{github.workspace}}/Headed_Reop/PMSwEng/PacMan/build
-        mv ${{github.workspace}}/PacMan/local-build ${{github.workspace}}/Headed_Repo/PMSwEng/PacMan/build
-
-        echo "Pull newest changes from GitHub."
-        git pull "$remote_repo" main
-
-        echo "Push changed version to GitHub."
-        git add ${{github.workspace}}/Headed_Repo/PMSwEng/PacMan/build
-        git commit -m "Updated compiled Output [skip ci]"
-        git config user.email "none@github.com"
-        git config user.name "${GITHUB_ACTOR}"
-        git push origin ${GITHUB_REF##*/}
+#    - name: Push built output to GitHub
+#      working-directory: ${{github.workspace}}/PacMan
+#      run: |
+#        echo "Push built Output to GitHub"
+#        
+#        echo "Setup headed Git repository."
+#        remote_repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+#        cd ${{github.workspace}}/
+#        mkdir Headed_Repo
+#        cd Headed_Repo
+#        git clone "$remote_repo"
+#        cd PMSwEng
+#        echo ${GITHUB_REF}
+#        git checkout ${GITHUB_REF##*/}
+#
+#        echo "delete old build folder and copy new built files to repo."
+#        [ -d ${{github.workspace}}/Headed_Reop/PmSwEng/PacMan/build ] && git rm -r ${{github.workspace}}/Headed_Reop/PMSwEng/PacMan/build
+#        mv ${{github.workspace}}/PacMan/local-build ${{github.workspace}}/Headed_Repo/PMSwEng/PacMan/build
+#
+#        echo "Pull newest changes from GitHub."
+#        git pull "$remote_repo" main
+#
+#        echo "Push changed version to GitHub."
+#        git add ${{github.workspace}}/Headed_Repo/PMSwEng/PacMan/build
+#        git commit -m "Updated compiled Output [skip ci]"
+#        git config user.email "none@github.com"
+#        git config user.name "${GITHUB_ACTOR}"
+#        git push origin ${GITHUB_REF##*/}
