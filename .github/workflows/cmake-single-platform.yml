@@ -32,7 +32,7 @@ jobs:
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: |
         git rm -r ${{github.workspace}}/PacMan/build
-        cmake ./PacMan/CMakeLists.txt -B ${{github.workspace}}/PacMan/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        cmake ${{github.workspace}}/PacMan/CMakeLists.txt -B ${{github.workspace}}/PacMan/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
       # Build your program with the given configuration
