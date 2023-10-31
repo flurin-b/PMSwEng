@@ -18,7 +18,7 @@ jobs:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -30,7 +30,9 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake ./PacMan/CMakeLists.txt -B ${{github.workspace}}/PacMan/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: |
+        git rm -r ${{github.workspace}}/PacMan/build
+        cmake ./PacMan/CMakeLists.txt -B ${{github.workspace}}/PacMan/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
       # Build your program with the given configuration
@@ -52,32 +54,3 @@ jobs:
         git add PacMan/build/
         git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
         git push
-
-#    - name: Push built output to GitHub
-#      working-directory: ${{github.workspace}}/PacMan
-#      run: |
-#        echo "Push built Output to GitHub"
-#        
-#        echo "Setup headed Git repository."
-#        remote_repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-#        cd ${{github.workspace}}/
-#        mkdir Headed_Repo
-#        cd Headed_Repo
-#        git clone "$remote_repo"
-#        cd PMSwEng
-#        echo ${GITHUB_REF}
-#        git checkout ${GITHUB_REF##*/}
-#
-#        echo "delete old build folder and copy new built files to repo."
-#        [ -d ${{github.workspace}}/Headed_Reop/PmSwEng/PacMan/build ] && git rm -r ${{github.workspace}}/Headed_Reop/PMSwEng/PacMan/build
-#        mv ${{github.workspace}}/PacMan/local-build ${{github.workspace}}/Headed_Repo/PMSwEng/PacMan/build
-#
-#        echo "Pull newest changes from GitHub."
-#        git pull "$remote_repo" main
-#
-#        echo "Push changed version to GitHub."
-#        git add ${{github.workspace}}/Headed_Repo/PMSwEng/PacMan/build
-#        git commit -m "Updated compiled Output [skip ci]"
-#        git config user.email "none@github.com"
-#        git config user.name "${GITHUB_ACTOR}"
-#        git push origin ${GITHUB_REF##*/}
