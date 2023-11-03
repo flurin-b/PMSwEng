@@ -1,10 +1,10 @@
-Start testing: Nov 03 10:21 UTC
+Start testing: Nov 03 10:25 UTC
 ----------------------------------------------------------
 1/1 Testing: Test
 1/1 Test: Test
 Command: "/home/runner/work/PMSwEng/PMSwEng/PacMan/build/Tests/Test"
 Directory: /home/runner/work/PMSwEng/PMSwEng/PacMan/build/Tests
-"Test" start time: Nov 03 10:21 UTC
+"Test" start time: Nov 03 10:25 UTC
 Output:
 ----------------------------------------------------------
 ********* Start testing of TestTest *********
@@ -15,11 +15,11 @@ PASS   : TestTest::cleanupTestCase()
 Totals: 3 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms
 ********* Finished testing of TestTest *********
 <end of output>
-Test time =   0.04 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
 Test Passed.
-"Test" end time: Nov 03 10:21 UTC
+"Test" end time: Nov 03 10:25 UTC
 "Test" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Nov 03 10:21 UTC
+End testing: Nov 03 10:25 UTC
