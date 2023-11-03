@@ -7,10 +7,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-defaults:
-  run:
-    shell: cmd
-
 env:
   BUILD_TYPE: Release
 #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
