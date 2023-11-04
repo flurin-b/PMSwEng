@@ -1,67 +1,128 @@
 #include "ghost.h"
 #include "player.h"
 
-Ghost::Ghost(QGraphicsScene *sc, Maze *maze, Player *playerRef)
+/**
+ * @brief Ghost::Ghost
+ * @param scPointer
+ * @param mazePointer
+ * @param playerRefPointer
+ */
+Ghost::Ghost(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):sc(scPointer),maze(mazePointer),playerRef(playerRefPointer)
 {
 
 }
 
-Blinky::Blinky(QGraphicsScene *sc, Maze *maze, Player *playerRef):Ghost(sc,maze,playerRef)
+/**
+ * @brief Ghost::~Ghost
+ */
+Ghost::~Ghost()
 {
 
 }
 
+/**
+ * @brief Blinky::Blinky
+ * @param scPointer
+ * @param mazePointer
+ * @param playerRefPointer
+ */
+Blinky::Blinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
+{
+
+}
+
+/**
+ * @brief Blinky::step
+ */
 void Blinky::step(void)
 {
 
 }
-
+/**
+ * @brief Blinky::paint
+ */
 void Blinky::paint(void)
 {
 
 }
 
-Pinky::Pinky(QGraphicsScene *sc, Maze *maze, Player *playerRef):Ghost(sc,maze,playerRef)
+/**
+ * @brief Pinky::Pinky
+ * @param scPointer
+ * @param mazePointer
+ * @param playerRefPointer
+ */
+Pinky::Pinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
 {
 
 }
 
+/**
+ * @brief Pinky::step
+ */
 void Pinky::step(void)
 {
 
 }
 
+/**
+ * @brief Pinky::paint
+ */
 void Pinky::paint(void)
 {
 
 }
 
-Inky::Inky(QGraphicsScene *sc, Maze *maze, Player *playerRef):Ghost(sc,maze,playerRef)
+/**
+ * @brief Inky::Inky
+ * @param scPointer
+ * @param mazePointer
+ * @param playerRefPointer
+ */
+Inky::Inky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
 {
 
 }
 
+/**
+ * @brief Inky::step
+ */
 void Inky::step(void)
 {
 
 }
 
+/**
+ * @brief Inky::paint
+ */
 void Inky::paint(void)
 {
 
 }
 
-
-Clyde::Clyde(QGraphicsScene *sc, Maze *maze, Player *playerRef):Ghost(sc,maze,playerRef)
+/**
+ * @brief Clyde::Clyde
+ * @param scPointer
+ * @param mazePointer
+ * @param playerRefPointer
+ */
+Clyde::Clyde(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
 {
 
 }
 
+/**
+ * @brief Clyde::step
+ */
 void Clyde::step(void)
 {
 
 }
 
+
+/**
+ * @brief Clyde::paint
+ */
 void Clyde::paint(void)
 {
 

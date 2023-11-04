@@ -8,7 +8,8 @@
 class Ghost
 {
 public:
-    Ghost(QGraphicsScene *sc, Maze *maze, Player *playerRef);
+    Ghost(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
+    virtual ~Ghost();
     virtual void step(void) = 0;
     virtual void paint(void) = 0;
 
@@ -22,7 +23,7 @@ private:
 class Blinky : public Ghost
 {
 public:
-    Blinky(QGraphicsScene *sc, Maze *maze, Player *playerRef);
+    Blinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };
@@ -30,7 +31,7 @@ public:
 class Pinky : public Ghost
 {
 public:
-    Pinky(QGraphicsScene *sc, Maze *maze, Player *playerRef);
+    Pinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };
@@ -38,7 +39,7 @@ public:
 class Inky : public Ghost
 {
 public:
-    Inky(QGraphicsScene *sc, Maze *maze, Player *playerRef);
+    Inky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };
@@ -46,7 +47,7 @@ public:
 class Clyde : public Ghost
 {
 public:
-    Clyde(QGraphicsScene *sc, Maze *maze, Player *playerRef);
+    Clyde(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };

@@ -12,13 +12,14 @@
 class PacMan
 {
 public:
-    PacMan(QGraphicsScene *sc);
+    PacMan(QGraphicsScene *scPointer);
+    virtual ~PacMan();
     void handleKeyPress(QKeyEvent event);
 
 private:
     QGraphicsScene *sc;
     Maze *maze;
-    Ghost *ghost[4];
+    Ghost *ghosts[4];
     Player *player;
 };
 

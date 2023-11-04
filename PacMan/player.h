@@ -7,7 +7,7 @@
 class Player
 {
 public:
-    Player(QGraphicsScene *sc, Maze *maze);
+    Player(QGraphicsScene *scPointer, Maze *mazePointer);
     void step(void);
     void paint(void);
     QPoint getPosistion(void);
