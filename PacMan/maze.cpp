@@ -2,7 +2,7 @@
 
 /**
  * @brief Maze::Maze Creates a Instace of Maze which contains all the eatables and the paths that can be taken from a certain position
- * @param sc The GraphicScene onto which the items will be placed
+ * @param scPointer A Pointer to the GraphicScene onto which the items will be placed
  */
 Maze::Maze(QGraphicsScene *scPointer):sc(scPointer)
 {

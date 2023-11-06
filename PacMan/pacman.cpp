@@ -3,7 +3,7 @@
 #include "qevent.h"
 
 /**
- * @brief PacMan::PacMan
+ * @brief PacMan::PacMan Creates the Pac-Man which is moveable from the Player
  * @param scPointer
  */
 PacMan::PacMan(QGraphicsScene *scPointer):sc(scPointer)
@@ -16,7 +16,7 @@ PacMan::PacMan(QGraphicsScene *scPointer):sc(scPointer)
 }
 
 /**
- * @brief PacMan::~PacMan
+ * @brief PacMan::~PacMan Delets allocated memory during ctor
  */
 PacMan::~PacMan()
 {

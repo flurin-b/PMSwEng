@@ -2,10 +2,10 @@
 #include "player.h"
 
 /**
- * @brief Ghost::Ghost
- * @param scPointer
- * @param mazePointer
- * @param playerRefPointer
+ * @brief Ghost::Ghost Abstrakte Klasse die das Grund gerüst für Blinky/Pinky/Inky/Clyde ist
+ * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
+ * @param mazePointer A Pointer to the maze where to ghosts operade in
+ * @param playerRefPointer A Pointer to the player so that they can chase him
  */
 Ghost::Ghost(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):sc(scPointer),maze(mazePointer),playerRef(playerRefPointer)
 {
@@ -13,7 +13,7 @@ Ghost::Ghost(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPoin
 }
 
 /**
- * @brief Ghost::~Ghost
+ * @brief Ghost::~Ghost Dealocate memory
  */
 Ghost::~Ghost()
 {
@@ -21,10 +21,10 @@ Ghost::~Ghost()
 }
 
 /**
- * @brief Blinky::Blinky
- * @param scPointer
- * @param mazePointer
- * @param playerRefPointer
+ * @brief Blinky::Blinky Creates a Ghost with a chase pattern of Blinky
+ * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
+ * @param mazePointer A Pointer to the maze where to ghosts operade in
+ * @param playerRefPointer A Pointer to the player so that they can chase him
  */
 Blinky::Blinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
 {
@@ -47,10 +47,10 @@ void Blinky::paint(void)
 }
 
 /**
- * @brief Pinky::Pinky
- * @param scPointer
- * @param mazePointer
- * @param playerRefPointer
+ * @brief Pinky::Pinky Creates a Ghost with a chase pattern of Pinky
+ * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
+ * @param mazePointer A Pointer to the maze where to ghosts operade in
+ * @param playerRefPointer A Pointer to the player so that they can chase him
  */
 Pinky::Pinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
 {
@@ -74,10 +74,10 @@ void Pinky::paint(void)
 }
 
 /**
- * @brief Inky::Inky
- * @param scPointer
- * @param mazePointer
- * @param playerRefPointer
+ * @brief Inky::Inky Creates a Ghost with a chase pattern of Inky
+ * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
+ * @param mazePointer A Pointer to the maze where to ghosts operade in
+ * @param playerRefPointer A Pointer to the player so that they can chase him
  */
 Inky::Inky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
 {
@@ -101,10 +101,10 @@ void Inky::paint(void)
 }
 
 /**
- * @brief Clyde::Clyde
- * @param scPointer
- * @param mazePointer
- * @param playerRefPointer
+ * @brief Clyde::Clyde Creates a Ghost with a chase pattern of Clyde
+ * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
+ * @param mazePointer A Pointer to the maze where to ghosts operade in
+ * @param playerRefPointer A Pointer to the player so that they can chase him
  */
 Clyde::Clyde(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
 {
