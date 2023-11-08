@@ -1,23 +1,28 @@
 name: Windows Release Build
 
+# Set Workflow to verify all changes made to main branch.
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+    
+# Choose terminal application to use.
 defaults:
   run:
     shell: cmd
 
+# Set required enviroment variables.
 env:
   SOURCE_DIR:   ${{ github.workspace }}
   QT_VERSION:   6.4.3
   ARTIFACT:     windows-build
   BUILD_TYPE:   Release
 
+# Build the project, run test cases and save 
+# deployed build output as artifact.
 jobs:
-  build:
+  build-and-test:
     runs-on:  windows-latest
 
     steps:
@@ -39,16 +44,15 @@ jobs:
           target:       desktop
           arch:         win64_msvc2019_64
           dir:          ${{ runner.temp }}
-#          modules:      
           setup-python: false
       
       - name: Create build directory
         run:  mkdir ${{ runner.temp }}\build
 
-      - name: Set up Visual Studio shell
-        uses: egor-tensin/vs-shell@v2
-        with:
-          arch: x64
+#      - name: Set up Visual Studio shell
+#        uses: egor-tensin/vs-shell@v2
+#        with:
+#          arch: x64
 
       - name: Build and deploy
         working-directory: ${{ runner.temp }}\build
@@ -57,7 +61,7 @@ jobs:
           cmake -S . -B ${{ runner.temp }}\build -G Ninja
           cmake --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}}
           windeployqt ${{ runner.temp }}\build
-              
+          
       - name: Test
         working-directory: ${{ runner.temp }}\build
         run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
