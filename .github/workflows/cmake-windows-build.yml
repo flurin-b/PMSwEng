@@ -65,7 +65,7 @@ jobs:
         working-directory: ${{ runner.temp }}\build
         run:  |
           cd ${{github.workspace}}/PacMan/
-          cmake --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}}
+          cmake CMakeLists.txt --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}}
               
       - name: Test
         working-directory: ${{github.workspace}}/PacMan/build
