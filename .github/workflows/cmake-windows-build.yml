@@ -65,6 +65,7 @@ jobs:
         working-directory: ${{ runner.temp }}\build
         run:  |
           cd ${{github.workspace}}/PacMan/
+          cmake -S . -B ${{ runner.temp }}\build -G Ninja
           cmake CMakeLists.txt --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}}
               
       - name: Test
