@@ -1,0 +1,79 @@
+name: Windows Release Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+defaults:
+  run:
+    shell: cmd
+
+env:
+  SOURCE_DIR:   ${{ github.workspace }}
+  QT_VERSION:   6.4.3
+  ARTIFACT:     windows-build
+
+jobs:
+  build:
+    runs-on:  windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Get all tags for correct version determination
+        working-directory:  ${{ github.workspace }}
+        run: |
+          git fetch --all --tags -f
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version:      ${{ env.QT_VERSION }}
+          host:         windows
+          target:       desktop
+          arch:         win64_msvc2019_64
+          dir:          ${{ runner.temp }}
+#          modules:      
+          setup-python: false
+
+#      - name: (4) Download JOM
+#        uses: suisei-cn/actions-download-file@v1
+#        with:
+#          url:    http://download.qt.io/official_releases/jom/jom.zip
+#          target: ${{ runner.temp }}\#
+
+#      - name: (5) Unzip JOM
+#        working-directory: ${{ runner.temp }}
+#        run:  |
+#              7z x jom.zip -ojom
+              
+      - name: Create build directory
+        run:  mkdir ${{ runner.temp }}\build
+
+      - name: Set up Visual Studio shell
+        uses: egor-tensin/vs-shell@v2
+        with:
+          arch: x64
+
+      - name: Build
+        working-directory: ${{ runner.temp }}\build
+        run:  |
+          cd ${{github.workspace}}/PacMan/
+          cmake --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}}
+              
+      - name: Test
+        working-directory: ${{github.workspace}}/PacMan/build
+        # Execute tests defined by the CMake configuration.
+        # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
+        run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
+        
+      - name: Save build artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ env.ARTIFACT }}
+          path: ${{ runner.temp }}\build\
