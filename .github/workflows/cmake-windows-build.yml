@@ -14,6 +14,7 @@ env:
   SOURCE_DIR:   ${{ github.workspace }}
   QT_VERSION:   6.4.3
   ARTIFACT:     windows-build
+  BUILD_TYPE:   Release
 
 jobs:
   build:
