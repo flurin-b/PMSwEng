@@ -5,14 +5,13 @@
 
 #define MAZE_WITH       28
 #define MAZE_HEIGHT     36
-#define GHOST_NUMBERS   4
+
 
 enum
 {
     noItem,
     smallPoint,
     bigPoint,
-    cherry,
     error = 255
 };
 
@@ -29,8 +28,18 @@ public:
 
 private:
     QGraphicsScene *sc;
-    int dots[MAZE_WITH][MAZE_HEIGHT];
-    std::vector<QPoint> maze[MAZE_WITH][MAZE_HEIGHT];
+    int dots[MAZE_WITH][MAZE_HEIGHT] = {{noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem},
+                                        {noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem},
+                                        {noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem},
+                                        {noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem},
+                                        {noItem,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,noItem,noItem,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,smallPoint,noItem},
+                                        {noItem,smallPoint,noItem,noItem,noItem,noItem,smallPoint,noItem,noItem,noItem,noItem,noItem,smallPoint,noItem,noItem,smallPoint,noItem,noItem,noItem,noItem,noItem,smallPoint,noItem,noItem,noItem,noItem,smallPoint,noItem}};
+
+    std::vector<QPoint> maze[MAZE_WITH][MAZE_HEIGHT] = {{{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}},
+                                                        {{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}},
+                                                        {{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}},
+                                                        {{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}},
+                                                        {{},{QPoint(1,0),QPoint(0,-1)}}}; //More to come
 };
 
 #endif // MAZE_H
