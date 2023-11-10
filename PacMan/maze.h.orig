@@ -3,7 +3,13 @@
 
 #include <QGraphicsScene>
 
+<<<<<<< HEAD
 #define GHOST_NUMBERS   4
+=======
+#define MAZE_WITH       28
+#define MAZE_HEIGHT     36
+
+>>>>>>> 8274655763cfec5c0dd2700d9e9c3c37508b65e7
 
 enum
 {
@@ -28,6 +34,10 @@ public:
 
 private:
     QGraphicsScene *sc;
+<<<<<<< HEAD
+    int dots[width][height];
+    std::vector<QPoint> maze[width][height];
+=======
     int dots[MAZE_WITH][MAZE_HEIGHT] = {{noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem},
                                         {noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem},
                                         {noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem,noItem},
@@ -40,6 +50,7 @@ private:
                                                         {{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}},
                                                         {{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}},
                                                         {{},{QPoint(1,0),QPoint(0,-1)}}}; //More to come
+>>>>>>> 8274655763cfec5c0dd2700d9e9c3c37508b65e7
 };
 
 #endif // MAZE_H

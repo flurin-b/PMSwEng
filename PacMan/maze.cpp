@@ -42,7 +42,7 @@ void Maze::setDots(QPoint position, int item)
     {
         if(position.y() >= 0 && position.y() <= height-1)
         {
-            if(item >= noItem && item <= cherry)
+            if(item >= noItem && item <= bigPoint)
             {
                 dots[position.x()][position.y()] = item;
             }

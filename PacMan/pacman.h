@@ -9,6 +9,9 @@
 #include <QGraphicsScene>
 #include <QTimer>
 
+
+#define GHOST_NUMBERS   4
+
 class PacMan
 {
 public:
@@ -19,7 +22,7 @@ public:
 private:
     QGraphicsScene *sc;
     Maze *maze;
-    Ghost *ghosts[4];
+    Ghost *ghosts[GHOST_NUMBERS];
     Player *player;
 };
 
