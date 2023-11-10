@@ -8,8 +8,6 @@
  */
 PacMan::PacMan(QGraphicsScene *scPointer):sc(scPointer)
 {
-    sc->addSimpleText("Hello World!"); //Remove latter down the line
-
     Maze* maze = new Maze(sc);
     Player* player = new Player(sc,maze);
     Ghost* ghosts[GHOST_NUMBERS] = {new Blinky(sc,maze,player), new Pinky(sc,maze,player), new Inky(sc,maze,player), new Clyde(sc,maze,player)};

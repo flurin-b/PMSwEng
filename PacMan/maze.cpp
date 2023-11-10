@@ -19,9 +19,9 @@ int Maze::getDots(QPoint position)
     ///If the requested position is outside of the border from the maze an error is returned otherwise the item contained in the field
     int contend = error;
 
-    if(position.x() >= 0 && position.x() <= MAZE_WITH-1)
+    if(position.x() >= 0 && position.x() <= width-1)
     {
-        if(position.y() >= 0 && position.y() <= MAZE_HEIGHT-1)
+        if(position.y() >= 0 && position.y() <= height-1)
         {
             contend =  dots[position.x()][position.y()];
         }
@@ -38,9 +38,9 @@ int Maze::getDots(QPoint position)
 void Maze::setDots(QPoint position, int item)
 {
     ///Only allows to set a new Item if the position requested is within the maze, and the Item exists
-    if(position.x() >= 0 && position.x() <= MAZE_WITH-1)
+    if(position.x() >= 0 && position.x() <= width-1)
     {
-        if(position.y() >= 0 && position.y() <= MAZE_HEIGHT-1)
+        if(position.y() >= 0 && position.y() <= height-1)
         {
             if(item >= noItem && item <= cherry)
             {
@@ -61,9 +61,9 @@ std::vector<QPoint> Maze::getMaze(QPoint position)
     QPoint errorPosition(0,0);
     std::vector<QPoint> directions = {errorPosition};
 
-    if(position.x() >= 0 && position.x() <= MAZE_WITH-1)
+    if(position.x() >= 0 && position.x() <= width-1)
     {
-        if(position.y() >= 0 && position.y() <= MAZE_HEIGHT-1)
+        if(position.y() >= 0 && position.y() <= height-1)
         {
             directions = maze[position.x()][position.y()];
         }

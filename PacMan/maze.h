@@ -3,8 +3,6 @@
 
 #include <QGraphicsScene>
 
-#define MAZE_WITH       28
-#define MAZE_HEIGHT     36
 #define GHOST_NUMBERS   4
 
 enum
@@ -24,13 +22,15 @@ public:
     int getDots(QPoint position);
     void setDots(QPoint position, int item);
     std::vector<QPoint> getMaze(QPoint position);
+    const static int width = 28;
+    const static int height = 36;
 
 
 
 private:
     QGraphicsScene *sc;
-    int dots[MAZE_WITH][MAZE_HEIGHT];
-    std::vector<QPoint> maze[MAZE_WITH][MAZE_HEIGHT];
+    int dots[width][height];
+    std::vector<QPoint> maze[width][height];
 };
 
 #endif // MAZE_H
