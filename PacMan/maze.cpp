@@ -23,7 +23,7 @@ int Maze::getDots(QPoint position)
     {
         if(position.y() >= 0 && position.y() <= height-1)
         {
-            contend =  dots[position.x()][position.y()];
+            contend = dots[position.y()][position.x()];
         }
     }
 
@@ -44,7 +44,7 @@ void Maze::setDots(QPoint position, int item)
         {
             if(item >= noItem && item <= bigPoint)
             {
-                dots[position.x()][position.y()] = item;
+                dots[position.y()][position.x()] = item;
             }
         }
     }
@@ -65,7 +65,7 @@ std::vector<QPoint> Maze::getMaze(QPoint position)
     {
         if(position.y() >= 0 && position.y() <= height-1)
         {
-            directions = maze[position.x()][position.y()];
+            directions = maze[position.y()][position.x()];
         }
     }
 

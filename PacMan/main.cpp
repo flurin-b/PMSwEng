@@ -10,7 +10,7 @@
 #include <QHBoxLayout>
 
 // Set sizes of different objects
-int fieldSize_px = 10;
+int fieldSize_px = 30;
 
 int main(int argc, char *argv[])
 {
@@ -32,15 +32,32 @@ int main(int argc, char *argv[])
     /*PacMan* pm =*/ new PacMan(gs);
     Maze* m = new Maze(gs);
     gv->setFixedSize(m->width*fieldSize_px, m->height*fieldSize_px);
-    std::vector<QPoint> dirs;
+
     for (int x = 0; x < m->width; x++)
     {
         for (int y = 0; y < m->height; y++)
         {
-            dirs = m->getMaze(QPoint(x, y));
+            float arrow_len = 0.45;
+            float arrow_hat = 0.15;
+            float dot_size = 0.15;
+            std::vector<QPoint> dirs = m->getMaze(QPoint(x, y));
             for (QPoint dir : dirs)
             {
-                gs->addLine((x+0.5)*fieldSize_px, (y+0.5)*fieldSize_px, dir.x() * fieldSize_px, dir.y() * fieldSize_px);
+                gs->addLine((x+0.5)*fieldSize_px, (y+0.5)*fieldSize_px, (x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px);
+                gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5+dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5+dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px);
+                gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5-dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5-dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px);
+            }
+            int dot = m->getDots(QPoint(x, y));
+            switch (dot)
+            {
+            case noItem:
+                break;
+            case smallPoint:
+                gs->addEllipse((x+0.5-dot_size/2) * fieldSize_px, (y+0.5-dot_size/2) * fieldSize_px, dot_size * fieldSize_px, dot_size * fieldSize_px);
+                break;
+            case bigPoint:
+                gs->addEllipse((x+0.5-dot_size) * fieldSize_px, (y+0.5-dot_size) * fieldSize_px, dot_size * 2 * fieldSize_px, dot_size * 2 * fieldSize_px);
+                break;
             }
         }
     }
