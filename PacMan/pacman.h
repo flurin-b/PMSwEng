@@ -9,15 +9,20 @@
 #include <QGraphicsScene>
 #include <QTimer>
 
+
+#define GHOST_NUMBERS   4
+
 class PacMan
 {
 public:
-    PacMan(QGraphicsScene *sc);
+    PacMan(QGraphicsScene *scPointer);
+    virtual ~PacMan();
     void handleKeyPress(QKeyEvent event);
 
 private:
+    QGraphicsScene *sc;
     Maze *maze;
-    Ghost *ghost[4];
+    Ghost *ghosts[GHOST_NUMBERS];
     Player *player;
 };
 

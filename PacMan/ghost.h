@@ -3,43 +3,51 @@
 
 #include <QGraphicsScene>
 #include "maze.h"
+#include "player.h"
 
 class Ghost
 {
 public:
-    Ghost(QGraphicsScene *sc, Maze *maze);
+    Ghost(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
+    virtual ~Ghost();
     virtual void step(void) = 0;
     virtual void paint(void) = 0;
 
 private:
     QGraphicsScene *sc;
     Maze *maze;
+    QPoint ghostPosistion;
+    Player *playerRef;
 };
 
 class Blinky : public Ghost
 {
-    Blinky(QGraphicsScene *sc, Maze *maze);
+public:
+    Blinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };
 
 class Pinky : public Ghost
 {
-    Pinky(QGraphicsScene *sc, Maze *maze);
+public:
+    Pinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };
 
 class Inky : public Ghost
 {
-    Inky(QGraphicsScene *sc, Maze *maze);
+public:
+    Inky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };
 
 class Clyde : public Ghost
 {
-    Clyde(QGraphicsScene *sc, Maze *maze);
+public:
+    Clyde(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };
