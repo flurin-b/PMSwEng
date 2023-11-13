@@ -10,6 +10,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QTimer>
+#include <QKeyEvent>
 
 class PACMANLIB_EXPORT PacMan : public QObject
 {
