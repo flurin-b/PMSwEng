@@ -1,0 +1,5 @@
+# Hashes of file build rules.
+27d9bc799613e298e7154b0fb6d21084 CMakeFiles/LocalLib_autogen
+1a08fa035bd6dbd122028475692aed2b CMakeFiles/PacManLib_autogen
+a5b49346cc6c9c073ec302d9cee31982 CMakeFiles/PacMan_autogen
+051350916077eb57222ef4ab3fac24c2 Tests/CMakeFiles/Test_autogen

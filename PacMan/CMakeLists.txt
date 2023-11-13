@@ -5,8 +5,7 @@ project(PacMan VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -24,7 +23,7 @@ add_library(LocalLib SHARED
     locallib_global.h       # Global file to set compile declarations
     mywidget.h mywidget.cpp # Detect Key Presses
 )
-target_link_libraries(LocalLib Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(LocalLib Qt6::Widgets)
 
 # Add PacMan game Library
 add_library(PacManLib SHARED
@@ -35,7 +34,7 @@ add_library(PacManLib SHARED
     maze.h maze.cpp     # Possible Movement directions and available food
     Test.h Test.cpp     # Example class for Test
 )
-target_link_libraries(PacManLib Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(PacManLib Qt6::Widgets)
 
 # Set LIBDEF
 set(LIBDEF "COMPILE_LIBRARY")
