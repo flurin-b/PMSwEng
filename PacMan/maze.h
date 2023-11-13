@@ -1,33 +1,37 @@
 #ifndef MAZE_H
 #define MAZE_H
 
+#include "pacmanlib_global.h"
+
 #include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QObject>
 
-#define GHOST_NUMBERS   4
-
-enum
+class PACMANLIB_EXPORT Maze : public QObject
 {
-    noItem,
-    smallPoint,
-    bigPoint,
-    error = 255
-};
-
-class Maze
-{
+    Q_OBJECT
 public:
-    Maze(QGraphicsScene *scPointer);
-    void paint(void);
+    Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer);
     int getDots(QPoint position);
     void setDots(QPoint position, int item);
+    float getFieldWidth(void);
     std::vector<QPoint> getMaze(QPoint position);
     const static int width = 28;
     const static int height = 36;
+    enum {
+        noItem,
+        smallPoint,
+        bigPoint,
+        error = 255
+    };
 
-
+public slots:
+    void paint(void);
 
 private:
-    QGraphicsScene *sc;
+    QGraphicsScene *gs;
+    QGraphicsView  *gv;
+
     int dots[height][width] = {
         {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
         {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},

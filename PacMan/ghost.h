@@ -1,53 +1,61 @@
 #ifndef GHOST_H
 #define GHOST_H
 
-#include <QGraphicsScene>
 #include "maze.h"
 #include "player.h"
+#include "pacmanlib_global.h"
 
-class Ghost
+#include <QGraphicsScene>
+#include <QObject>
+#include <QPoint>
+
+class PACMANLIB_EXPORT Ghost : public QObject
 {
+    Q_OBJECT
 public:
-    Ghost(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
+    Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
     virtual ~Ghost();
     virtual void step(void) = 0;
+
+public slots:
     virtual void paint(void) = 0;
 
-private:
-    QGraphicsScene *sc;
+protected:
+    QGraphicsScene *gs;
     Maze *maze;
-    QPoint ghostPosistion;
+    QPointF position;
+    QPoint direction;
     Player *playerRef;
 };
 
-class Blinky : public Ghost
+class PACMANLIB_EXPORT Blinky : public Ghost
 {
 public:
-    Blinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
+    Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };
 
-class Pinky : public Ghost
+class PACMANLIB_EXPORT Pinky : public Ghost
 {
 public:
-    Pinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
+    Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };
 
-class Inky : public Ghost
+class PACMANLIB_EXPORT Inky : public Ghost
 {
 public:
-    Inky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
+    Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };
 
-class Clyde : public Ghost
+class PACMANLIB_EXPORT Clyde : public Ghost
 {
 public:
-    Clyde(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer);
+    Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void) override;
     void paint(void) override;
 };

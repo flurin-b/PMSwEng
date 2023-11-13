@@ -4,8 +4,42 @@
  * @brief Maze::Maze Creates a Instace of Maze which contains all the eatables and the paths that can be taken from a certain position
  * @param scPointer A Pointer to the GraphicScene onto which the items will be placed
  */
-Maze::Maze(QGraphicsScene *scPointer):sc(scPointer)
+Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, gv{gvPointer}
 {
+
+}
+
+void Maze::paint(){
+    float arrow_len = 0.45;
+    float arrow_hat = 0.15;
+    float dot_size = 0.15;
+    gs->clear();
+    float fieldSize_px = gv->width() / width;
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
+        {
+            std::vector<QPoint> dirs = getMaze(QPoint(x, y));
+            for (QPoint dir : dirs)
+            {
+                gs->addLine((x+0.5)*fieldSize_px, (y+0.5)*fieldSize_px, (x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px);
+                gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5+dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5+dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px);
+                gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5-dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5-dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px);
+            }
+            int dot = getDots(QPoint(x, y));
+            switch (dot)
+            {
+            case noItem:
+                break;
+            case smallPoint:
+                gs->addEllipse((x+0.5-dot_size/2) * fieldSize_px, (y+0.5-dot_size/2) * fieldSize_px, dot_size * fieldSize_px, dot_size * fieldSize_px);
+                break;
+            case bigPoint:
+                gs->addEllipse((x+0.5-dot_size) * fieldSize_px, (y+0.5-dot_size) * fieldSize_px, dot_size * 2 * fieldSize_px, dot_size * 2 * fieldSize_px);
+                break;
+            }
+        }
+    }
 
 }
 
@@ -70,4 +104,8 @@ std::vector<QPoint> Maze::getMaze(QPoint position)
     }
 
     return directions;
+}
+
+float Maze::getFieldWidth(void) {
+    return gv->width() / width;
 }
