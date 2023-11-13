@@ -2,15 +2,36 @@
 #include "maze.h"
 #include "qevent.h"
 
+#include <stdio.h>
+
+// Set sizeof fields
+int fieldSize_px = 30;
+
 /**
  * @brief PacMan::PacMan Creates the Pac-Man which is moveable from the Player
  * @param scPointer
  */
-PacMan::PacMan(QGraphicsScene *scPointer):sc(scPointer)
+PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
 {
-    Maze* maze = new Maze(sc);
-    Player* player = new Player(sc,maze);
-    Ghost* ghosts[GHOST_NUMBERS] = {new Blinky(sc,maze,player), new Pinky(sc,maze,player), new Inky(sc,maze,player), new Clyde(sc,maze,player)};
+    QGraphicsScene* gs = new QGraphicsScene();
+    gv->setScene(gs);
+    gv->setFixedSize(maze->width*fieldSize_px + 1, maze->height*fieldSize_px);
+
+    maze= new Maze(gs, gv);
+    // add one pixel to width in order to compensate for the margin of QGraphicsView.
+    player = new Player(gs,maze);
+    ghosts[0] = new Blinky(gs,maze,player);
+    ghosts[1] = new Pinky (gs,maze,player);
+    ghosts[2] = new Inky  (gs,maze,player);
+    ghosts[3] = new Clyde (gs,maze,player);
+
+    gameTick = new QTimer();
+    gameTick->start(50);
+    QObject::connect(gameTick, &QTimer::timeout, maze, &Maze::paint);
+    QObject::connect(gameTick, &QTimer::timeout, player, &Player::paint);
+    for (Ghost* ghost : ghosts) {
+        QObject::connect(gameTick, &QTimer::timeout, ghost, &Ghost::paint);
+    }
 }
 
 /**
@@ -24,18 +45,23 @@ PacMan::~PacMan()
     delete player;
     player = nullptr;
 
-    for(int i=0; i<GHOST_NUMBERS;i++)
+    for(Ghost* ghost : ghosts)
     {
-        delete ghosts[i];
-        ghosts[i] = nullptr;
+        delete ghost;
+        ghost = nullptr;
     }
+
+    delete gameTick;
+    gameTick = nullptr;
 }
 
 /**
  * @brief PacMan::handleKeyPress
  * @param event
  */
-void PacMan::handleKeyPress(QKeyEvent event)
+void PacMan::handleKeyPress(QKeyEvent* event)
 {
-
+    if (event->key() == Qt::Key_G){
+        // do whatever
+    }
 }

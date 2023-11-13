@@ -1,5 +1,4 @@
 #include "ghost.h"
-#include "player.h"
 
 /**
  * @brief Ghost::Ghost Abstrakte Klasse die das Grund gerüst für Blinky/Pinky/Inky/Clyde ist
@@ -7,7 +6,7 @@
  * @param mazePointer A Pointer to the maze where to ghosts operade in
  * @param playerRefPointer A Pointer to the player so that they can chase him
  */
-Ghost::Ghost(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):sc(scPointer),maze(mazePointer),playerRef(playerRefPointer)
+Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):gs(gsPointer),maze(mazePointer),playerRef(playerRefPointer)
 {
 
 }
@@ -26,9 +25,10 @@ Ghost::~Ghost()
  * @param mazePointer A Pointer to the maze where to ghosts operade in
  * @param playerRefPointer A Pointer to the player so that they can chase him
  */
-Blinky::Blinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
+Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
-
+    position = QPointF {14, 14.5};
+    direction = QPoint {-1, 0};
 }
 
 /**
@@ -36,14 +36,43 @@ Blinky::Blinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPo
  */
 void Blinky::step(void)
 {
-
+    // set next direction
+    std::vector<QPoint> possibleDirs = maze->getMaze((position - QPointF{0.5, 0.5}).toPoint());
+    for(int i = 0; i < possibleDirs.size(); i++)
+    {
+        if(possibleDirs[i] == -direction)
+        {
+            possibleDirs.erase(possibleDirs.begin() + i);
+        }
+    }
+    if (possibleDirs.size() == 1)
+    {
+        direction = possibleDirs[0];
+    }
+    else
+    {
+        // TODO: pathfind
+        direction = possibleDirs[0];
+    }
+    // TODO: Check if eaten PacMan
 }
 /**
  * @brief Blinky::paint
  */
 void Blinky::paint(void)
 {
+    // TODO: Needs to vary depending on movement mode and if there is food on the current tile.
+    float stepSize = 0.1;
 
+    // TODO: Verry verry dirty, do not leave like this!!!
+    if (abs(10 * int(position.x()) - int(10 * position.x() + 0.5)) == 5 && abs(10 * int(position.y()) - int(10 * position.y() + 0.5)) == 5) {
+        step();
+    }
+    position += stepSize*QPointF{direction};
+
+
+    float fieldWidth_px = maze->getFieldWidth();
+    gs->addEllipse((position.x()-0.5) * fieldWidth_px, (position.y()-0.5) * fieldWidth_px, fieldWidth_px, fieldWidth_px);
 }
 
 /**
@@ -52,7 +81,7 @@ void Blinky::paint(void)
  * @param mazePointer A Pointer to the maze where to ghosts operade in
  * @param playerRefPointer A Pointer to the player so that they can chase him
  */
-Pinky::Pinky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
+Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
 
 }
@@ -79,7 +108,7 @@ void Pinky::paint(void)
  * @param mazePointer A Pointer to the maze where to ghosts operade in
  * @param playerRefPointer A Pointer to the player so that they can chase him
  */
-Inky::Inky(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
+Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
 
 }
@@ -106,7 +135,7 @@ void Inky::paint(void)
  * @param mazePointer A Pointer to the maze where to ghosts operade in
  * @param playerRefPointer A Pointer to the player so that they can chase him
  */
-Clyde::Clyde(QGraphicsScene *scPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(scPointer,mazePointer,playerRefPointer)
+Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
 
 }

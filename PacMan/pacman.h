@@ -1,29 +1,35 @@
 #ifndef PACMAN_H
 #define PACMAN_H
 
-#include "qwidget.h"
 #include "ghost.h"
 #include "player.h"
 #include "maze.h"
 
+#include "pacmanlib_global.h"
+
+#include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QTimer>
+#include <QKeyEvent>
 
-
-#define GHOST_NUMBERS   4
-
-class PacMan
+class PACMANLIB_EXPORT PacMan : public QObject
 {
+    Q_OBJECT
 public:
-    PacMan(QGraphicsScene *scPointer);
+    PacMan(QGraphicsView *gvPointer);
     virtual ~PacMan();
-    void handleKeyPress(QKeyEvent event);
+
+public slots:
+    void handleKeyPress(QKeyEvent *event);
 
 private:
-    QGraphicsScene *sc;
+    QGraphicsView *gv;
+    QGraphicsScene *gs;
     Maze *maze;
-    Ghost *ghosts[GHOST_NUMBERS];
+    Ghost *ghosts[4];
     Player *player;
+
+    QTimer *gameTick;
 };
 
 #endif // PACMAN_H
