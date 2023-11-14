@@ -32,7 +32,7 @@ private:
     QGraphicsScene *gs;
     QGraphicsView  *gv;
 
-    int dots[height][width] = {
+    char dots[height][width] = {
         {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
         {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
         {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},

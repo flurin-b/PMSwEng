@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 // Set sizeof fields
-int fieldSize_px = 30;
+int fieldSize_px = 20;
 
 /**
  * @brief PacMan::PacMan Creates the Pac-Man which is moveable from the Player
@@ -61,7 +61,18 @@ PacMan::~PacMan()
  */
 void PacMan::handleKeyPress(QKeyEvent* event)
 {
-    if (event->key() == Qt::Key_G){
-        // do whatever
+    switch (event->key())
+    {
+    case Qt::Key_Up:
+    case Qt::Key_Down:
+    case Qt::Key_Left:
+    case Qt::Key_Right:
+        player->changeDirection(event);
+        break;
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+        break;
+    default:
+        break;
     }
 }
