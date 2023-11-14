@@ -7,6 +7,9 @@
 #include <QGraphicsScene>
 #include <QPoint>
 #include <QObject>
+#include <QKeyEvent>
+
+
 
 class PACMANLIB_EXPORT Player : public QObject
 {
@@ -14,16 +17,22 @@ class PACMANLIB_EXPORT Player : public QObject
 public:
     Player(QGraphicsScene *scPointer, Maze *mazePointer);
     void step(void);
-    QPoint getPosistion(void);
-    void MovePlayer(QPoint offset);
+    QPointF getPosistion(void);
+    void changeDirection(QKeyEvent* event);
+    void increaseScore(int offset);
+    char getStatus(void);
 
 public slots:
     void paint(void);
 
 private:
-    QGraphicsScene *sc;
+    QGraphicsScene *gs;
     Maze *maze;
-    QPoint playerPosistion;
+    QPointF position;
+    QPoint direction;
+    QPoint pendingDirection;
+    int score;
+    char status;                 //marks if a energizer was eaten
 };
 
 #endif // PLAYER_H
