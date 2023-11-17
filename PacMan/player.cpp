@@ -103,14 +103,6 @@ QPoint Player::getField(void)
     return QPoint(int(position.x()), int(position.y()));
 }
 
-void Player::increaseScore(int offset)
-{
-    if(offset > 0)
-    {
-        score += offset;
-    }
-}
-
 char Player::getStatus(void)
 {
     return status;

@@ -25,7 +25,9 @@ Ghost::~Ghost()
  * @param field2 Field on the Board
  */
 float Ghost::getDistance(QPoint field1, QPoint field2){
-    return sqrt(field1.x()*field1.x()+field2.y()+field2.y());
+    int dx = field1.x()-field2.x();
+    int dy = field1.y()-field2.y();
+    return sqrt(dx*dx + dy*dy);
 }
 
 /**
@@ -68,15 +70,16 @@ void Blinky::step(void)
     // otherwise decide where to go
     else
     {
-        char smallest = 0;
+        int smallest = 0;
         QPoint target = playerRef->getField();
-        QPoint currentField = QPoint(position.x(), position.y());
+        QPoint currentField = (position+QPointF(0.5, 0.5)).toPoint();
         for(int i = 1; i < possibleDirs.size(); i++){
             if (getDistance(currentField+possibleDirs[smallest], target) > getDistance(currentField+possibleDirs[i], target))
             {
                 smallest = i;
             }
         }
+        direction = possibleDirs[smallest];
     }
 }
 /**
@@ -101,6 +104,11 @@ void Blinky::paint(void)
     if (playerRef->getField().x() == int(position.x()) && playerRef->getField().y() == int(position.y())) {
         emit gameOver(false);
     }
+
+    if(floor(position.x()) < 0)
+        position.setX(27.9);
+    else if(floor(position.x()) > 27)
+        position.setX(0.1);
 }
 
 /**
