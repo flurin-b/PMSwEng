@@ -83,6 +83,15 @@ QPointF Player::getPosistion(void)
     return position;
 }
 
+/**
+ * @brief Player::getField Function used for getting the Field Pac-Man is currently in
+ * @return A QPoint in the maze with the position of Pac-Man
+ */
+QPoint Player::getField(void)
+{
+    return QPoint(int(position.x()), int(position.y()));
+}
+
 void Player::increaseScore(int offset)
 {
     if(offset > 0)

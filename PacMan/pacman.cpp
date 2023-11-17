@@ -13,7 +13,7 @@ int fieldSize_px = 20;
  */
 PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
 {
-    QGraphicsScene* gs = new QGraphicsScene();
+    gs = new QGraphicsScene();
     gv->setScene(gs);
     gv->setFixedSize(maze->width*fieldSize_px + 1, maze->height*fieldSize_px);
 
@@ -24,9 +24,14 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
     ghosts[1] = new Pinky (gs,maze,player);
     ghosts[2] = new Inky  (gs,maze,player);
     ghosts[3] = new Clyde (gs,maze,player);
+    for(Ghost* ghost : ghosts)
+    {
+        QObject::connect(ghost, &Ghost::gameOver, this, &PacMan::gameOverHandler);
+    }
 
     gameTick = new QTimer();
     gameTick->start(50);
+    QObject::connect(gameTick, &QTimer::timeout, this, &PacMan::paint);
     QObject::connect(gameTick, &QTimer::timeout, maze, &Maze::paint);
     QObject::connect(gameTick, &QTimer::timeout, player, &Player::paint);
     for (Ghost* ghost : ghosts) {
@@ -55,6 +60,19 @@ PacMan::~PacMan()
     gameTick = nullptr;
 }
 
+
+/**
+ * @brief PacMan::paint Paints all menu items.
+ */
+void PacMan::paint()
+{
+    gs->clear();
+    if(gameOver) {
+        gameTick->stop();
+        gs->addText(gameWon ? "Game Over, you win!" : "Game Over, you loose!");
+    }
+}
+
 /**
  * @brief PacMan::handleKeyPress
  * @param event
@@ -75,4 +93,9 @@ void PacMan::handleKeyPress(QKeyEvent* event)
     default:
         break;
     }
+}
+
+void PacMan::gameOverHandler(bool won) {
+    this->gameOver = true;
+    this->gameWon = won;
 }

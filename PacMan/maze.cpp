@@ -13,7 +13,6 @@ void Maze::paint(){
     float arrow_len = 0.45;
     float arrow_hat = 0.15;
     float dot_size = 0.15;
-    gs->clear();
     float fieldSize_px = gv->width() / width;
     for (int x = 0; x < width; x++)
     {

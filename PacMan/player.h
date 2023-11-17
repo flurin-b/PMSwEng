@@ -18,6 +18,7 @@ public:
     Player(QGraphicsScene *scPointer, Maze *mazePointer);
     void step(void);
     QPointF getPosistion(void);
+    QPoint getField(void);
     void changeDirection(QKeyEvent* event);
     void increaseScore(int offset);
     char getStatus(void);
