@@ -40,7 +40,6 @@ void Maze::paint(){
             }
         }
     }
-
 }
 
 /**
@@ -108,4 +107,12 @@ std::vector<QPoint> Maze::getMaze(QPoint position)
 
 float Maze::getFieldWidth(void) {
     return gv->width() / width;
+}
+
+void Maze::increaseScore(int offset)
+{
+    if(offset > 0)
+    {
+        score += offset;
+    }
 }
