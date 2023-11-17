@@ -15,7 +15,7 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
 {
     gs = new QGraphicsScene();
     gv->setScene(gs);
-    gv->setFixedSize(maze->width*fieldSize_px + 1, maze->height*fieldSize_px);
+    gv->setFixedSize(Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
 
     maze= new Maze(gs, gv);
     // add one pixel to width in order to compensate for the margin of QGraphicsView.

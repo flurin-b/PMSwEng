@@ -1,4 +1,5 @@
 #include "player.h"
+#include "maze.h"
 #include <QKeyEvent>
 
 /**
@@ -9,8 +10,12 @@
 Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{mazePointer}
 {
     //playerPosition Start unclear right now, change latter down the line
-    position = QPointF{14,14.5};
+    position = QPointF{14,26.5};
     direction = QPoint{0,0};
+    energizerTime = new QTimer();
+    energizerTime->setSingleShot(true);
+    QObject::connect(energizerTime, &QTimer::timeout, this, &Player::stopHunt);
+
 }
 
 /**
@@ -22,11 +27,29 @@ void Player::paint(void)
     float stepSize = 0.1;
 
     // TODO: Verry verry dirty, do not leave like this!!!
-    if (abs(10 * int(position.x()) - int(10 * position.x() + 0.5)) == 5 && abs(10 * int(position.y()) - int(10 * position.y() + 0.5)) == 5) {
+
+    //Possible alternative to check if player is in the middle of the field. With the draw back that the arguemnt will be true even when the distance is <= than max stepSize
+    //const QPointF &distanceVector = (position - QPointF(qFloor(position.x()) + 0.5, qFloor(position.y()) + 0.5));
+    //float distance = QPointF::dotProduct(distanceVector,distanceVector);
+
+    if (abs(10 * int(position.x()) - int(10 * position.x() + 0.5)) == 5 && abs(10 * int(position.y()) - int(10 * position.y() + 0.5)) == 5)
+    {
         step();
+        eatItem();
     }
+
     position += stepSize*QPointF{direction};
 
+    //Reposition the Player if he goes into the tunnel
+    if(position.x() <= 0.0)
+    {
+        position = QPointF(27.9,17.5);
+    }
+
+    else if(position.x() >= 28)
+    {
+        position = QPointF(0.1,17.5);
+    }
 
     float fieldWidth_px = maze->getFieldWidth();
     gs->addEllipse((position.x()-0.5) * fieldWidth_px, (position.y()-0.5) * fieldWidth_px, fieldWidth_px, fieldWidth_px);
@@ -37,27 +60,15 @@ void Player::paint(void)
  */
 void Player::step(void)
 {
-    std::vector<QPoint> possibleDirs = maze->getMaze((position - QPointF{0.5, 0.5}).toPoint());
+    std::vector<QPoint> possibleDirs = maze->getMaze(QPoint(qFloor(position.x()), qFloor(position.y())));
 
     int i = 0;
     do
     {
-        // Debug
-        /*qDebug("i =  %d",i);
-        qDebug("Size of possibleDirs: %zu", possibleDirs.size());
-        for(int j=0; j < possibleDirs.size(); j++)
-        {
-            qDebug("possibleDirs[%d] = (%d,%d)",j,possibleDirs[j].x(),possibleDirs[j].y());
-        }
-        qDebug("Direction = (%d,%d)",direction.x(),direction.y());
-        qDebug("pendingDirection = (%d,%d)",pendingDirection.x(),pendingDirection.y());
-        qDebug("");*/
-
         // Take requested turn if possible
         if(possibleDirs[i] == pendingDirection)
         {
             direction = pendingDirection;
-            qDebug("");
             return;
         }
         // If the direction is neither the requested one nor straight, delete it
@@ -134,4 +145,32 @@ void Player::changeDirection(QKeyEvent* event)
     if (direction == QPoint{0, 0} || direction == -pendingDirection){
         step();
     }
+}
+
+void Player::eatItem(void)
+{
+    QPoint location = QPoint(qFloor(position.x()), qFloor(position.y()));
+    //QPoint location = (position - QPointF{0.5, 0.5}).toPoint();
+    char Item = maze->getDots(location);
+
+    switch(Item)
+    {
+    case Maze::noItem:
+        break;
+    case Maze::smallPoint:
+        maze->setDots(location,Maze::noItem);
+        maze->increaseScore(10);
+        break;
+    case Maze::bigPoint:
+        maze->setDots(location,Maze::noItem);
+        maze->increaseScore(50);
+        status = hunt;
+        energizerTime->start(6000);
+        break;
+    }
+}
+
+void Player::stopHunt(void)
+{
+    status = normal;
 }

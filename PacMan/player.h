@@ -8,6 +8,7 @@
 #include <QPoint>
 #include <QObject>
 #include <QKeyEvent>
+#include <QTimer>
 
 
 
@@ -20,20 +21,31 @@ public:
     QPointF getPosistion(void);
     QPoint getField(void);
     void changeDirection(QKeyEvent* event);
-    void increaseScore(int offset);
     char getStatus(void);
+
+    typedef enum
+    {
+        normal,
+        hunt
+    }status_t;
 
 public slots:
     void paint(void);
 
+private slots:
+    void stopHunt(void);
+
 private:
+    void eatItem(void);
+
     QGraphicsScene *gs;
     Maze *maze;
     QPointF position;
     QPoint direction;
     QPoint pendingDirection;
-    int score;
-    char status;                 //marks if a energizer was eaten
+
+    status_t status;                 //marks if a energizer was eaten
+    QTimer *energizerTime;
 };
 
 #endif // PLAYER_H

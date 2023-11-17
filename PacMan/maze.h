@@ -16,6 +16,8 @@ public:
     void setDots(QPoint position, int item);
     float getFieldWidth(void);
     std::vector<QPoint> getMaze(QPoint position);
+    void increaseScore(int offset);
+
     const static int width = 28;
     const static int height = 36;
     enum {
@@ -31,6 +33,8 @@ public slots:
 private:
     QGraphicsScene *gs;
     QGraphicsView  *gv;
+
+    int score;
 
     char dots[height][width] = {
         {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
