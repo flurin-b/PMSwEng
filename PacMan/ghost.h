@@ -20,12 +20,16 @@ public:
 public slots:
     virtual void paint(void) = 0;
 
+signals:
+    void gameOver(bool won);
+
 protected:
     QGraphicsScene *gs;
     Maze *maze;
     QPointF position;
     QPoint direction;
     Player *playerRef;
+    float getDistance(QPoint field1, QPoint field2);
 };
 
 class PACMANLIB_EXPORT Blinky : public Ghost
