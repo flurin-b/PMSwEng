@@ -41,14 +41,14 @@ void Player::paint(void)
     position += stepSize*QPointF{direction};
 
     //Reposition the Player if he goes into the tunnel
-    if(position.x() <= 0.5)
+    if(position.x() <= 0.0)
     {
-        position = QPointF(27.4,17.5);
+        position = QPointF(27.9,17.5);
     }
 
-    if(position.x() >= 27.5)
+    else if(position.x() >= 28)
     {
-        position = QPointF(0.6,17.5);
+        position = QPointF(0.1,17.5);
     }
 
     float fieldWidth_px = maze->getFieldWidth();
