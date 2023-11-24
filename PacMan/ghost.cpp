@@ -8,16 +8,15 @@
  */
 Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):gs(gsPointer),maze(mazePointer),playerRef(playerRefPointer)
 {
-
+    sprite = gs->addEllipse(0, 0, 0, 0);
+    clone  = gs->addEllipse(0, 0, 0, 0);
 }
 
 /**
  * @brief Ghost::~Ghost Dealocate memory
  */
 Ghost::~Ghost()
-{
-
-}
+{}
 
 /**
  * @brief Ghost::getDistanceTo Calculates and returns the distance from one Field to another.
@@ -30,25 +29,25 @@ float Ghost::getDistance(QPoint field1, QPoint field2){
     return sqrt(dx*dx + dy*dy);
 }
 
-/**
- * @brief Blinky::Blinky Creates a Ghost with a chase pattern of Blinky
- * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
- * @param mazePointer A Pointer to the maze where to ghosts operade in
- * @param playerRefPointer A Pointer to the player so that they can chase him
- */
-Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
+int Ghost::getInterval(void)
 {
-    position = QPointF {14, 14.5};
-    direction = QPoint {-1, 0};
+    if((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
+    {
+        return Ghost::stepIntervalTunnel;
+    }
+    else if(playerRef->getStatus() == Player::energized)
+    {
+        return Ghost::stepIntervalFrightened;
+    }
+    else
+    {
+        return Ghost::stepIntervalStandard;
+    }
 }
 
-/**
- * @brief Blinky::step
- */
-void Blinky::step(void)
-{
+void Ghost::step(QPoint target) {
     // get all possible direction
-    std::vector<QPoint> possibleDirs = maze->getMaze((position - QPointF{0.5, 0.5}).toPoint());
+    std::vector<QPoint> possibleDirs = maze->getMaze(position);
     int i = 0;
     // delete opposite of current direction as no 180 degree turns can be made
     for(QPoint possibleDir : possibleDirs)
@@ -71,44 +70,81 @@ void Blinky::step(void)
     else
     {
         int smallest = 0;
-        QPoint target = playerRef->getField();
-        QPoint currentField = (position+QPointF(0.5, 0.5)).toPoint();
         for(int i = 1; i < possibleDirs.size(); i++){
-            if (getDistance(currentField+possibleDirs[smallest], target) > getDistance(currentField+possibleDirs[i], target))
+            if (getDistance(position+possibleDirs[smallest], target) > getDistance(position+possibleDirs[i], target))
             {
                 smallest = i;
             }
         }
         direction = possibleDirs[smallest];
     }
+
+    position += direction;
+
+    if(position.x() < 0 || position.x() > 27)
+        position.setX((position.x()+maze->width) % maze->width);
+    stepTick.setInterval(getInterval());
 }
-/**
- * @brief Blinky::paint
- */
-void Blinky::paint(void)
+
+void Ghost::paint()
 {
-    // TODO: Needs to vary depending on movement mode and if there is food on the current tile.
-    float stepSize = 0.1;
+    float delta = 1.0 - (float)stepTick.remainingTime() / getInterval();
+    bool tunneling = false;
+    // Test if the ghost is in the tunnel
+    if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
+        tunneling = true;
 
-    // TODO: Verry verry dirty, do not leave like this!!!
-    if (abs(10 * int(position.x()) - int(10 * position.x() + 0.5)) == 5 && abs(10 * int(position.y()) - int(10 * position.y() + 0.5)) == 5) {
-        step();
-    }
-    position += stepSize*QPointF{direction};
-
+    QPointF positionF(direction);
+    positionF *= delta;
+    positionF -= direction;
+    positionF += position.toPointF();
 
     float fieldWidth_px = maze->getFieldWidth();
-    gs->addEllipse((position.x()-0.5) * fieldWidth_px, (position.y()-0.5) * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    sprite->setRect(positionF.x() * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    //    static QGraphicsRectItem* s = gs->addRect(position.x()*fieldWidth_px, position.y()*fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    //    s->setRect(position.x()*fieldWidth_px, position.y()*fieldWidth_px, fieldWidth_px, fieldWidth_px);
 
-    // Check if the ghost ate PacMan
-    if (playerRef->getField().x() == int(position.x()) && playerRef->getField().y() == int(position.y())) {
-        emit gameOver(false);
+    if (tunneling)
+    {
+        clone->setVisible(true);
+        if (position.x() == 0)
+            clone->setRect((positionF.x() + maze->width) * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+        else
+            clone->setRect((positionF.x() - maze->width) * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    }
+    else
+    {
+        clone->setVisible(false);
     }
 
-    if(floor(position.x()) < 0)
-        position.setX(27.9);
-    else if(floor(position.x()) > 27)
-        position.setX(0.1);
+    // Check if the ghost ate PacMan
+    if (playerRef->getField() == positionF.toPoint()) {
+        emit gameOver(false);
+    }
+}
+
+/**
+ * @brief Blinky::Blinky Creates a Ghost with a chase pattern of Blinky
+ * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
+ * @param mazePointer A Pointer to the maze where to ghosts operade in
+ * @param playerRefPointer A Pointer to the player so that they can chase him
+ */
+Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
+{
+    position = QPoint {14, 14};
+    direction = QPoint {-1, 0};
+
+    stepTick.setTimerType(Qt::PreciseTimer);
+    QObject::connect(&stepTick, &QTimer::timeout, this, &Blinky::step);
+    stepTick.start(10);
+}
+
+/**
+ * @brief Blinky::step
+ */
+void Blinky::step(void)
+{
+    Ghost::step(playerRef->getField());
 }
 
 /**
@@ -119,21 +155,18 @@ void Blinky::paint(void)
  */
 Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
+    position = QPoint {14, 16};
+    direction = QPoint {0, 0};
 
+    stepTick.setTimerType(Qt::PreciseTimer);
+    QObject::connect(&stepTick, &QTimer::timeout, this, &Pinky::step);
+    stepTick.start(10);
 }
 
 /**
  * @brief Pinky::step
  */
 void Pinky::step(void)
-{
-
-}
-
-/**
- * @brief Pinky::paint
- */
-void Pinky::paint(void)
 {
 
 }
@@ -146,21 +179,18 @@ void Pinky::paint(void)
  */
 Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
+    position = QPoint {14, 16};
+    direction = QPoint {0, 0};
 
+    stepTick.setTimerType(Qt::PreciseTimer);
+    QObject::connect(&stepTick, &QTimer::timeout, this, &Inky::step);
+    stepTick.start(10);
 }
 
 /**
  * @brief Inky::step
  */
 void Inky::step(void)
-{
-
-}
-
-/**
- * @brief Inky::paint
- */
-void Inky::paint(void)
 {
 
 }
@@ -173,22 +203,18 @@ void Inky::paint(void)
  */
 Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
+    position = QPoint {14, 16};
+    direction = QPoint {0, 0};
 
+    stepTick.setTimerType(Qt::PreciseTimer);
+    QObject::connect(&stepTick, &QTimer::timeout, this, &Clyde::step);
+    stepTick.start(10);
 }
 
 /**
  * @brief Clyde::step
  */
 void Clyde::step(void)
-{
-
-}
-
-
-/**
- * @brief Clyde::paint
- */
-void Clyde::paint(void)
 {
 
 }
