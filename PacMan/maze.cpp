@@ -6,6 +6,7 @@
  */
 Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, gv{gvPointer}
 {
+    QGraphicsPixmapItem *test = gs->addPixmap(QPixmap("/maze.png"));
 
 }
 
@@ -13,7 +14,7 @@ void Maze::paint(){
     float arrow_len = 0.45;
     float arrow_hat = 0.15;
     float dot_size = 0.15;
-    gs->clear();
+    //gs->clear();
     float fieldSize_px = gv->width() / width;
     for (int x = 0; x < width; x++)
     {
