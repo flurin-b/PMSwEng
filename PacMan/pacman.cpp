@@ -16,6 +16,9 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
     gs = new QGraphicsScene();
     gv->setScene(gs);
     gv->setFixedSize(Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
+    gs->setSceneRect(0, 0, Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
+    gv->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    gv->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     maze= new Maze(gs, gv);
     // add one pixel to width in order to compensate for the margin of QGraphicsView.
@@ -27,15 +30,6 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
     for(Ghost* ghost : ghosts)
     {
         QObject::connect(ghost, &Ghost::gameOver, this, &PacMan::gameOverHandler);
-    }
-
-    gameTick = new QTimer();
-    gameTick->start(50);
-    QObject::connect(gameTick, &QTimer::timeout, this, &PacMan::paint);
-    QObject::connect(gameTick, &QTimer::timeout, maze, &Maze::paint);
-    QObject::connect(gameTick, &QTimer::timeout, player, &Player::paint);
-    for (Ghost* ghost : ghosts) {
-        QObject::connect(gameTick, &QTimer::timeout, ghost, &Ghost::paint);
     }
 }
 
@@ -66,10 +60,18 @@ PacMan::~PacMan()
  */
 void PacMan::paint()
 {
-    gs->clear();
+    static QGraphicsTextItem* gameOverText = gs->addText("Game Over");
     if(gameOver) {
-        gameTick->stop();
-        gs->addText(gameWon ? "Game Over, you win!" : "Game Over, you loose!");
+        gameOverText->setPlainText(gameWon ? "Game Over, you win!" : "Game Over, you loose!");
+        gameOverText->show();
+    }
+    else {
+        gameOverText->hide();
+
+        maze->paint();
+        player->paint();
+        for(Ghost* ghost : ghosts)
+            ghost->paint();
     }
 }
 

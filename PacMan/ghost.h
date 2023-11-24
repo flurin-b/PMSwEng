@@ -6,8 +6,10 @@
 #include "pacmanlib_global.h"
 
 #include <QGraphicsScene>
+#include <QGraphicsEllipseItem>
 #include <QObject>
 #include <QPoint>
+#include <QTimer>
 
 class PACMANLIB_EXPORT Ghost : public QObject
 {
@@ -15,52 +17,61 @@ class PACMANLIB_EXPORT Ghost : public QObject
 public:
     Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
     virtual ~Ghost();
-    virtual void step(void) = 0;
 
 public slots:
-    virtual void paint(void) = 0;
+    void paint();
 
 signals:
     void gameOver(bool won);
 
 protected:
     QGraphicsScene *gs;
-    Maze *maze;
-    QPointF position;
-    QPoint direction;
-    Player *playerRef;
-    float getDistance(QPoint field1, QPoint field2);
+    QGraphicsEllipseItem *sprite, *clone;
+    Maze    *maze;
+    Player  *playerRef;
+    QPoint  position;
+    QPoint  direction;
+    QTimer  stepTick;
+    enum {
+        stepIntervalStandard   = int(Maze::baseStepInterval / 0.75),
+        stepIntervalTunnel     = int(Maze::baseStepInterval / 0.40),
+        stepIntervalFrightened = int(Maze::baseStepInterval / 0.50),
+    };
+
+    static float getDistance(QPoint field1, QPoint field2);
+    int getInterval(void);
+
+    void step (QPoint target);
 };
 
 class PACMANLIB_EXPORT Blinky : public Ghost
 {
 public:
     Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
-    void step(void) override;
-    void paint(void) override;
+    void step(void);
 };
 
 class PACMANLIB_EXPORT Pinky : public Ghost
 {
 public:
     Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
-    void step(void) override;
-    void paint(void) override;
+    void step(void);
+    void paint(void);
 };
 
 class PACMANLIB_EXPORT Inky : public Ghost
 {
 public:
     Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
-    void step(void) override;
-    void paint(void) override;
+    void step(void);
+    void paint(void);
 };
 
 class PACMANLIB_EXPORT Clyde : public Ghost
 {
 public:
     Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
-    void step(void) override;
-    void paint(void) override;
+    void step(void);
+    void paint(void);
 };
 #endif // GHOST_H

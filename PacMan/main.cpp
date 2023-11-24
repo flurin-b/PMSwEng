@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QHBoxLayout>
+#include <QThread>
 
 int main(int argc, char *argv[])
 {
@@ -30,6 +31,16 @@ int main(int argc, char *argv[])
     // Show Widget
     w.setLayout(hb);
     w.show();
+
+    QTimer frameTimer;
+    QObject::connect(&frameTimer, &QTimer::timeout, pm, &PacMan::paint);
+    frameTimer.start(10);
+
+//    QThread *thread = QThread::create([&pm]{
+//        while(1)
+//            pm->paint();
+//    });
+//    thread->start();
 
     return a.exec();
 }
