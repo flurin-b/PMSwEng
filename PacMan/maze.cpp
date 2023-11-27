@@ -1,4 +1,6 @@
 #include "maze.h"
+#include "qgraphicsitem.h"
+#include <QResource>
 
 /**
  * @brief Maze::Maze Creates a Instace of Maze which contains all the eatables and the paths that can be taken from a certain position
@@ -6,7 +8,6 @@
  */
 Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, gv{gvPointer}
 {
-    QGraphicsPixmapItem *test = gs->addPixmap(QPixmap("/maze.png"));
 
 }
 
@@ -14,7 +15,10 @@ void Maze::paint(){
     float arrow_len = 0.45;
     float arrow_hat = 0.15;
     float dot_size = 0.15;
-    //gs->clear();
+    gs->clear();
+
+
+
     float fieldSize_px = gv->width() / width;
     for (int x = 0; x < width; x++)
     {
@@ -41,6 +45,10 @@ void Maze::paint(){
             }
         }
     }
+
+    gs->setBackgroundBrush(Qt::black);
+    QGraphicsPixmapItem* labyrinth =  gs->addPixmap(QPixmap(":/Sprite/maze.png").scaledToWidth(gs->width()));
+    labyrinth->setOffset(0,60);
 }
 
 /**
