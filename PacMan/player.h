@@ -18,33 +18,45 @@ class PACMANLIB_EXPORT Player : public QObject
 public:
     Player(QGraphicsScene *scPointer, Maze *mazePointer);
     void step(void);
-    QPointF getPosistion(void);
+//    QPointF getPosistion(void);
+    QPoint getField(void);
     void changeDirection(QKeyEvent* event);
     char getStatus(void);
 
     typedef enum
     {
         normal,
-        hunt
+        energized
     }status_t;
 
 public slots:
     void paint(void);
 
 private slots:
-    void stopHunt(void);
+    void resetStatus(void);
 
 private:
     void eatItem(void);
 
     QGraphicsScene *gs;
     Maze *maze;
-    QPointF position;
+    QPoint position;
     QPoint direction;
     QPoint pendingDirection;
 
-    status_t status;                 //marks if a energizer was eaten
-    QTimer *energizerTime;
+    status_t status;                 // marks if a energizer was eaten
+    bool eating;                     // marks if any food is being eaten
+    QTimer *energizerTimeout, stepTick;
+
+    const int energizerDuration = 6000;
+    int getStepInterval (void);
+
+    enum {
+        stepIntervalCoin            = int(Maze::baseStepInterval / 0.71),
+        stepIntervalNoCoin          = int(Maze::baseStepInterval / 0.80),
+        stepIntervalEnergizedCoin   = int(Maze::baseStepInterval / 0.79),
+        stepIntervalEnerfizedNoCoin = int(Maze::baseStepInterval / 0.90),
+    };
 };
 
 #endif // PLAYER_H

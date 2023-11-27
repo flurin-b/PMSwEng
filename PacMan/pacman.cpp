@@ -13,9 +13,12 @@ int fieldSize_px = 20;
  */
 PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
 {
-    QGraphicsScene* gs = new QGraphicsScene();
+    gs = new QGraphicsScene();
     gv->setScene(gs);
     gv->setFixedSize(Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
+    gs->setSceneRect(0, 0, Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
+    gv->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    gv->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     maze= new Maze(gs, gv);
     // add one pixel to width in order to compensate for the margin of QGraphicsView.
@@ -24,13 +27,9 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
     ghosts[1] = new Pinky (gs,maze,player);
     ghosts[2] = new Inky  (gs,maze,player);
     ghosts[3] = new Clyde (gs,maze,player);
-
-    gameTick = new QTimer();
-    gameTick->start(50);
-    QObject::connect(gameTick, &QTimer::timeout, maze, &Maze::paint);
-    QObject::connect(gameTick, &QTimer::timeout, player, &Player::paint);
-    for (Ghost* ghost : ghosts) {
-        QObject::connect(gameTick, &QTimer::timeout, ghost, &Ghost::paint);
+    for(Ghost* ghost : ghosts)
+    {
+        QObject::connect(ghost, &Ghost::gameOver, this, &PacMan::gameOverHandler);
     }
 }
 
@@ -55,6 +54,27 @@ PacMan::~PacMan()
     gameTick = nullptr;
 }
 
+
+/**
+ * @brief PacMan::paint Paints all menu items.
+ */
+void PacMan::paint()
+{
+    static QGraphicsTextItem* gameOverText = gs->addText("Game Over");
+    if(gameOver) {
+        gameOverText->setPlainText(gameWon ? "Game Over, you win!" : "Game Over, you loose!");
+        gameOverText->show();
+    }
+    else {
+        gameOverText->hide();
+
+        maze->paint();
+        player->paint();
+        for(Ghost* ghost : ghosts)
+            ghost->paint();
+    }
+}
+
 /**
  * @brief PacMan::handleKeyPress
  * @param event
@@ -75,4 +95,9 @@ void PacMan::handleKeyPress(QKeyEvent* event)
     default:
         break;
     }
+}
+
+void PacMan::gameOverHandler(bool won) {
+    this->gameOver = true;
+    this->gameWon = won;
 }

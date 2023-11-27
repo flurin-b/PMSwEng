@@ -9,7 +9,7 @@
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
-#include <QTimer>
+//#include <QTimer>
 #include <QKeyEvent>
 
 class PACMANLIB_EXPORT PacMan : public QObject
@@ -18,9 +18,11 @@ class PACMANLIB_EXPORT PacMan : public QObject
 public:
     PacMan(QGraphicsView *gvPointer);
     virtual ~PacMan();
+    void paint();
 
 public slots:
     void handleKeyPress(QKeyEvent *event);
+    void gameOverHandler(bool won);
 
 private:
     QGraphicsView *gv;
@@ -28,8 +30,10 @@ private:
     Maze *maze;
     Ghost *ghosts[4];
     Player *player;
-
     QTimer *gameTick;
+
+    bool gameOver = false;
+    bool gameWon = false;
 };
 
 #endif // PACMAN_H
