@@ -1,0 +1,40 @@
+name: Doxygen Autogen
+ 
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+ 
+env:
+  SOURCE_DIR:   ${{ github.workspace }}
+ 
+jobs:
+  build:
+    runs-on:  ubuntu-latest
+ 
+    steps:
+      - name: (1) Checkout repo
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+ 
+      - name: (2) Generate Doxygen files
+        uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          folder: docs/html
+          config_file: 'Doxygen/Doxyfile'
