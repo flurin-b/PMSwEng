@@ -8,8 +8,9 @@
  */
 Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):gs(gsPointer),maze(mazePointer),playerRef(playerRefPointer)
 {
-    sprite = gs->addEllipse(0, 0, 0, 0);
-    clone  = gs->addEllipse(0, 0, 0, 0);
+    connect(&movementTimer, &QTimer::timeout, this, &Ghost::nextMovementPattern);
+    nextMovementPattern();
+    movementTimer.stop();
 }
 
 /**
@@ -17,6 +18,47 @@ Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
  */
 Ghost::~Ghost()
 {}
+
+void Ghost::setPaused(bool paused)
+{
+    static int movementTimerCache = -1, stepTickCache = -1;
+    if(paused)
+    {
+        stepTickCache = stepTick.remainingTime();
+        movementTimerCache = movementTimer.remainingTime();
+        stepTick.stop();
+        movementTimer.stop();
+    }
+    else
+    {
+        if (stepTickCache != -1)
+        {
+            stepTick.start(stepTickCache);
+            movementTimer.start(movementTimerCache);
+        }
+        else
+        {
+            stepTick.start();
+            movementTimer.start();
+        }
+    }
+}
+
+void Ghost::setFrightened(bool frightened)
+{
+    if (frightened && movement != Ghost::frightened)
+    {
+        position -= direction;
+        direction = -direction;
+        stepTick.setInterval(Ghost::stepIntervalFrightened * stepTick.remainingTime()/getStepInterval());
+        movement = Ghost::frightened;
+    }
+    else if (!frightened && movement == Ghost::frightened)
+    {
+        movement = globalMovement;
+        stepTick.setInterval(getStepInterval() * stepTick.remainingTime()/Ghost::stepIntervalFrightened);
+    }
+}
 
 /**
  * @brief Ghost::getDistanceTo Calculates and returns the distance from one Field to another.
@@ -29,97 +71,223 @@ float Ghost::getDistance(QPoint field1, QPoint field2){
     return sqrt(dx*dx + dy*dy);
 }
 
-int Ghost::getInterval(void)
+int Ghost::getStepInterval(void)
 {
     if((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
     {
         return Ghost::stepIntervalTunnel;
     }
-    else if(playerRef->getStatus() == Player::energized)
+    else if(movement == Ghost::frightened)
     {
         return Ghost::stepIntervalFrightened;
     }
     else
     {
-        return Ghost::stepIntervalStandard;
+        return Ghost::stepIntervalNormal;
     }
 }
 
-void Ghost::step(QPoint target) {
-    // get all possible direction
-    std::vector<QPoint> possibleDirs = maze->getMaze(position);
-    int i = 0;
-    // delete opposite of current direction as no 180 degree turns can be made
-    for(QPoint possibleDir : possibleDirs)
+QPoint Ghost::getField (void)
+{
+    return subposition.toPoint();
+}
+
+void Ghost::nextMovementPattern()
+{
+    const static int patternTimes[8] = {7000, 20000, 7000, 20000, 5000, 20000, 5000, 20000};
+
+    if (globalMovement == normal)
     {
-        if(possibleDir == -direction)
+        globalMovement = scatter;
+        movementTimer.setInterval(patternTimes[movementCounter++]);
+    }
+    else
+    {
+        globalMovement = normal;
+        movementTimer.setInterval(patternTimes[movementCounter++]);
+    }
+    if (movementCounter >= 8)
+        movementCounter = 7;
+}
+
+void Ghost::step(QPoint target) {
+    switch (state)
+    {
+    case Ghost::inMaze:
+    {
+        std::vector<QPoint> possibleDirs = maze->getMaze(position);
+        int i = 0;
+        switch (movement)
         {
-            possibleDirs.erase(possibleDirs.begin() + i);
+        case Ghost::normal:
+        case Ghost::scatter:
+        {
+            // get all possible direction
+            std::vector<QPoint> possibleDirs = maze->getMaze(position);
+            int i = 0;
+            // delete opposite of current direction as no 180 degree turns can be made
+            for(QPoint possibleDir : possibleDirs)
+            {
+                if(possibleDir == -direction)
+                {
+                    possibleDirs.erase(possibleDirs.begin() + i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            // if there is only one direction, go in that direction.
+            if (possibleDirs.size() == 1)
+            {
+                direction = possibleDirs[0];
+            }
+            // otherwise decide where to go
+            else
+            {
+                int smallest = 0;
+                for(int i = 1; i < possibleDirs.size(); i++){
+                    if (getDistance(position+possibleDirs[smallest], target) > getDistance(position+possibleDirs[i], target))
+                    {
+                        smallest = i;
+                    }
+                }
+                direction = possibleDirs[smallest];
+            }
+            break;
+        }
+        case Ghost::frightened:
+        {
+            // choose a random direction
+            // get all possible
+            std::vector<QPoint> possibleDirs = maze->getMaze(position);
+            int i = 0;
+            // delete opposite of current direction as no 180 degree turns can be made
+            for(QPoint possibleDir : possibleDirs)
+            {
+                if(possibleDir == -direction)
+                {
+                    possibleDirs.erase(possibleDirs.begin() + i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            if (i == 1)
+            {
+                direction = possibleDirs[0];
+            }
+            else
+            {
+                static QRandomGenerator r;
+                direction = possibleDirs[r.bounded(possibleDirs.size())];
+            }
+            break;
+        }
+        }
+        break;
+    }
+    case Ghost::inGhostHouse:
+    {
+        if(maze->getDotsEaten() >= dotLimitGhostHouse)
+            state = leavingGhostHouse;
+        break;
+    }
+    case Ghost::leavingGhostHouse:
+    {
+        if (position.x() <= 12)
+        {
+            direction = QPoint(1, 0);
+        }
+        else if (position.x() >= 14)
+        {
+            direction = QPoint(-1, 0);
+        }
+        else if (position.y() > 14)
+        {
+            direction = QPoint(0, -1);
         }
         else
         {
-            i++;
-        }
-    }
-    // if there is only one direction, go in that direction.
-    if (possibleDirs.size() == 1)
-    {
-        direction = possibleDirs[0];
-    }
-    // otherwise decide where to go
-    else
-    {
-        int smallest = 0;
-        for(int i = 1; i < possibleDirs.size(); i++){
-            if (getDistance(position+possibleDirs[smallest], target) > getDistance(position+possibleDirs[i], target))
+            float distance_left = getDistance(position, target);
+            float distance_right = getDistance(position + QPoint(1,0), target);
+            if(distance_left < distance_right)
             {
-                smallest = i;
+                direction = QPoint(-1, 0);
             }
+            else
+            {
+                direction = QPoint(1, 0);
+                position += direction;
+            }
+            state = Ghost::inMaze;
+            stepTick.setInterval(getStepInterval() / 2);
+            return;
         }
-        direction = possibleDirs[smallest];
+        break;
     }
-
+    }
     position += direction;
 
     if(position.x() < 0 || position.x() > 27)
         position.setX((position.x()+maze->width) % maze->width);
-    stepTick.setInterval(getInterval());
+
+    stepTick.setInterval(getStepInterval());
 }
 
 void Ghost::paint()
 {
-    float delta = 1.0 - (float)stepTick.remainingTime() / getInterval();
-    bool tunneling = false;
-    // Test if the ghost is in the tunnel
-    if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
-        tunneling = true;
+    // if not paused, update subposition
+    if(stepTick.remainingTime() != -1 && state != Ghost::inGhostHouse)
+    {
+        float delta = 1.0 - (float)stepTick.remainingTime() / getStepInterval();
+        subposition = direction.toPointF();
+        subposition *= delta;
+        subposition -= direction;
+        subposition += position.toPointF();
+        if (state == Ghost::leavingGhostHouse)
+        {
+            subposition += QPointF{0.5, 0.0};
+        }
+    }
 
-    QPointF positionF(direction);
-    positionF *= delta;
-    positionF -= direction;
-    positionF += position.toPointF();
+    bool tunneling = false;
 
     float fieldWidth_px = maze->getFieldWidth();
-    sprite->setRect(positionF.x() * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
-    //    static QGraphicsRectItem* s = gs->addRect(position.x()*fieldWidth_px, position.y()*fieldWidth_px, fieldWidth_px, fieldWidth_px);
-    //    s->setRect(position.x()*fieldWidth_px, position.y()*fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    sprite->setRect(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    sprite->setBrush(QBrush(movement == Ghost::frightened ? frightenedColor : color));
 
-    if (tunneling)
+    // Test if the ghost is in the tunnel
+    if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
     {
         clone->setVisible(true);
         if (position.x() == 0)
-            clone->setRect((positionF.x() + maze->width) * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+            clone->setRect((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
         else
-            clone->setRect((positionF.x() - maze->width) * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+            clone->setRect((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
     }
     else
     {
         clone->setVisible(false);
     }
 
-    // Check if the ghost ate PacMan
-    if (playerRef->getField() == positionF.toPoint()) {
-        emit gameOver(false);
+    // Check if the ghost ate PacMan or vice versa
+    if (movement == Ghost::frightened)
+    {
+        if (playerRef->getField() == subposition.toPoint()) {
+            position = resetPosition;
+            state = Ghost::leavingGhostHouse;
+            movement = Ghost::normal;
+            stepTick.setInterval(getStepInterval() * stepTick.remainingTime()/Ghost::stepIntervalFrightened);
+            // TODO: give points for eating a ghost
+        }
+    }
+    else
+    {
+        if (playerRef->getField() == subposition.toPoint()) {
+            emit gameOver(false);
+        }
     }
 }
 
@@ -131,12 +299,19 @@ void Ghost::paint()
  */
 Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
-    position = QPoint {14, 14};
+    position = QPoint {13, 14};
+    subposition = QPointF {position.x()+0.5, float(position.y())};
     direction = QPoint {-1, 0};
+    state = Ghost::inMaze;
+    sprite = gs->addEllipse(0, 0, 0, 0);
+    clone  = gs->addEllipse(0, 0, 0, 0);
+    color = QColor::fromRgb(255, 0, 0);
+    sprite->setBrush(QBrush(color));
+    clone->setBrush(QBrush(color));
 
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Blinky::step);
-    stepTick.start(10);
+    stepTick.setInterval(Ghost::stepIntervalNormal / 2);
 }
 
 /**
@@ -144,7 +319,18 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPo
  */
 void Blinky::step(void)
 {
-    Ghost::step(playerRef->getField());
+    if(movement == normal || movement == scatter)
+        movement = globalMovement;
+    switch (movement)
+    {
+    case normal:
+        Ghost::step(playerRef->getField());
+        break;
+    case scatter:
+    case frightened:
+        Ghost::step(scatterTarget);
+        break;
+    }
 }
 
 /**
@@ -155,12 +341,19 @@ void Blinky::step(void)
  */
 Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
-    position = QPoint {14, 16};
-    direction = QPoint {0, 0};
+    position = QPoint {13, 16};
+    subposition = QPointF {position.x()+0.5, float(position.y())};
+    direction = QPoint {0, -1};
+    state = Ghost::leavingGhostHouse;
+    sprite = gs->addEllipse(0, 0, 0, 0);
+    clone  = gs->addEllipse(0, 0, 0, 0);
+    color = QColor::fromRgb(255, 184, 255);
+    sprite->setBrush(QBrush(color));
+    clone->setBrush(QBrush(color));
 
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Pinky::step);
-    stepTick.start(10);
+    stepTick.setInterval(0);
 }
 
 /**
@@ -168,7 +361,19 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
  */
 void Pinky::step(void)
 {
+    if(movement == normal || movement == scatter)
+        movement = globalMovement;
 
+    switch (movement)
+    {
+    case normal:
+        Ghost::step(playerRef->getField() + playerRef->getDirection() * 4);
+        break;
+    case scatter:
+    case frightened:
+        Ghost::step(scatterTarget);
+        break;
+    }
 }
 
 /**
@@ -177,14 +382,23 @@ void Pinky::step(void)
  * @param mazePointer A Pointer to the maze where to ghosts operade in
  * @param playerRefPointer A Pointer to the player so that they can chase him
  */
-Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
+Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer, Ghost *blinkyRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
-    position = QPoint {14, 16};
+    blinkyRef = blinkyRefPointer;
+    position = QPoint {11, 16};
+    subposition = QPointF {position.x()+0.5, float(position.y())};
     direction = QPoint {0, 0};
+    state = Ghost::inGhostHouse;
+    dotLimitGhostHouse = 30;
+    sprite = gs->addEllipse(0, 0, 0, 0);
+    clone  = gs->addEllipse(0, 0, 0, 0);
+    color = QColor::fromRgb(0, 255, 255);
+    sprite->setBrush(QBrush(color));
+    clone->setBrush(QBrush(color));
 
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Inky::step);
-    stepTick.start(10);
+    stepTick.setInterval(10);
 }
 
 /**
@@ -192,7 +406,19 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointe
  */
 void Inky::step(void)
 {
+    if(movement == normal || movement == scatter)
+        movement = globalMovement;
 
+    switch (movement)
+    {
+    case normal:
+        Ghost::step(playerRef->getField() + playerRef->getField()-blinkyRef->getField());
+        break;
+    case scatter:
+    case frightened:
+        Ghost::step(scatterTarget);
+        break;
+    }
 }
 
 /**
@@ -203,12 +429,20 @@ void Inky::step(void)
  */
 Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
 {
-    position = QPoint {14, 16};
-    direction = QPoint {0, 0};
+    position = QPoint {15, 16};
+    subposition = QPointF {position.x()+0.5, float(position.y())};
+    direction = QPoint {-1, 0};
+    state = Ghost::inGhostHouse;
+    dotLimitGhostHouse = 60;
+    sprite = gs->addEllipse(0, 0, 0, 0);
+    clone  = gs->addEllipse(0, 0, 0, 0);
+    color = QColor::fromRgb(255, 184, 82);
+    sprite->setBrush(QBrush(color));
+    clone->setBrush(QBrush(color));
 
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Clyde::step);
-    stepTick.start(10);
+    stepTick.setInterval(10);
 }
 
 /**
@@ -216,5 +450,24 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
  */
 void Clyde::step(void)
 {
+    if(movement == normal || movement == scatter)
+        movement = globalMovement;
 
+    switch (movement)
+    {
+    case normal:
+        if(getDistance(getField(), playerRef->getField()) < 8)
+        {
+            Ghost::step(scatterTarget);
+        }
+        else
+        {
+            Ghost::step(playerRef->getField());
+        }
+        break;
+    case scatter:
+    case frightened:
+        Ghost::step(scatterTarget);
+        break;
+    }
 }

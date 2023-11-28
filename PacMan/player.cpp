@@ -10,15 +10,39 @@
 Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{mazePointer}
 {
     //playerPosition Start unclear right now, change latter down the line
-    position = QPoint{14,26};
-    direction = QPoint{0,0};
+    position = QPoint{13,26};
+    direction = QPoint{-1,0};
     energizerTimeout = new QTimer();
     energizerTimeout->setSingleShot(true);
-    QObject::connect(energizerTimeout, &QTimer::timeout, this, &Player::resetStatus);
+    QObject::connect(energizerTimeout, &QTimer::timeout, this, &Player::resetEnergized);
 
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Player::step);
-    stepTick.start(stepIntervalNoCoin);
+    stepTick.setInterval(stepIntervalNoCoin/2);
+}
+
+void Player::setPaused(bool paused)
+{
+    static int stepTickCache = -1, energizerTimeoutCache = -1;
+    if(paused)
+    {
+        stepTickCache = stepTick.remainingTime();
+        energizerTimeoutCache = energizerTimeout->remainingTime();
+        stepTick.stop();
+        energizerTimeout->stop();
+    }
+    else
+    {
+        if (stepTickCache != -1)
+            stepTick.start(stepTickCache);
+        else
+            stepTick.start();
+
+        if(energizerTimeoutCache != -1)
+            energizerTimeout->start(energizerTimeoutCache);
+        else
+            energizerTimeout->start();
+    }
 }
 
 /**
@@ -26,29 +50,55 @@ Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{
  */
 void Player::paint(void)
 {
-    float delta = 1.0 - (float)stepTick.remainingTime() / getStepInterval();
+    static QPointF subposition{position.x()+0.5, float(position.y())};
+    // if not paused, update subposition
+    if(stepTick.remainingTime() != -1)
+    {
+        float delta = 1.0 - (float)stepTick.remainingTime() / getStepInterval();
+        subposition = direction.toPointF();
+        subposition *= delta;
+        subposition -= direction;
+        subposition += position.toPointF();
+    }
 
-    QPointF positionF(direction);
-    positionF *= delta;
-    positionF -= direction;
-    positionF += position.toPointF();
+    static bool ate = false; // true if PacMan has eaten whatever was in the current field
+    // check for 180 degree turns as otherwise the player could eat dots he hasn't touched yet
+    static QPoint lastDirection(direction);
+    if (lastDirection == -direction)
+        ate = true;
+    lastDirection = direction;
+
+    if (subposition.toPoint() == position){
+        if (!ate) {
+            eating = maze->getDots(position) != Maze::noItem;
+            if(eating)
+                eatItem(subposition.toPoint());
+            stepTick.setInterval(getStepInterval()/2);
+            ate = true;
+        }
+    }
+    else
+    {
+        ate = false;
+    }
 
     float fieldWidth_px = maze->getFieldWidth();
-    static QGraphicsEllipseItem* g = gs->addEllipse(positionF.x() * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
-    g->setRect(positionF.x() * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    static QGraphicsEllipseItem* g = gs->addEllipse(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    g->setRect(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    //    static QGraphicsSimpleTextItem* debug = gs->addSimpleText("starting position = "+QString::number(positionF.x()));
     //    static QGraphicsRectItem* s = gs->addRect(position.x()*fieldWidth_px, position.y()*fieldWidth_px, fieldWidth_px, fieldWidth_px);
     //    s->setRect(position.x()*fieldWidth_px, position.y()*fieldWidth_px, fieldWidth_px, fieldWidth_px);
 
-    static QGraphicsEllipseItem* clone = gs->addEllipse(positionF.x() * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    static QGraphicsEllipseItem* clone = gs->addEllipse(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
 
     // Test if the player is in the tunnel
     if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
     {
         clone->setVisible(true);
         if (position.x() == 0)
-            clone->setRect((positionF.x() + maze->width) * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+            clone->setRect((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
         else
-            clone->setRect((positionF.x() - maze->width) * fieldWidth_px, positionF.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+            clone->setRect((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
     }
     else
     {
@@ -83,11 +133,8 @@ void Player::step(void)
             }
     // If that is not possible either, stop.
 
-    eating = maze->getDots(position) != Maze::noItem;
-    eatItem();
-    stepTick.setInterval(getStepInterval());
-
     position += direction;
+    stepTick.setInterval(getStepInterval());
 
     if(position.x() < 0 || position.x() > 27)
     {
@@ -110,8 +157,13 @@ void Player::step(void)
  */
 QPoint Player::getField(void)
 {
-    QPointF subposition = direction * ((stepTick.remainingTime()-stepTick.interval())/stepTick.interval());
-    return (position+subposition).toPoint();
+    QPointF subposition = direction.toPointF() * ((float)stepTick.remainingTime()/getStepInterval());
+    return position - subposition.toPoint();
+}
+
+QPoint Player::getDirection(void)
+{
+    return direction;
 }
 
 char Player::getStatus(void)
@@ -157,10 +209,8 @@ void Player::changeDirection(QKeyEvent* event)
     }
 }
 
-void Player::eatItem(void)
+void Player::eatItem(QPoint location)
 {
-    QPoint location = QPoint(qFloor(position.x()), qFloor(position.y()));
-    //QPoint location = (position - QPointF{0.5, 0.5}).toPoint();
     char Item = maze->getDots(location);
 
     switch(Item)
@@ -176,13 +226,15 @@ void Player::eatItem(void)
         maze->increaseScore(50);
         status = Player::energized;
         energizerTimeout->start(energizerDuration);
+        emit Player::energizedChanged(true);
         break;
     }
 }
 
-void Player::resetStatus(void)
+void Player::resetEnergized(void)
 {
     status = normal;
+    emit Player::energizedChanged(false);
 }
 
 int Player::getStepInterval (void)

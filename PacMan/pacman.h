@@ -32,6 +32,8 @@ private:
     Player *player;
     QTimer *gameTick;
 
+    //TODO: create gameStat-Enum
+    bool paused = true;
     bool gameOver = false;
     bool gameWon = false;
 };

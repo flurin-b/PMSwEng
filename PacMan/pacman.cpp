@@ -25,11 +25,13 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
     player = new Player(gs,maze);
     ghosts[0] = new Blinky(gs,maze,player);
     ghosts[1] = new Pinky (gs,maze,player);
-    ghosts[2] = new Inky  (gs,maze,player);
+    Inky *inky = new Inky  (gs,maze,player,ghosts[0]);
+    ghosts[2] = inky;
     ghosts[3] = new Clyde (gs,maze,player);
     for(Ghost* ghost : ghosts)
     {
         QObject::connect(ghost, &Ghost::gameOver, this, &PacMan::gameOverHandler);
+        QObject::connect(player, &Player::energizedChanged, ghost, &Ghost::setFrightened);
     }
 }
 
@@ -87,10 +89,15 @@ void PacMan::handleKeyPress(QKeyEvent* event)
     case Qt::Key_Down:
     case Qt::Key_Left:
     case Qt::Key_Right:
-        player->changeDirection(event);
+        if(!paused)
+            player->changeDirection(event);
         break;
     case Qt::Key_Enter:
     case Qt::Key_Return:
+        paused = !paused;
+        player->setPaused(paused);
+        for(Ghost* ghost : ghosts)
+            ghost->setPaused(paused);
         break;
     default:
         break;
@@ -100,4 +107,8 @@ void PacMan::handleKeyPress(QKeyEvent* event)
 void PacMan::gameOverHandler(bool won) {
     this->gameOver = true;
     this->gameWon = won;
+    player->setPaused(true);
+    for(Ghost *ghost: ghosts) {
+        ghost->setPaused(true);
+    }
 }
