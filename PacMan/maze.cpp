@@ -45,7 +45,7 @@ void Maze::paint(){
                     dots[x][y] = gs->addEllipse((x+0.5-dot_size/2) * fieldSize_px, (y+0.5-dot_size/2) * fieldSize_px, dot_size * fieldSize_px, dot_size * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
                     break;
                 case bigPoint:
-                    dots[x][y] = gs->addEllipse((x+0.5-dot_size) * fieldSize_px, (y+0.5-dot_size) * fieldSize_px, dot_size * 2 * fieldSize_px, dot_size * 2 * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
+                    dots[x][y] = gs->addEllipse((x+0.5-dot_size) * fieldSize_px, (y+0.5-dot_size) * fieldSize_px, dot_size * 3 * fieldSize_px, dot_size * 3 * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
                     break;
                 }
             }
