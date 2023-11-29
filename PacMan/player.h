@@ -17,9 +17,11 @@ class PACMANLIB_EXPORT Player : public QObject
     Q_OBJECT
 public:
     Player(QGraphicsScene *scPointer, Maze *mazePointer);
+    void setPaused (bool paused);
     void step(void);
 //    QPointF getPosistion(void);
     QPoint getField(void);
+    QPoint getDirection(void);
     void changeDirection(QKeyEvent* event);
     char getStatus(void);
 
@@ -29,14 +31,17 @@ public:
         energized
     }status_t;
 
+signals:
+    void energizedChanged(bool energized);
+
 public slots:
     void paint(void);
 
 private slots:
-    void resetStatus(void);
+    void resetEnergized(void);
 
 private:
-    void eatItem(void);
+    void eatItem(QPoint location);
 
     QGraphicsScene *gs;
     Maze *maze;

@@ -10,16 +10,24 @@
 #include <QObject>
 #include <QPoint>
 #include <QTimer>
+#include <QRandomGenerator>
 
 class PACMANLIB_EXPORT Ghost : public QObject
 {
     Q_OBJECT
 public:
     Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
-    virtual ~Ghost();
+    ~Ghost();
+
+    void setPaused(bool paused);
+    void setFrightened(bool frightened);
+    QPoint getField(void);
 
 public slots:
     void paint();
+
+protected slots:
+    void nextMovementPattern();
 
 signals:
     void gameOver(bool won);
@@ -30,16 +38,39 @@ protected:
     Maze    *maze;
     Player  *playerRef;
     QPoint  position;
+    QPointF subposition;
     QPoint  direction;
     QTimer  stepTick;
+
+    const QPoint resetPosition{13, 16};
+    const QColor frightenedColor = QColor::fromRgb(0, 0, 125);
+    QColor color;
+
+    int dotLimitGhostHouse = 0;
+
     enum {
-        stepIntervalStandard   = int(Maze::baseStepInterval / 0.75),
+        stepIntervalNormal     = int(Maze::baseStepInterval / 0.75),
         stepIntervalTunnel     = int(Maze::baseStepInterval / 0.40),
         stepIntervalFrightened = int(Maze::baseStepInterval / 0.50),
     };
+    typedef enum{
+        inMaze,
+        inGhostHouse,
+        leavingGhostHouse,
+    } state_t;
+    state_t state;
+    typedef enum {
+        normal,
+        scatter,
+        frightened,
+    } movement_t;
+    movement_t movement = normal;
+    QTimer movementTimer{};
+    int movementCounter = 0;
+    movement_t globalMovement = normal;
 
     static float getDistance(QPoint field1, QPoint field2);
-    int getInterval(void);
+    int getStepInterval(void);
 
     void step (QPoint target);
 };
@@ -49,6 +80,8 @@ class PACMANLIB_EXPORT Blinky : public Ghost
 public:
     Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void);
+private:
+    const QPoint scatterTarget{25, 0};
 };
 
 class PACMANLIB_EXPORT Pinky : public Ghost
@@ -56,15 +89,18 @@ class PACMANLIB_EXPORT Pinky : public Ghost
 public:
     Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void);
-    void paint(void);
+private:
+    const QPoint scatterTarget{2, 0};
 };
 
 class PACMANLIB_EXPORT Inky : public Ghost
 {
 public:
-    Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
+    Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer, Ghost *blinkyRefPointer);
     void step(void);
-    void paint(void);
+private:
+    const QPoint scatterTarget{27, 35};
+    Ghost *blinkyRef;
 };
 
 class PACMANLIB_EXPORT Clyde : public Ghost
@@ -72,6 +108,7 @@ class PACMANLIB_EXPORT Clyde : public Ghost
 public:
     Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer);
     void step(void);
-    void paint(void);
+private:
+    const QPoint scatterTarget{0, 35};
 };
 #endif // GHOST_H

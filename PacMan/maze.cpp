@@ -7,9 +7,7 @@
  * @param scPointer A Pointer to the GraphicScene onto which the items will be placed
  */
 Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, gv{gvPointer}
-{
-
-}
+{}
 
 void Maze::paint(){
 
@@ -22,7 +20,7 @@ void Maze::paint(){
 
     if(!mazeDisplayed){
         gs->setBackgroundBrush(Qt::black);
-        QGraphicsPixmapItem* labyrinth =  gs->addPixmap(QPixmap(":/Sprite/maze.png").scaledToWidth(gs->width()));
+        QGraphicsPixmapItem* labyrinth =  gs->addPixmap(QPixmap(":/Sprite/Maze/maze.png").scaledToWidth(gs->width()));
         labyrinth->setOffset(0,60);
 
         for (int x = 0; x < width; x++)
@@ -90,24 +88,22 @@ int Maze::getDots(QPoint position)
     return contend;
 }
 
+int Maze::getDotsEaten(){
+    return dotsEaten;
+}
+
 /**
  * @brief Maze::setDots Change the Item a specific field in the maze contains
  * @param position The point in the maze where the item should be changed
  * @param item The new item that should be placed at the defined position
  */
-void Maze::setDots(QPoint position, int item)
+void Maze::setDots(QPoint position, item_t item)
 {
-    ///Only allows to set a new Item if the position requested is within the maze, and the Item exists
-    if(position.x() >= 0 && position.x() <= width-1)
-    {
-        if(position.y() >= 0 && position.y() <= height-1)
-        {
-            if(item >= noItem && item <= bigPoint)
-            {
-                dots[position.y()][position.x()] = item;
-            }
-        }
-    }
+    // If a small dot is eaten, increment dotsEaten
+    if(dots[position.y()][position.x()] == smallPoint && item == noItem)
+        dotsEaten += 1;
+
+    dots[position.y()][position.x()] = item;
 }
 
 /**

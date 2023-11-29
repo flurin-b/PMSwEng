@@ -13,8 +13,18 @@ class PACMANLIB_EXPORT Maze : public QObject
     Q_OBJECT
 public:
     Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer);
+
+    typedef enum {
+        noItem,
+        smallPoint,
+        bigPoint,
+        error = 255
+    } item_t;
+
     int getDots(QPoint position);
-    void setDots(QPoint position, int item);
+    int getDotsEaten(void);
+    int dotsEaten = 0;
+    void setDots(QPoint position, item_t item);
     float getFieldWidth(void);
     std::vector<QPoint> getMaze(QPoint position);
     void increaseScore(int offset);
@@ -22,12 +32,6 @@ public:
 
     const static int width = 28;
     const static int height = 36;
-    enum {
-        noItem,
-        smallPoint,
-        bigPoint,
-        error = 255
-    };
 
 public slots:
     void paint(void);
@@ -38,44 +42,44 @@ private:
 
     int score;
 
-    char dots[height][width] = {
-        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
-        {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
-        {noItem, bigPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, bigPoint, noItem},
-        {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
-        {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
-        {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
-        {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
-        {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
-        {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
-        {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
-        {noItem, bigPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, bigPoint, noItem},
-        {noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem},
-        {noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem},
-        {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
-        {noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem},
-        {noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem},
-        {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
-        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
-        };
+    item_t dots[height][width] = {
+                               {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
+                               {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
+                               {noItem, bigPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, bigPoint, noItem},
+                               {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
+                               {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
+                               {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
+                               {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
+                               {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
+                               {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
+                               {noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, smallPoint, noItem},
+                               {noItem, bigPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, bigPoint, noItem},
+                               {noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem},
+                               {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, noItem, noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
+                               {noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem},
+                               {noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem, noItem, smallPoint, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, smallPoint, noItem},
+                               {noItem, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, smallPoint, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
+                               {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
+                               };
 
     std::vector<QPoint> maze[height][width] = {
         {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}},
