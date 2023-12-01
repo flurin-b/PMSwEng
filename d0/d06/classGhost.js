@@ -31,11 +31,13 @@ var classGhost =
     [ "movement", "d0/d06/classGhost.html#a3320aaad1d22a3726af8a87034979807", null ],
     [ "movementCounter", "d0/d06/classGhost.html#a81935a04d991e9829cead29092c27a1e", null ],
     [ "movementTimer", "d0/d06/classGhost.html#a73b7126ba7fa5fcb48e33e2a3fbc0899", null ],
+    [ "movementTimerCache", "d0/d06/classGhost.html#a352cfc52a5ae7761f791d056241f6de1", null ],
     [ "playerRef", "d0/d06/classGhost.html#aa117282411b03dd9b2214ccc6ab63343", null ],
     [ "position", "d0/d06/classGhost.html#acedf20d923bbd63d54f1056c849a17ea", null ],
     [ "resetPosition", "d0/d06/classGhost.html#ad925df9709f49313d2529ae5bd6ecc62", null ],
     [ "sprite", "d0/d06/classGhost.html#a5a0fb4074523dbb9665d2a08b6744af7", null ],
     [ "state", "d0/d06/classGhost.html#a4ef4cb172f5c800f14bd1051e64d7c40", null ],
     [ "stepTick", "d0/d06/classGhost.html#a49e422e7ff048cb885bc0e596c74d62d", null ],
+    [ "stepTickCache", "d0/d06/classGhost.html#af523cad1e07159795c57f1353886ea4b", null ],
     [ "subposition", "d0/d06/classGhost.html#a2a95c784149e5d800e10cb08287a0466", null ]
 ];
