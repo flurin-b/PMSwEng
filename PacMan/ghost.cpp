@@ -21,7 +21,6 @@ Ghost::~Ghost()
 
 void Ghost::setPaused(bool paused)
 {
-    static int movementTimerCache = -1, stepTickCache = -1;
     if(paused)
     {
         stepTickCache = stepTick.remainingTime();
@@ -111,38 +110,41 @@ void Ghost::nextMovementPattern()
 }
 
 void Ghost::step(QPoint target) {
+    #ifdef DEBUG_TARGETS
+        debugTarget->setRect(target.x()*maze->getFieldWidth(), target.y()*maze->getFieldWidth(), maze->getFieldWidth(), maze->getFieldWidth());
+    #endif
     switch (state)
     {
     case Ghost::inMaze:
     {
+        // get all possible direction
         std::vector<QPoint> possibleDirs = maze->getMaze(position);
         int i = 0;
-        switch (movement)
+        // delete opposite of current direction as no 180 degree turns can be made
+        for(QPoint possibleDir : possibleDirs)
         {
-        case Ghost::normal:
-        case Ghost::scatter:
+            if(possibleDir == -direction)
+            {
+                possibleDirs.erase(possibleDirs.begin() + i);
+            }
+            else
+            {
+                i++;
+            }
+        }
+        // if there is only one direction, go in that direction.
+        if (possibleDirs.size() == 1)
         {
-            // get all possible direction
-            std::vector<QPoint> possibleDirs = maze->getMaze(position);
-            int i = 0;
-            // delete opposite of current direction as no 180 degree turns can be made
-            for(QPoint possibleDir : possibleDirs)
+            direction = possibleDirs[0];
+        }
+        // otherwise decide where to go
+        else
+        {
+            if (movement == Ghost::frightened)
             {
-                if(possibleDir == -direction)
-                {
-                    possibleDirs.erase(possibleDirs.begin() + i);
-                }
-                else
-                {
-                    i++;
-                }
+                static QRandomGenerator r;
+                direction = possibleDirs[r.bounded(possibleDirs.size())];
             }
-            // if there is only one direction, go in that direction.
-            if (possibleDirs.size() == 1)
-            {
-                direction = possibleDirs[0];
-            }
-            // otherwise decide where to go
             else
             {
                 int smallest = 0;
@@ -154,37 +156,6 @@ void Ghost::step(QPoint target) {
                 }
                 direction = possibleDirs[smallest];
             }
-            break;
-        }
-        case Ghost::frightened:
-        {
-            // choose a random direction
-            // get all possible
-            std::vector<QPoint> possibleDirs = maze->getMaze(position);
-            int i = 0;
-            // delete opposite of current direction as no 180 degree turns can be made
-            for(QPoint possibleDir : possibleDirs)
-            {
-                if(possibleDir == -direction)
-                {
-                    possibleDirs.erase(possibleDirs.begin() + i);
-                }
-                else
-                {
-                    i++;
-                }
-            }
-            if (i == 1)
-            {
-                direction = possibleDirs[0];
-            }
-            else
-            {
-                static QRandomGenerator r;
-                direction = possibleDirs[r.bounded(possibleDirs.size())];
-            }
-            break;
-        }
         }
         break;
     }
@@ -309,6 +280,11 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPo
     sprite->setBrush(QBrush(color));
     clone->setBrush(QBrush(color));
 
+    #ifdef DEBUG_TARGETS
+        debugTarget = gs->addRect(0, 0, 0, 0);
+        debugTarget->setBrush(QBrush(color));
+    #endif
+
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Blinky::step);
     stepTick.setInterval(Ghost::stepIntervalNormal / 2);
@@ -350,6 +326,11 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     color = QColor::fromRgb(255, 184, 255);
     sprite->setBrush(QBrush(color));
     clone->setBrush(QBrush(color));
+
+    #ifdef DEBUG_TARGETS
+        debugTarget = gs->addRect(0, 0, 0, 0);
+        debugTarget->setBrush(QBrush(color));
+    #endif
 
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Pinky::step);
@@ -396,6 +377,11 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointe
     sprite->setBrush(QBrush(color));
     clone->setBrush(QBrush(color));
 
+    #ifdef DEBUG_TARGETS
+        debugTarget = gs->addRect(0, 0, 0, 0);
+        debugTarget->setBrush(QBrush(color));
+    #endif
+
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Inky::step);
     stepTick.setInterval(10);
@@ -439,6 +425,11 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     color = QColor::fromRgb(255, 184, 82);
     sprite->setBrush(QBrush(color));
     clone->setBrush(QBrush(color));
+
+    #ifdef DEBUG_TARGETS
+        debugTarget = gs->addRect(0, 0, 0, 0);
+        debugTarget->setBrush(QBrush(color));
+    #endif
 
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Clyde::step);
