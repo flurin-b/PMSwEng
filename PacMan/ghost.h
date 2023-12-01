@@ -1,6 +1,9 @@
 #ifndef GHOST_H
 #define GHOST_H
 
+/* debug defines */
+//#define DEBUG_TARGETS
+
 #include "maze.h"
 #include "player.h"
 #include "pacmanlib_global.h"
@@ -40,7 +43,10 @@ protected:
     QPoint  position;
     QPointF subposition;
     QPoint  direction;
-    QTimer  stepTick;
+
+    #ifdef DEBUG_TARGETS
+        QGraphicsRectItem *debugTarget;
+    #endif
 
     const QPoint resetPosition{13, 16};
     const QColor frightenedColor = QColor::fromRgb(0, 0, 125);
@@ -65,7 +71,8 @@ protected:
         frightened,
     } movement_t;
     movement_t movement = normal;
-    QTimer movementTimer{};
+    QTimer movementTimer{}, stepTick{};
+    int movementTimerCache = -1, stepTickCache = -1;
     int movementCounter = 0;
     movement_t globalMovement = normal;
 
