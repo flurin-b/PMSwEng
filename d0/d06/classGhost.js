@@ -1,7 +1,7 @@
 var classGhost =
 [
     [ "movement_t", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fb", [
-      [ "chase", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fbac565d55754cdf928faa8e7d3ea582002", null ],
+      [ "normal", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fbaa7def9ca2919b8391d99d3c21f384959", null ],
       [ "scatter", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fba59b5274694b70ac8486fb30b5274c9ea", null ],
       [ "frightened", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fba7200316dc151cd47c90bdf9d917bd3fe", null ]
     ] ],
@@ -10,7 +10,7 @@ var classGhost =
       [ "inGhostHouse", "d0/d06/classGhost.html#a73f7df0fd4a1e3de6e2d9654cd975baea75498af1fdccd3320ffe940bfdd7fa9a", null ],
       [ "leavingGhostHouse", "d0/d06/classGhost.html#a73f7df0fd4a1e3de6e2d9654cd975baea874defdc3388b28e5b95b7413eb3164f", null ]
     ] ],
-    [ "Ghost", "d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196", null ],
+    [ "Ghost", "d0/d06/classGhost.html#a9fecc777075bb74cb9fad5b42fda401c", null ],
     [ "~Ghost", "d0/d06/classGhost.html#a063ed19c1b6f5c07b9109020c6198319", null ],
     [ "gameOver", "d0/d06/classGhost.html#a3414af266c4bdcb026dc25c33797f3a7", null ],
     [ "getField", "d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f", null ],
@@ -32,7 +32,7 @@ var classGhost =
     [ "movementCounter", "d0/d06/classGhost.html#a81935a04d991e9829cead29092c27a1e", null ],
     [ "movementTimer", "d0/d06/classGhost.html#a73b7126ba7fa5fcb48e33e2a3fbc0899", null ],
     [ "movementTimerCache", "d0/d06/classGhost.html#a352cfc52a5ae7761f791d056241f6de1", null ],
-    [ "player", "d0/d06/classGhost.html#ab4919b308d77f53f5ca29077633ccb8f", null ],
+    [ "playerRef", "d0/d06/classGhost.html#aa117282411b03dd9b2214ccc6ab63343", null ],
     [ "position", "d0/d06/classGhost.html#acedf20d923bbd63d54f1056c849a17ea", null ],
     [ "resetPosition", "d0/d06/classGhost.html#ad925df9709f49313d2529ae5bd6ecc62", null ],
     [ "sprite", "d0/d06/classGhost.html#a5a0fb4074523dbb9665d2a08b6744af7", null ],
