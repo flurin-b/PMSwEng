@@ -11,6 +11,7 @@ Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     connect(&movementTimer, &QTimer::timeout, this, &Ghost::nextMovementPattern);
     nextMovementPattern();
     movementTimer.stop();
+    spriteFrightend =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth());
 }
 
 /**
@@ -223,13 +224,9 @@ void Ghost::paint()
         }
     }
 
-    bool tunneling = false;
-
-    float fieldWidth_px = maze->getFieldWidth();
-    if(user == 0)
+    if(movement == Ghost::frightened)
     {
-        sprite->setRect(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
-        sprite->setBrush(QBrush(movement == Ghost::frightened ? frightenedColor : color));
+        pixmap->setPixmap(spriteFrightend);
     }
     else
     {
@@ -237,42 +234,34 @@ void Ghost::paint()
         {
             pixmap->setPixmap(direction.x() > 0 ? spriteSideR : spriteSideL);
         }
+
         else
         {
             pixmap->setPixmap(direction.y() < 0 ? spriteUp : spriteDown);
         }
-        pixmap->setOffset(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px);
     }
+
+    float fieldWidth_px = maze->getFieldWidth();
+    pixmap->setOffset(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px);
 
     // Test if the ghost is in the tunnel
     if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
     {
-        if(user == 0)
+        clonePixmap->setVisible(true);
+        if (position.x() == 0)
         {
-            clone->setVisible(true);
-            if (position.x() == 0)
-                clone->setRect((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
-            else
-                clone->setRect((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+            clonePixmap->setPixmap(spriteSideL);
+            clonePixmap->setOffset((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px);
         }
-
         else
         {
-
+            clonePixmap->setPixmap(spriteSideR);
+            clonePixmap->setOffset((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px);
         }
-
     }
     else
     {
-        if(user == 0)
-        {
-            clone->setVisible(false);
-        }
-        else
-        {
-
-        }
-
+        clonePixmap->setVisible(false);
     }
 
     // Check if the ghost ate PacMan or vice versa
@@ -306,11 +295,6 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPo
     subposition = QPointF {position.x()+0.5, float(position.y())};
     direction = QPoint {-1, 0};
     state = Ghost::inMaze;
-    sprite = gs->addEllipse(0, 0, 0, 0);
-    clone  = gs->addEllipse(0, 0, 0, 0);
-    color = QColor::fromRgb(255, 0, 0);
-    sprite->setBrush(QBrush(color));
-    clone->setBrush(QBrush(color));
 
     #ifdef DEBUG_TARGETS
         debugTarget = gs->addRect(0, 0, 0, 0);
@@ -321,11 +305,11 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPo
     QObject::connect(&stepTick, &QTimer::timeout, this, &Blinky::step);
     stepTick.setInterval(Ghost::stepIntervalNormal / 2);
 
-    user = 1;
     spriteSideL = QPixmap(":/Sprite/Blinky/BlinkySideL.PNG").scaledToWidth(maze->getFieldWidth());
     spriteSideR = QPixmap(":/Sprite/Blinky/BlinkySideR.PNG").scaledToWidth(maze->getFieldWidth());
     spriteUp = QPixmap(":/Sprite/Blinky/BlinkyUp.PNG").scaledToWidth(maze->getFieldWidth());
     spriteDown = QPixmap(":/Sprite/Blinky/BlinkyDown.PNG").scaledToWidth(maze->getFieldWidth());
+
     pixmap = gs->addPixmap(spriteSideL);
     clonePixmap = gs->addPixmap(spriteSideL);
     clonePixmap->setVisible(false);
@@ -362,11 +346,6 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     subposition = QPointF {position.x()+0.5, float(position.y())};
     direction = QPoint {0, -1};
     state = Ghost::leavingGhostHouse;
-    sprite = gs->addEllipse(0, 0, 0, 0);
-    clone  = gs->addEllipse(0, 0, 0, 0);
-    color = QColor::fromRgb(255, 184, 255);
-    sprite->setBrush(QBrush(color));
-    clone->setBrush(QBrush(color));
 
     #ifdef DEBUG_TARGETS
         debugTarget = gs->addRect(0, 0, 0, 0);
@@ -377,7 +356,13 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     QObject::connect(&stepTick, &QTimer::timeout, this, &Pinky::step);
     stepTick.setInterval(0);
 
-    user = 0;
+    spriteSideL = QPixmap(":/Sprite/Pinky/PinkySideL.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideR = QPixmap(":/Sprite/Pinky/PinkySideR.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteUp = QPixmap(":/Sprite/Pinky/PinkyUp.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteDown = QPixmap(":/Sprite/Pinky/PinkyDown.PNG").scaledToWidth(maze->getFieldWidth());
+    pixmap = gs->addPixmap(spriteSideL);
+    clonePixmap = gs->addPixmap(spriteSideL);
+    clonePixmap->setVisible(false);
 }
 
 /**
@@ -414,11 +399,6 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointe
     direction = QPoint {0, 0};
     state = Ghost::inGhostHouse;
     dotLimitGhostHouse = 30;
-    sprite = gs->addEllipse(0, 0, 0, 0);
-    clone  = gs->addEllipse(0, 0, 0, 0);
-    color = QColor::fromRgb(0, 255, 255);
-    sprite->setBrush(QBrush(color));
-    clone->setBrush(QBrush(color));
 
     #ifdef DEBUG_TARGETS
         debugTarget = gs->addRect(0, 0, 0, 0);
@@ -429,7 +409,13 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointe
     QObject::connect(&stepTick, &QTimer::timeout, this, &Inky::step);
     stepTick.setInterval(10);
 
-    user = 0;
+    spriteSideL = QPixmap(":/Sprite/Inky/InkySideL.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideR = QPixmap(":/Sprite/Inky/InkySideR.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteUp = QPixmap(":/Sprite/Inky/InkyUp.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteDown = QPixmap(":/Sprite/Inky/InkyDown.PNG").scaledToWidth(maze->getFieldWidth());
+    pixmap = gs->addPixmap(spriteSideR);
+    clonePixmap = gs->addPixmap(spriteSideL);
+    clonePixmap->setVisible(false);
 }
 
 /**
@@ -465,11 +451,6 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     direction = QPoint {-1, 0};
     state = Ghost::inGhostHouse;
     dotLimitGhostHouse = 60;
-    sprite = gs->addEllipse(0, 0, 0, 0);
-    clone  = gs->addEllipse(0, 0, 0, 0);
-    color = QColor::fromRgb(255, 184, 82);
-    sprite->setBrush(QBrush(color));
-    clone->setBrush(QBrush(color));
 
     #ifdef DEBUG_TARGETS
         debugTarget = gs->addRect(0, 0, 0, 0);
@@ -480,7 +461,13 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     QObject::connect(&stepTick, &QTimer::timeout, this, &Clyde::step);
     stepTick.setInterval(10);
 
-    user = 0;
+    spriteSideL = QPixmap(":/Sprite/Clyde/ClydeSideL.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideR = QPixmap(":/Sprite/Clyde/ClydeSideR.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteUp = QPixmap(":/Sprite/Clyde/ClydeUp.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteDown = QPixmap(":/Sprite/Clyde/ClydeDown.PNG").scaledToWidth(maze->getFieldWidth());
+    pixmap = gs->addPixmap(spriteSideL);
+    clonePixmap = gs->addPixmap(spriteSideL);
+    clonePixmap->setVisible(false);
 }
 
 /**

@@ -1,18 +1,23 @@
 <RCC>
     <qresource prefix="/">
-        <file>Sprite/Maze/maze.png</file>
         <file>Sprite/Blinky/BlinkyDown.PNG</file>
+        <file>Sprite/Blinky/BlinkySideL.PNG</file>
         <file>Sprite/Blinky/BlinkySideR.PNG</file>
         <file>Sprite/Blinky/BlinkyUp.PNG</file>
         <file>Sprite/Clyde/ClydeDown.PNG</file>
+        <file>Sprite/Clyde/ClydeSideL.PNG</file>
         <file>Sprite/Clyde/ClydeSideR.PNG</file>
         <file>Sprite/Clyde/ClydeUp.PNG</file>
         <file>Sprite/Inky/InkyDown.PNG</file>
+        <file>Sprite/Inky/InkySideL.PNG</file>
         <file>Sprite/Inky/InkySideR.PNG</file>
         <file>Sprite/Inky/InkyUp.PNG</file>
+        <file>Sprite/Maze/maze.png</file>
         <file>Sprite/Pinky/PinkyDown.PNG</file>
+        <file>Sprite/Pinky/PinkySideL.PNG</file>
         <file>Sprite/Pinky/PinkySideR.PNG</file>
         <file>Sprite/Pinky/PinkyUp.PNG</file>
-        <file>Sprite/Blinky/BlinkySideL.PNG</file>
+        <file>Sprite/Ghost/GhostFrightend.PNG</file>
+        <file>Sprite/Ghost/GhostFrightendEnding.PNG</file>
     </qresource>
 </RCC>

@@ -28,7 +28,7 @@ public:
     float getFieldWidth(void);
     std::vector<QPoint> getMaze(QPoint position);
     void increaseScore(int offset);
-    static const int baseStepInterval = 500;
+    static const int baseStepInterval = 100;
 
     const static int width = 28;
     const static int height = 36;
