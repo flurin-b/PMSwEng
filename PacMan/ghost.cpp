@@ -255,21 +255,53 @@ void Ghost::paint()
     bool tunneling = false;
 
     float fieldWidth_px = maze->getFieldWidth();
-    sprite->setRect(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
-    sprite->setBrush(QBrush(movement == Ghost::frightened ? frightenedColor : color));
+    if(user == 0)
+    {
+        sprite->setRect(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+        sprite->setBrush(QBrush(movement == Ghost::frightened ? frightenedColor : color));
+    }
+    else
+    {
+        if(direction.x() != 0)
+        {
+            pixmap->setPixmap(direction.x() > 0 ? spriteSideR : spriteSideL);
+        }
+        else
+        {
+            pixmap->setPixmap(direction.y() < 0 ? spriteUp : spriteDown);
+        }
+        pixmap->setOffset(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px);
+    }
 
     // Test if the ghost is in the tunnel
     if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
     {
-        clone->setVisible(true);
-        if (position.x() == 0)
-            clone->setRect((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+        if(user == 0)
+        {
+            clone->setVisible(true);
+            if (position.x() == 0)
+                clone->setRect((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+            else
+                clone->setRect((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+        }
+
         else
-            clone->setRect((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+        {
+
+        }
+
     }
     else
     {
-        clone->setVisible(false);
+        if(user == 0)
+        {
+            clone->setVisible(false);
+        }
+        else
+        {
+
+        }
+
     }
 
     // Check if the ghost ate PacMan or vice versa
@@ -312,6 +344,15 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPo
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Blinky::step);
     stepTick.setInterval(Ghost::stepIntervalNormal / 2);
+
+    user = 1;
+    spriteSideL = QPixmap(":/Sprite/Blinky/BlinkySideL.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideR = QPixmap(":/Sprite/Blinky/BlinkySideR.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteUp = QPixmap(":/Sprite/Blinky/BlinkyUp.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteDown = QPixmap(":/Sprite/Blinky/BlinkyDown.PNG").scaledToWidth(maze->getFieldWidth());
+    pixmap = gs->addPixmap(spriteSideL);
+    clonePixmap = gs->addPixmap(spriteSideL);
+    clonePixmap->setVisible(false);
 }
 
 /**
@@ -354,6 +395,8 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Pinky::step);
     stepTick.setInterval(0);
+
+    user = 0;
 }
 
 /**
@@ -399,6 +442,8 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointe
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Inky::step);
     stepTick.setInterval(10);
+
+    user = 0;
 }
 
 /**
@@ -443,6 +488,8 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Clyde::step);
     stepTick.setInterval(10);
+
+    user = 0;
 }
 
 /**

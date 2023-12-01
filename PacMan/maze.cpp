@@ -20,8 +20,8 @@ void Maze::paint(){
 
     if(!mazeDisplayed){
         gs->setBackgroundBrush(Qt::black);
-        QGraphicsPixmapItem* labyrinth =  gs->addPixmap(QPixmap(":/Sprite/Maze/maze.png").scaledToWidth(gs->width()));
-        labyrinth->setOffset(0,60);
+        QGraphicsPixmapItem* labyrinth =  gs->addPixmap(QPixmap(":/Sprite/Maze/maze.png").scaledToWidth(gs->width()-2));
+        labyrinth->setOffset(0,fieldSize_px * 3);
 
         for (int x = 0; x < width; x++)
         {

@@ -73,6 +73,13 @@ protected:
     int getStepInterval(void);
 
     void step (QPoint target);
+
+    QPixmap spriteSideL;
+    QPixmap spriteSideR;
+    QPixmap spriteUp;
+    QPixmap spriteDown;
+    QGraphicsPixmapItem *pixmap,*clonePixmap;
+    int user;
 };
 
 class PACMANLIB_EXPORT Blinky : public Ghost
