@@ -242,7 +242,7 @@ void Ghost::paint()
     }
 
     float fieldWidth_px = maze->getFieldWidth();
-    pixmap->setOffset(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px);
+    pixmap->setPos(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px);
 
     // Test if the ghost is in the tunnel
     if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))

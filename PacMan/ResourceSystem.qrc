@@ -19,5 +19,7 @@
         <file>Sprite/Pinky/PinkyUp.PNG</file>
         <file>Sprite/Ghost/GhostFrightend.PNG</file>
         <file>Sprite/Ghost/GhostFrightendEnding.PNG</file>
+        <file>Sprite/Player/PlayerOpen.png</file>
+        <file>Sprite/Player/PlayerShut.png</file>
     </qresource>
 </RCC>
