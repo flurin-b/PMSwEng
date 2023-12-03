@@ -4,9 +4,9 @@
  * @brief Ghost::Ghost Abstrakte Klasse die das Grund gerüst für Blinky/Pinky/Inky/Clyde ist
  * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
  * @param mazePointer A Pointer to the maze where to ghosts operade in
- * @param playerRefPointer A Pointer to the player so that they can chase him
+ * @param playerPointer A Pointer to the player so that they can chase him
  */
-Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):gs(gsPointer),maze(mazePointer),playerRef(playerRefPointer)
+Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):gs(gsPointer),maze(mazePointer),player(playerPointer)
 {
     connect(&movementTimer, &QTimer::timeout, this, &Ghost::nextMovementPattern);
     nextMovementPattern();
@@ -48,7 +48,8 @@ void Ghost::setFrightened(bool frightened)
     if (frightened && movement != Ghost::frightened)
     {
         position -= direction;
-        direction = -direction;
+        if (state == Ghost::inMaze)
+            direction = -direction;
         stepTick.setInterval(Ghost::stepIntervalFrightened * stepTick.remainingTime()/getStepInterval());
         movement = Ghost::frightened;
     }
@@ -94,15 +95,15 @@ QPoint Ghost::getField (void)
 void Ghost::nextMovementPattern()
 {
     const static int patternTimes[8] = {7000, 20000, 7000, 20000, 5000, 20000, 5000, 20000};
-
-    if (globalMovement == normal)
+    
+    if (globalMovement == chase)
     {
         globalMovement = scatter;
         movementTimer.setInterval(patternTimes[movementCounter++]);
     }
     else
     {
-        globalMovement = normal;
+        globalMovement = chase;
         movementTimer.setInterval(patternTimes[movementCounter++]);
     }
     if (movementCounter >= 8)
@@ -117,7 +118,7 @@ void Ghost::step(QPoint target) {
     {
     case Ghost::inMaze:
     {
-        // get all possible direction
+        // get all possible directions
         std::vector<QPoint> possibleDirs = maze->getMaze(position);
         int i = 0;
         // delete opposite of current direction as no 180 degree turns can be made
@@ -161,17 +162,17 @@ void Ghost::step(QPoint target) {
     }
     case Ghost::inGhostHouse:
     {
+        stepTick.setInterval(10);
         if(maze->getDotsEaten() >= dotLimitGhostHouse)
             state = leavingGhostHouse;
-        break;
     }
     case Ghost::leavingGhostHouse:
     {
-        if (position.x() <= 12)
+        if (position.x() < resetPosition.x())
         {
             direction = QPoint(1, 0);
         }
-        else if (position.x() >= 14)
+        else if (position.x() > resetPosition.x())
         {
             direction = QPoint(-1, 0);
         }
@@ -246,17 +247,17 @@ void Ghost::paint()
     // Check if the ghost ate PacMan or vice versa
     if (movement == Ghost::frightened)
     {
-        if (playerRef->getField() == subposition.toPoint()) {
+        if (player->getField() == subposition.toPoint()) {
             position = resetPosition;
             state = Ghost::leavingGhostHouse;
-            movement = Ghost::normal;
+            movement = Ghost::chase;
             stepTick.setInterval(getStepInterval() * stepTick.remainingTime()/Ghost::stepIntervalFrightened);
             // TODO: give points for eating a ghost
         }
     }
     else
     {
-        if (playerRef->getField() == subposition.toPoint()) {
+        if (player->getField() == subposition.toPoint()) {
             emit gameOver(false);
         }
     }
@@ -266,14 +267,12 @@ void Ghost::paint()
  * @brief Blinky::Blinky Creates a Ghost with a chase pattern of Blinky
  * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
  * @param mazePointer A Pointer to the maze where to ghosts operade in
- * @param playerRefPointer A Pointer to the player so that they can chase him
+ * @param playerPointer A Pointer to the player so that they can chase him
  */
-Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
+Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):Ghost(gsPointer,mazePointer,playerPointer)
 {
     position = QPoint {13, 14};
     subposition = QPointF {position.x()+0.5, float(position.y())};
-    direction = QPoint {-1, 0};
-    state = Ghost::inMaze;
     sprite = gs->addEllipse(0, 0, 0, 0);
     clone  = gs->addEllipse(0, 0, 0, 0);
     color = QColor::fromRgb(255, 0, 0);
@@ -287,7 +286,7 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPo
 
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Blinky::step);
-    stepTick.setInterval(Ghost::stepIntervalNormal / 2);
+    stepTick.setInterval(0);
 }
 
 /**
@@ -295,12 +294,12 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPo
  */
 void Blinky::step(void)
 {
-    if(movement == normal || movement == scatter)
+    if(movement == chase || movement == scatter)
         movement = globalMovement;
     switch (movement)
     {
-    case normal:
-        Ghost::step(playerRef->getField());
+    case chase:
+        Ghost::step(player->getField());
         break;
     case scatter:
     case frightened:
@@ -313,14 +312,12 @@ void Blinky::step(void)
  * @brief Pinky::Pinky Creates a Ghost with a chase pattern of Pinky
  * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
  * @param mazePointer A Pointer to the maze where to ghosts operade in
- * @param playerRefPointer A Pointer to the player so that they can chase him
+ * @param playerPointer A Pointer to the player so that they can chase him
  */
-Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
+Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):Ghost(gsPointer,mazePointer,playerPointer)
 {
-    position = QPoint {13, 16};
+    position = resetPosition;
     subposition = QPointF {position.x()+0.5, float(position.y())};
-    direction = QPoint {0, -1};
-    state = Ghost::leavingGhostHouse;
     sprite = gs->addEllipse(0, 0, 0, 0);
     clone  = gs->addEllipse(0, 0, 0, 0);
     color = QColor::fromRgb(255, 184, 255);
@@ -342,13 +339,13 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
  */
 void Pinky::step(void)
 {
-    if(movement == normal || movement == scatter)
+    if(movement == chase || movement == scatter)
         movement = globalMovement;
 
     switch (movement)
     {
-    case normal:
-        Ghost::step(playerRef->getField() + playerRef->getDirection() * 4);
+    case chase:
+        Ghost::step(player->getField() + player->getDirection() * 4);
         break;
     case scatter:
     case frightened:
@@ -361,15 +358,13 @@ void Pinky::step(void)
  * @brief Inky::Inky Creates a Ghost with a chase pattern of Inky
  * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
  * @param mazePointer A Pointer to the maze where to ghosts operade in
- * @param playerRefPointer A Pointer to the player so that they can chase him
+ * @param playerPointer A Pointer to the player so that they can chase him
  */
-Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer, Ghost *blinkyRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
+Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer, Ghost *blinkyPointer):Ghost(gsPointer,mazePointer,playerPointer)
 {
-    blinkyRef = blinkyRefPointer;
-    position = QPoint {11, 16};
+    blinky = blinkyPointer;
+    position = resetPosition + QPoint {-2, 0};
     subposition = QPointF {position.x()+0.5, float(position.y())};
-    direction = QPoint {0, 0};
-    state = Ghost::inGhostHouse;
     dotLimitGhostHouse = 30;
     sprite = gs->addEllipse(0, 0, 0, 0);
     clone  = gs->addEllipse(0, 0, 0, 0);
@@ -384,7 +379,7 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointe
 
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Inky::step);
-    stepTick.setInterval(10);
+    stepTick.setInterval(0);
 }
 
 /**
@@ -392,13 +387,13 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointe
  */
 void Inky::step(void)
 {
-    if(movement == normal || movement == scatter)
+    if(movement == chase || movement == scatter)
         movement = globalMovement;
 
     switch (movement)
     {
-    case normal:
-        Ghost::step(playerRef->getField() + playerRef->getField()-blinkyRef->getField());
+    case chase:
+        Ghost::step(player->getField() + player->getField()-blinky->getField());
         break;
     case scatter:
     case frightened:
@@ -411,14 +406,12 @@ void Inky::step(void)
  * @brief Clyde::Clyde Creates a Ghost with a chase pattern of Clyde
  * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
  * @param mazePointer A Pointer to the maze where to ghosts operade in
- * @param playerRefPointer A Pointer to the player so that they can chase him
+ * @param playerPointer A Pointer to the player so that they can chase him
  */
-Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointer):Ghost(gsPointer,mazePointer,playerRefPointer)
+Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):Ghost(gsPointer,mazePointer,playerPointer)
 {
-    position = QPoint {15, 16};
-    subposition = QPointF {position.x()+0.5, float(position.y())};
-    direction = QPoint {-1, 0};
-    state = Ghost::inGhostHouse;
+    position = resetPosition + QPoint {2, 0};
+    subposition = QPointF {position.x()+0.5, (float)position.y()};
     dotLimitGhostHouse = 60;
     sprite = gs->addEllipse(0, 0, 0, 0);
     clone  = gs->addEllipse(0, 0, 0, 0);
@@ -433,7 +426,7 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
 
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Clyde::step);
-    stepTick.setInterval(10);
+    stepTick.setInterval(0);
 }
 
 /**
@@ -441,19 +434,19 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
  */
 void Clyde::step(void)
 {
-    if(movement == normal || movement == scatter)
+    if(movement == chase || movement == scatter)
         movement = globalMovement;
 
     switch (movement)
     {
-    case normal:
-        if(getDistance(getField(), playerRef->getField()) < 8)
+    case chase:
+        if(getDistance(getField(), player->getField()) < 8)
         {
             Ghost::step(scatterTarget);
         }
         else
         {
-            Ghost::step(playerRef->getField());
+            Ghost::step(player->getField());
         }
         break;
     case scatter:
