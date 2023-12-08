@@ -162,11 +162,11 @@ void Ghost::step(QPoint target) {
         break;
     }
     case Ghost::inGhostHouse:
-    {
         stepTick.setInterval(10);
-        if(maze->getDotsEaten() >= dotLimitGhostHouse)
-            state = leavingGhostHouse;
-    }
+        if(maze->getDotsEaten() < dotLimitGhostHouse)
+            return;
+        else
+            state = Ghost::leavingGhostHouse;
     case Ghost::leavingGhostHouse:
     {
         if (position.x() < resetPosition.x())
