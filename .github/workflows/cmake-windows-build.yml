@@ -42,23 +42,24 @@ jobs:
           version:      ${{ env.QT_VERSION }}
           host:         windows
           target:       desktop
-          arch:         win64_msvc2019_64
+          arch:         win64_mingw
           dir:          ${{ runner.temp }}
           setup-python: false
+
+      - name: install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+        
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.14
+        with:
+          cmake-version: '3.16.x'
       
       - name: Create build directory
         run:  mkdir ${{ runner.temp }}\build
 
-      - name: Set up Visual Studio shell
-        uses: egor-tensin/vs-shell@v2
-        with:
-          arch: x64
-
       - name: Build and deploy
-        working-directory: ${{ runner.temp }}\build
         run:  |
-          cd ${{github.workspace}}/PacMan/
-          cmake -S . -B ${{ runner.temp }}\build -G Ninja
+          cmake -S ${{ github.workspace }}\PacMan -B ${{ runner.temp }}\build -G Ninja
           cmake --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}}
           windeployqt ${{ runner.temp }}\build
           
