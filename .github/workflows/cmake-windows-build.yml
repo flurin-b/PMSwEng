@@ -58,11 +58,10 @@ jobs:
         run:  mkdir ${{ runner.temp }}\build
 
       - name: Build and deploy
-        working-directory: ${{ runner.temp }}\build
         run:  |
-          cmake -S ..\ -B .\ -G Ninja
-          cmake --build .\ --config ${{env.BUILD_TYPE}}
-          windeployqt .\
+          cmake -S ${{ github.workspace }} -B ${{ runner.temp }}\build -G Ninja
+          cmake --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}}
+          windeployqt ${{ runner.temp }}\build
           
       - name: Test
         working-directory: ${{ runner.temp }}\build
