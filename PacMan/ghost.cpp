@@ -11,7 +11,11 @@ Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     connect(&movementTimer, &QTimer::timeout, this, &Ghost::nextMovementPattern);
     nextMovementPattern();
     movementTimer.stop();
-    spriteFrightend =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteFrightendBlue =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteFrightendWhite = QPixmap(":/Sprite/Ghost/GhostFrightendEnding.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+
+    frightnedSpriteTimer.setTimerType(Qt::PreciseTimer);
+    QObject::connect(&frightnedSpriteTimer, &QTimer::timeout, this, &Ghost::toggleFrightenedSprite);
 }
 
 /**
@@ -46,18 +50,45 @@ void Ghost::setPaused(bool paused)
 
 void Ghost::setFrightened(bool frightened)
 {
-    if (frightened && movement != Ghost::frightened)
+    if(frightened)
     {
-        position -= direction;
-        if (state == Ghost::inMaze)
-            direction = -direction;
-        stepTick.setInterval(Ghost::stepIntervalFrightened * stepTick.remainingTime()/getStepInterval());
-        movement = Ghost::frightened;
+        pixmap->setPixmap(spriteFrightendBlue);
+        spriteStatus = frightendBlue;
+        frightnedSpriteTimer.setInterval(Player::energizerDuration * 0.7);
+        frightnedSpriteTimer.start();
+
+        if (movement != Ghost::frightened)
+        {
+            position -= direction;
+            if (state == Ghost::inMaze)
+                direction = -direction;
+            stepTick.setInterval(Ghost::stepIntervalFrightened * stepTick.remainingTime()/getStepInterval());
+            movement = Ghost::frightened;
+        }
     }
     else if (!frightened && movement == Ghost::frightened)
     {
         movement = globalMovement;
         stepTick.setInterval(getStepInterval() * stepTick.remainingTime()/Ghost::stepIntervalFrightened);
+
+        frightnedSpriteTimer.stop();
+    }
+}
+
+void Ghost::toggleFrightenedSprite()
+{
+    if(spriteStatus == frightendBlue)
+    {
+        frightnedSpriteTimer.setInterval(200);
+        pixmap->setPixmap(spriteFrightendWhite);
+        clonePixmap->setPixmap(spriteFrightendWhite);
+        spriteStatus = frightendWhite;
+    }
+    else if(spriteStatus == frightendWhite)
+    {
+        pixmap->setPixmap(spriteFrightendBlue);
+        clonePixmap->setPixmap(spriteFrightendBlue);
+        spriteStatus = frightendBlue;
     }
 }
 
@@ -225,11 +256,7 @@ void Ghost::paint()
         }
     }
 
-    if(movement == Ghost::frightened)
-    {
-        pixmap->setPixmap(spriteFrightend);
-    }
-    else
+    if(movement != Ghost::frightened)
     {
         if(direction.x() != 0)
         {
@@ -242,8 +269,11 @@ void Ghost::paint()
         }
     }
 
+    //Calculate the top left position if the sprite would be as wide as the field and subtract half of the wide pixels that are to wide becuse of the scaling
     float fieldWidth_px = maze->getFieldWidth();
-    pixmap->setPos(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px);
+    float xPosition = subposition.x() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+    float yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+    pixmap->setPos(xPosition, yPosition);
 
     // Test if the ghost is in the tunnel
     if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
@@ -251,13 +281,17 @@ void Ghost::paint()
         clonePixmap->setVisible(true);
         if (position.x() == 0)
         {
+            xPosition = (subposition.x() + maze->width) * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+            yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
             clonePixmap->setPixmap(spriteSideL);
-            clonePixmap->setOffset((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px);
+            clonePixmap->setPos(xPosition,yPosition);
         }
         else
         {
+            xPosition = (subposition.x() - maze->width) * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+            yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
             clonePixmap->setPixmap(spriteSideR);
-            clonePixmap->setOffset((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px);
+            clonePixmap->setPos(xPosition,yPosition);
         }
     }
     else
@@ -309,10 +343,10 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPoint
 
     stepTick.setInterval(Ghost::stepIntervalNormal / 2);
 
-    spriteSideL = QPixmap(":/Sprite/Blinky/BlinkySideL.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteSideR = QPixmap(":/Sprite/Blinky/BlinkySideR.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteUp = QPixmap(":/Sprite/Blinky/BlinkyUp.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteDown = QPixmap(":/Sprite/Blinky/BlinkyDown.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideL = QPixmap(":/Sprite/Blinky/BlinkySideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteSideR = QPixmap(":/Sprite/Blinky/BlinkySideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteUp = QPixmap(":/Sprite/Blinky/BlinkyUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteDown = QPixmap(":/Sprite/Blinky/BlinkyDown.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
 
     pixmap = gs->addPixmap(spriteSideL);
     clonePixmap = gs->addPixmap(spriteSideL);
@@ -362,10 +396,10 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     QObject::connect(&stepTick, &QTimer::timeout, this, &Pinky::step);
     stepTick.setInterval(0);
 
-    spriteSideL = QPixmap(":/Sprite/Pinky/PinkySideL.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteSideR = QPixmap(":/Sprite/Pinky/PinkySideR.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteUp = QPixmap(":/Sprite/Pinky/PinkyUp.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteDown = QPixmap(":/Sprite/Pinky/PinkyDown.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideL = QPixmap(":/Sprite/Pinky/PinkySideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteSideR = QPixmap(":/Sprite/Pinky/PinkySideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteUp = QPixmap(":/Sprite/Pinky/PinkyUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteDown = QPixmap(":/Sprite/Pinky/PinkyDown.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     pixmap = gs->addPixmap(spriteSideL);
     clonePixmap = gs->addPixmap(spriteSideL);
     clonePixmap->setVisible(false);
@@ -415,10 +449,10 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer, 
 
     stepTick.setInterval(10);
 
-    spriteSideL = QPixmap(":/Sprite/Inky/InkySideL.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteSideR = QPixmap(":/Sprite/Inky/InkySideR.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteUp = QPixmap(":/Sprite/Inky/InkyUp.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteDown = QPixmap(":/Sprite/Inky/InkyDown.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideL = QPixmap(":/Sprite/Inky/InkySideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteSideR = QPixmap(":/Sprite/Inky/InkySideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteUp = QPixmap(":/Sprite/Inky/InkyUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteDown = QPixmap(":/Sprite/Inky/InkyDown.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     pixmap = gs->addPixmap(spriteSideR);
     clonePixmap = gs->addPixmap(spriteSideL);
     clonePixmap->setVisible(false);
@@ -467,10 +501,10 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
 
     stepTick.setInterval(10);
 
-    spriteSideL = QPixmap(":/Sprite/Clyde/ClydeSideL.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteSideR = QPixmap(":/Sprite/Clyde/ClydeSideR.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteUp = QPixmap(":/Sprite/Clyde/ClydeUp.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteDown = QPixmap(":/Sprite/Clyde/ClydeDown.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideL = QPixmap(":/Sprite/Clyde/ClydeSideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteSideR = QPixmap(":/Sprite/Clyde/ClydeSideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteUp = QPixmap(":/Sprite/Clyde/ClydeUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteDown = QPixmap(":/Sprite/Clyde/ClydeDown.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     pixmap = gs->addPixmap(spriteSideL);
     clonePixmap = gs->addPixmap(spriteSideL);
     clonePixmap->setVisible(false);

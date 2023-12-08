@@ -22,26 +22,25 @@ Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{
 
     spriteTimer.setTimerType(Qt::PreciseTimer);
     QObject::connect(&spriteTimer, &QTimer::timeout, this, &Player::swapSprite);
-    spriteTimer.setInterval(150);
+    spriteTimer.setInterval(100);
 
     float fieldWidth_px = maze->getFieldWidth();
-    spriteShut = QPixmap(":/Sprite/Player/PlayerShut.png").scaledToWidth(fieldWidth_px);
-    spriteOpen = QPixmap(":/Sprite/Player/PlayerOpen.png").scaledToWidth(fieldWidth_px);
+    spriteShut = QPixmap(":/Sprite/Player/PlayerShut.png").scaledToWidth(fieldWidth_px * scaleFactor);
+    spriteOpen = QPixmap(":/Sprite/Player/PlayerOpen.png").scaledToWidth(fieldWidth_px * scaleFactor);
     pixmap = gs->addPixmap(spriteOpen);
-    pixmap->setTransformOriginPoint((QPoint(fieldWidth_px/2,fieldWidth_px/2)));
+    pixmap->setTransformOriginPoint((QPoint((fieldWidth_px * scaleFactor)/2,(fieldWidth_px * scaleFactor)/2)));
     clone = gs->addPixmap(spriteOpen);
-    clone->setTransformOriginPoint((QPoint(fieldWidth_px/2,fieldWidth_px/2)));
+    clone->setTransformOriginPoint((QPoint((fieldWidth_px * scaleFactor)/2,(fieldWidth_px * scaleFactor)/2)));
     spriteStatus = spriteIsOpen;
 }
 
 void Player::setPaused(bool paused)
 {
-    static int stepTickCache = -1, energizerTimeoutCache = -1;//,spriteTimerChache = -1;
+    static int stepTickCache = -1, energizerTimeoutCache = -1;
     if(paused)
     {
         stepTickCache = stepTick.remainingTime();
         energizerTimeoutCache = energizerTimeout->remainingTime();
-        //spriteTimerChache = spriteTimer.remainingTime();
         stepTick.stop();
         energizerTimeout->stop();
         spriteTimer.stop();
@@ -57,10 +56,6 @@ void Player::setPaused(bool paused)
             energizerTimeout->start(energizerTimeoutCache);
         else
             energizerTimeout->start();
-
-        /*if(spriteTimerChache != -1)
-            spriteTimer.start();
-        else*/
             spriteTimer.start();
     }
 }
@@ -104,8 +99,7 @@ void Player::paint(void)
         ate = false;
     }
 
-    float fieldWidth_px = maze->getFieldWidth();
-    pixmap->setPos(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px);
+
     if(direction.x() != 0)
     {
         pixmap->setRotation(direction.x() > 0 ? 0 : 180);
@@ -115,19 +109,29 @@ void Player::paint(void)
         pixmap->setRotation(direction.y() > 0 ? 90 : -90);
     }
 
+    //Calculate the top left position if the sprite would be as wide as the field and subtract half of the wide pixels that are to wide becuse of the scaling
+    float fieldWidth_px = maze->getFieldWidth();
+    float xPosition = subposition.x() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+    float yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+    pixmap->setPos(xPosition, yPosition);
+
     // Test if the player is in the tunnel
     if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
     {
         clone->setVisible(true);
         if (position.x() == 0)
         {
+            xPosition = (subposition.x() + maze->width) * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+            yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
             clone->setRotation(0);
-            clone->setPos((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px);
+            clone->setPos(xPosition,yPosition);
         }
         else
         {
+            xPosition = (subposition.x() - maze->width) * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+            yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
             clone->setRotation(180);
-            clone->setPos((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px);
+            clone->setPos(xPosition,yPosition);
         }
     }
     else
@@ -161,7 +165,7 @@ void Player::step(void)
                 break;
             }
     // If that is not possible either, stop.
-    // If stoped deactive the swaping of the sprites, otherwise check if the timer is already running
+    // If stoped deactivate the swaping of the sprites, otherwise check if the timer is already running
     if(direction.manhattanLength() == 0)
     {
         spriteTimer.stop();

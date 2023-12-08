@@ -23,14 +23,15 @@ public:
     ~Ghost();
 
     void setPaused(bool paused);
-    void setFrightened(bool frightened);
     QPoint getField(void);
 
 public slots:
-    void paint();
+    void paint(); 
+    void setFrightened(bool frightened);
 
 protected slots:
     void nextMovementPattern();
+    void toggleFrightenedSprite();
 
 signals:
     void gameOver(bool won);
@@ -69,7 +70,7 @@ protected:
         frightened,
     } movement_t;
     movement_t movement = chase;
-    QTimer movementTimer{}, stepTick{};
+    QTimer movementTimer{}, stepTick{},frightnedSpriteTimer;
     int movementTimerCache = -1, stepTickCache = -1;
     int movementCounter = 0;
     movement_t globalMovement = chase;
@@ -79,11 +80,19 @@ protected:
 
     void step (QPoint target);
 
+    typedef enum{
+        frightendBlue,
+        frightendWhite
+    }spriteStatus_t;
+
+    const float scaleFactor = 1.3;
+    spriteStatus_t spriteStatus = frightendBlue;
     QPixmap spriteSideL;
     QPixmap spriteSideR;
     QPixmap spriteUp;
     QPixmap spriteDown;
-    QPixmap spriteFrightend;
+    QPixmap spriteFrightendBlue;
+    QPixmap spriteFrightendWhite;
     QGraphicsPixmapItem *pixmap,*clonePixmap;
 };
 
