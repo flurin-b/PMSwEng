@@ -45,6 +45,14 @@ jobs:
           arch:         win64_msvc2019_64
           dir:          ${{ runner.temp }}
           setup-python: false
+
+      - name: install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+        
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.14
+        with:
+          cmake-version: '3.16.x'
       
       - name: Create build directory
         run:  mkdir ${{ runner.temp }}\build
