@@ -1,4 +1,6 @@
 #include "maze.h"
+#include "qgraphicsitem.h"
+#include <QResource>
 
 /**
  * @brief Maze::Maze Creates a Instace of Maze which contains all the eatables and the paths that can be taken from a certain position
@@ -8,6 +10,7 @@ Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, g
 {}
 
 void Maze::paint(){
+
     const float arrow_len = 0.45;
     const float arrow_hat = 0.15;
     const float dot_size = 0.15;
@@ -16,27 +19,31 @@ void Maze::paint(){
     static QGraphicsEllipseItem* dots[width][height];
 
     if(!mazeDisplayed){
+        gs->setBackgroundBrush(Qt::black);
+        QGraphicsPixmapItem* labyrinth =  gs->addPixmap(QPixmap(":/Sprite/Maze/maze.png").scaledToWidth(gs->width()-2));
+        labyrinth->setPos(0,fieldSize_px * 3);
+
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                std::vector<QPoint> dirs = getMaze(QPoint(x, y));
+                /*std::vector<QPoint> dirs = getMaze(QPoint(x, y));
                 for (QPoint dir : dirs)
                 {
-                    gs->addLine((x+0.5)*fieldSize_px, (y+0.5)*fieldSize_px, (x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px);
-                    gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5+dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5+dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px);
-                    gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5-dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5-dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px);
-                }
+                    gs->addLine((x+0.5)*fieldSize_px, (y+0.5)*fieldSize_px, (x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px,QPen(Qt::white));
+                    gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5+dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5+dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px,QPen(Qt::white));
+                    gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5-dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5-dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px,QPen(Qt::white));
+                }*/
                 switch (getDots(QPoint(x, y)))
                 {
                 case noItem:
                     dots[x][y] = nullptr;
                     break;
                 case smallPoint:
-                    dots[x][y] = gs->addEllipse((x+0.5-dot_size/2) * fieldSize_px, (y+0.5-dot_size/2) * fieldSize_px, dot_size * fieldSize_px, dot_size * fieldSize_px);
+                    dots[x][y] = gs->addEllipse((x+0.5-dot_size/2) * fieldSize_px, (y+0.5-dot_size/2) * fieldSize_px, dot_size * fieldSize_px, dot_size * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
                     break;
                 case bigPoint:
-                    dots[x][y] = gs->addEllipse((x+0.5-dot_size) * fieldSize_px, (y+0.5-dot_size) * fieldSize_px, dot_size * 2 * fieldSize_px, dot_size * 2 * fieldSize_px);
+                    dots[x][y] = gs->addEllipse((x+0.5-dot_size) * fieldSize_px, (y+0.5-dot_size) * fieldSize_px, dot_size * 3 * fieldSize_px, dot_size * 3 * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
                     break;
                 }
             }
@@ -56,6 +63,8 @@ void Maze::paint(){
             }
         }
     }
+
+
 }
 
 /**

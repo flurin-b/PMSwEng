@@ -37,7 +37,6 @@ signals:
 
 protected:
     QGraphicsScene *gs;
-    QGraphicsEllipseItem *sprite, *clone;
     Maze    *maze;
     Player  *player;
     QPoint  position;
@@ -46,11 +45,10 @@ protected:
 
     #ifdef DEBUG_TARGETS
         QGraphicsRectItem *debugTarget;
+        QColor color;
     #endif
 
     const QPoint resetPosition{13, 17};
-    const QColor frightenedColor = QColor::fromRgb(0, 0, 125);
-    QColor color;
 
     int dotLimitGhostHouse = 0;
 
@@ -80,6 +78,13 @@ protected:
     int getStepInterval(void);
 
     void step (QPoint target);
+
+    QPixmap spriteSideL;
+    QPixmap spriteSideR;
+    QPixmap spriteUp;
+    QPixmap spriteDown;
+    QPixmap spriteFrightend;
+    QGraphicsPixmapItem *pixmap,*clonePixmap;
 };
 
 class PACMANLIB_EXPORT Blinky : public Ghost

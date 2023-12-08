@@ -1,5 +1,5 @@
 #include "player.h"
-#include "maze.h"
+#include "Maze.h"
 #include <QKeyEvent>
 
 /**
@@ -19,17 +19,32 @@ Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Player::step);
     stepTick.setInterval(stepIntervalNoCoin/2);
+
+    spriteTimer.setTimerType(Qt::PreciseTimer);
+    QObject::connect(&spriteTimer, &QTimer::timeout, this, &Player::swapSprite);
+    spriteTimer.setInterval(150);
+
+    float fieldWidth_px = maze->getFieldWidth();
+    spriteShut = QPixmap(":/Sprite/Player/PlayerShut.png").scaledToWidth(fieldWidth_px);
+    spriteOpen = QPixmap(":/Sprite/Player/PlayerOpen.png").scaledToWidth(fieldWidth_px);
+    pixmap = gs->addPixmap(spriteOpen);
+    pixmap->setTransformOriginPoint((QPoint(fieldWidth_px/2,fieldWidth_px/2)));
+    clone = gs->addPixmap(spriteOpen);
+    clone->setTransformOriginPoint((QPoint(fieldWidth_px/2,fieldWidth_px/2)));
+    spriteStatus = spriteIsOpen;
 }
 
 void Player::setPaused(bool paused)
 {
-    static int stepTickCache = -1, energizerTimeoutCache = -1;
+    static int stepTickCache = -1, energizerTimeoutCache = -1;//,spriteTimerChache = -1;
     if(paused)
     {
         stepTickCache = stepTick.remainingTime();
         energizerTimeoutCache = energizerTimeout->remainingTime();
+        //spriteTimerChache = spriteTimer.remainingTime();
         stepTick.stop();
         energizerTimeout->stop();
+        spriteTimer.stop();
     }
     else
     {
@@ -42,6 +57,11 @@ void Player::setPaused(bool paused)
             energizerTimeout->start(energizerTimeoutCache);
         else
             energizerTimeout->start();
+
+        /*if(spriteTimerChache != -1)
+            spriteTimer.start();
+        else*/
+            spriteTimer.start();
     }
 }
 
@@ -70,11 +90,13 @@ void Player::paint(void)
 
     if (subposition.toPoint() == position){
         if (!ate) {
-            eating = maze->getDots(position) != Maze::noItem;
-            if(eating)
+            eating = maze->getDots(position);
+            if (eating)
+            {
                 eatItem(subposition.toPoint());
-            stepTick.setInterval(getStepInterval()/2);
-            ate = true;
+                stepTick.setInterval(getStepInterval()/2);
+                ate = true;
+            }
         }
     }
     else
@@ -83,22 +105,30 @@ void Player::paint(void)
     }
 
     float fieldWidth_px = maze->getFieldWidth();
-    static QGraphicsEllipseItem* g = gs->addEllipse(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
-    g->setRect(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
-    //    static QGraphicsSimpleTextItem* debug = gs->addSimpleText("starting position = "+QString::number(positionF.x()));
-    //    static QGraphicsRectItem* s = gs->addRect(position.x()*fieldWidth_px, position.y()*fieldWidth_px, fieldWidth_px, fieldWidth_px);
-    //    s->setRect(position.x()*fieldWidth_px, position.y()*fieldWidth_px, fieldWidth_px, fieldWidth_px);
-
-    static QGraphicsEllipseItem* clone = gs->addEllipse(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+    pixmap->setPos(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px);
+    if(direction.x() != 0)
+    {
+        pixmap->setRotation(direction.x() > 0 ? 0 : 180);
+    }
+    else if(direction.y() != 0)
+    {
+        pixmap->setRotation(direction.y() > 0 ? 90 : -90);
+    }
 
     // Test if the player is in the tunnel
     if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
     {
         clone->setVisible(true);
         if (position.x() == 0)
-            clone->setRect((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+        {
+            clone->setRotation(0);
+            clone->setPos((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px);
+        }
         else
-            clone->setRect((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px, fieldWidth_px, fieldWidth_px);
+        {
+            clone->setRotation(180);
+            clone->setPos((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px);
+        }
     }
     else
     {
@@ -113,7 +143,6 @@ void Player::step(void)
 {
     // get all possible direction
     std::vector<QPoint> possibleDirs = maze->getMaze(position);
-    int i = 0;
     // Check if pendingDirection is possible
     QPoint oldDirection(direction);
     direction = QPoint(0, 0);
@@ -132,6 +161,15 @@ void Player::step(void)
                 break;
             }
     // If that is not possible either, stop.
+    // If stoped deactive the swaping of the sprites, otherwise check if the timer is already running
+    if(direction.manhattanLength() == 0)
+    {
+        spriteTimer.stop();
+    }
+    else if(spriteTimer.isActive() == 0)
+    {
+        spriteTimer.start();
+    }
 
     position += direction;
     stepTick.setInterval(getStepInterval());
@@ -141,15 +179,6 @@ void Player::step(void)
         position.setX((position.x()+maze->width) % maze->width);
     }
 }
-
-///**
-// * @brief Player::getPosistion Function used for getting the Position of Pac-Man
-// * @return A QPoint in the maze with the position of Pac-Man
-// */
-//QPointF Player::getPosistion(void)
-//{
-//    return position;
-//}
 
 /**
  * @brief Player::getField Function used for getting the Field Pac-Man is currently in
@@ -237,11 +266,28 @@ void Player::resetEnergized(void)
     emit Player::energizedChanged(false);
 }
 
-int Player::getStepInterval (void)
+int Player::getStepInterval(void)
 {
 
     if(status == energized)
         return eating ? stepIntervalEnergizedCoin : stepIntervalEnerfizedNoCoin;
     else
         return eating ? stepIntervalCoin : stepIntervalNoCoin;
+}
+
+void Player::swapSprite(void)
+{
+    //Animate the Player sprite by swaping between two versions
+    if(spriteStatus == spriteIsOpen)
+    {
+        pixmap->setPixmap(spriteShut);
+        clone->setPixmap(spriteShut);
+        spriteStatus = spriteIsShut;
+    }
+    else
+    {
+        pixmap->setPixmap(spriteOpen);
+        clone->setPixmap(spriteOpen);
+        spriteStatus = spriteIsOpen;
+    }
 }

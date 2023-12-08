@@ -4,8 +4,6 @@
 
 #include <stdio.h>
 
-// Set sizeof fields
-int fieldSize_px = 20;
 
 /**
  * @brief PacMan::PacMan Creates the Pac-Man which is moveable from the Player
@@ -13,6 +11,7 @@ int fieldSize_px = 20;
  */
 PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
 {
+    int fieldSize_px = 20;
     gs = new QGraphicsScene();
     gv->setScene(gs);
     gv->setFixedSize(Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
@@ -65,6 +64,7 @@ void PacMan::paint()
     static QGraphicsTextItem* gameOverText = gs->addText("Game Over");
     if(gameOver) {
         gameOverText->setPlainText(gameWon ? "Game Over, you win!" : "Game Over, you loose!");
+        gameOverText->setDefaultTextColor(Qt::white);
         gameOverText->show();
     }
     else {

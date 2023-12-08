@@ -39,6 +39,7 @@ public slots:
 
 private slots:
     void resetEnergized(void);
+    void swapSprite(void);
 
 private:
     void eatItem(QPoint location);
@@ -51,7 +52,7 @@ private:
 
     status_t status;                 // marks if a energizer was eaten
     bool eating;                     // marks if any food is being eaten
-    QTimer *energizerTimeout, stepTick;
+    QTimer *energizerTimeout, stepTick, spriteTimer;
 
     const int energizerDuration = 6000;
     int getStepInterval (void);
@@ -62,6 +63,17 @@ private:
         stepIntervalEnergizedCoin   = int(Maze::baseStepInterval / 0.79),
         stepIntervalEnerfizedNoCoin = int(Maze::baseStepInterval / 0.90),
     };
+
+    typedef enum
+    {
+        spriteIsOpen,
+        spriteIsShut
+    }spriteStatus_t;
+
+    spriteStatus_t spriteStatus;
+    QPixmap spriteShut;
+    QPixmap spriteOpen;
+    QGraphicsPixmapItem *pixmap, *clone;
 };
 
 #endif // PLAYER_H
