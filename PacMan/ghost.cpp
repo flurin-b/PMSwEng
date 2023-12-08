@@ -297,6 +297,7 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPo
     state = Ghost::inMaze;
 
     #ifdef DEBUG_TARGETS
+        color = QColor::fromRgb(255, 0, 0);
         debugTarget = gs->addRect(0, 0, 0, 0);
         debugTarget->setBrush(QBrush(color));
     #endif
@@ -348,6 +349,7 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     state = Ghost::leavingGhostHouse;
 
     #ifdef DEBUG_TARGETS
+        color = QColor::fromRgb(255, 184, 255);
         debugTarget = gs->addRect(0, 0, 0, 0);
         debugTarget->setBrush(QBrush(color));
     #endif
@@ -401,6 +403,7 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPointe
     dotLimitGhostHouse = 30;
 
     #ifdef DEBUG_TARGETS
+        color = QColor::fromRgb(0, 255, 255);
         debugTarget = gs->addRect(0, 0, 0, 0);
         debugTarget->setBrush(QBrush(color));
     #endif
@@ -453,6 +456,7 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerRefPoin
     dotLimitGhostHouse = 60;
 
     #ifdef DEBUG_TARGETS
+        color = QColor::fromRgb(255, 184, 82);
         debugTarget = gs->addRect(0, 0, 0, 0);
         debugTarget->setBrush(QBrush(color));
     #endif

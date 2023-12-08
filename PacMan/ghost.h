@@ -45,6 +45,7 @@ protected:
 
     #ifdef DEBUG_TARGETS
         QGraphicsRectItem *debugTarget;
+        QColor color;
     #endif
 
     const QPoint resetPosition{13, 16};
