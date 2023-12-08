@@ -59,7 +59,7 @@ jobs:
 
       - name: Build and deploy
         run:  |
-          cmake -S ${{ github.workspace }} -B ${{ runner.temp }}\build -G Ninja
+          cmake -S ${{ github.workspace }}\PacMan -B ${{ runner.temp }}\build -G Ninja
           cmake --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}}
           windeployqt ${{ runner.temp }}\build
           
