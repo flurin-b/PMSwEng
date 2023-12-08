@@ -25,6 +25,8 @@ public:
     void changeDirection(QKeyEvent* event);
     char getStatus(void);
 
+    static const int energizerDuration = 6000;
+
     typedef enum
     {
         normal,
@@ -54,7 +56,6 @@ private:
     bool eating;                     // marks if any food is being eaten
     QTimer *energizerTimeout, stepTick, spriteTimer;
 
-    const int energizerDuration = 6000;
     int getStepInterval (void);
 
     enum {

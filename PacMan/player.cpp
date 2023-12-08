@@ -22,7 +22,7 @@ Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{
 
     spriteTimer.setTimerType(Qt::PreciseTimer);
     QObject::connect(&spriteTimer, &QTimer::timeout, this, &Player::swapSprite);
-    spriteTimer.setInterval(150);
+    spriteTimer.setInterval(100);
 
     float fieldWidth_px = maze->getFieldWidth();
     spriteShut = QPixmap(":/Sprite/Player/PlayerShut.png").scaledToWidth(fieldWidth_px * scaleFactor);
@@ -165,7 +165,7 @@ void Player::step(void)
                 break;
             }
     // If that is not possible either, stop.
-    // If stoped deactive the swaping of the sprites, otherwise check if the timer is already running
+    // If stoped deactivate the swaping of the sprites, otherwise check if the timer is already running
     if(direction.manhattanLength() == 0)
     {
         spriteTimer.stop();

@@ -11,7 +11,11 @@ Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     connect(&movementTimer, &QTimer::timeout, this, &Ghost::nextMovementPattern);
     nextMovementPattern();
     movementTimer.stop();
-    spriteFrightend =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteFrightendBlue =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteFrightendWhite = QPixmap(":/Sprite/Ghost/GhostFrightendEnding.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+
+    frightnedSpriteTimer.setTimerType(Qt::PreciseTimer);
+    QObject::connect(&frightnedSpriteTimer, &QTimer::timeout, this, &Ghost::toggleFrightenedSprite);
 }
 
 /**
@@ -46,18 +50,45 @@ void Ghost::setPaused(bool paused)
 
 void Ghost::setFrightened(bool frightened)
 {
-    if (frightened && movement != Ghost::frightened)
+    if(frightened)
     {
-        position -= direction;
-        if (state == Ghost::inMaze)
-            direction = -direction;
-        stepTick.setInterval(Ghost::stepIntervalFrightened * stepTick.remainingTime()/getStepInterval());
-        movement = Ghost::frightened;
+        pixmap->setPixmap(spriteFrightendBlue);
+        spriteStatus = frightendBlue;
+        frightnedSpriteTimer.setInterval(Player::energizerDuration * 0.7);
+        frightnedSpriteTimer.start();
+
+        if (movement != Ghost::frightened)
+        {
+            position -= direction;
+            if (state == Ghost::inMaze)
+                direction = -direction;
+            stepTick.setInterval(Ghost::stepIntervalFrightened * stepTick.remainingTime()/getStepInterval());
+            movement = Ghost::frightened;
+        }
     }
     else if (!frightened && movement == Ghost::frightened)
     {
         movement = globalMovement;
         stepTick.setInterval(getStepInterval() * stepTick.remainingTime()/Ghost::stepIntervalFrightened);
+
+        frightnedSpriteTimer.stop();
+    }
+}
+
+void Ghost::toggleFrightenedSprite()
+{
+    if(spriteStatus == frightendBlue)
+    {
+        frightnedSpriteTimer.setInterval(200);
+        pixmap->setPixmap(spriteFrightendWhite);
+        clonePixmap->setPixmap(spriteFrightendWhite);
+        spriteStatus = frightendWhite;
+    }
+    else if(spriteStatus == frightendWhite)
+    {
+        pixmap->setPixmap(spriteFrightendBlue);
+        clonePixmap->setPixmap(spriteFrightendBlue);
+        spriteStatus = frightendBlue;
     }
 }
 
@@ -225,11 +256,7 @@ void Ghost::paint()
         }
     }
 
-    if(movement == Ghost::frightened)
-    {
-        pixmap->setPixmap(spriteFrightend);
-    }
-    else
+    if(movement != Ghost::frightened)
     {
         if(direction.x() != 0)
         {
