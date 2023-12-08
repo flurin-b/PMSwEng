@@ -57,18 +57,12 @@ jobs:
       - name: Create build directory
         run:  mkdir ${{ runner.temp }}\build
 
-      #- name: Set up Visual Studio shell
-      #  uses: egor-tensin/vs-shell@v2
-      #  with:
-      #    arch: x64
-
       - name: Build and deploy
         working-directory: ${{ runner.temp }}\build
         run:  |
-          cd ${{github.workspace}}/PacMan/
-          cmake -S . -B ${{ runner.temp }}\build -G Ninja
-          cmake --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}}
-          windeployqt ${{ runner.temp }}\build
+          cmake -S ..\ -B .\ -G Ninja
+          cmake --build .\ --config ${{env.BUILD_TYPE}}
+          windeployqt .\
           
       - name: Test
         working-directory: ${{ runner.temp }}\build
