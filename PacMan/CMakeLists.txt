@@ -43,7 +43,7 @@ target_compile_definitions(LocalLib PRIVATE ${LIBDEF})
 target_compile_definitions(PacManLib PRIVATE ${LIBDEF})
 
 # Create Main Executable
-add_executable(PacMan main.cpp)
+add_executable(PacMan WIN32 main.cpp)
 target_link_libraries(PacMan LocalLib PacManLib)
 
 # Add Tests
