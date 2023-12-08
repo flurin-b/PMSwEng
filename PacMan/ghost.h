@@ -79,6 +79,7 @@ protected:
 
     void step (QPoint target);
 
+    const float scaleFactor = 1.3;
     QPixmap spriteSideL;
     QPixmap spriteSideR;
     QPixmap spriteUp;

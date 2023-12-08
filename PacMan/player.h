@@ -70,6 +70,7 @@ private:
         spriteIsShut
     }spriteStatus_t;
 
+    const float scaleFactor = 1.3;
     spriteStatus_t spriteStatus;
     QPixmap spriteShut;
     QPixmap spriteOpen;
