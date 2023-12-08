@@ -67,7 +67,7 @@ jobs:
         run:  |
           cd ${{github.workspace}}/PacMan/
           cmake -S . -B ${{ runner.temp }}\build -G Ninja
-          cmake --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}} --target clean
+          cmake --build ${{ runner.temp }}\build --config ${{env.BUILD_TYPE}}
           windeployqt ${{ runner.temp }}\build
           
       - name: Test
