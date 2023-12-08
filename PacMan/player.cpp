@@ -85,11 +85,13 @@ void Player::paint(void)
 
     if (subposition.toPoint() == position){
         if (!ate) {
-            eating = maze->getDots(position) != Maze::noItem;
-            if(eating)
+            eating = maze->getDots(position);
+            if (eating)
+            {
                 eatItem(subposition.toPoint());
-            stepTick.setInterval(getStepInterval()/2);
-            ate = true;
+                stepTick.setInterval(getStepInterval()/2);
+                ate = true;
+            }
         }
     }
     else
