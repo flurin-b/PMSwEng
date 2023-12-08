@@ -5,6 +5,10 @@ var classGhost =
       [ "scatter", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fba59b5274694b70ac8486fb30b5274c9ea", null ],
       [ "frightened", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fba7200316dc151cd47c90bdf9d917bd3fe", null ]
     ] ],
+    [ "spriteStatus_t", "d0/d06/classGhost.html#a50c71c474f217d429894f992310e4ffc", [
+      [ "frightendBlue", "d0/d06/classGhost.html#a50c71c474f217d429894f992310e4ffca0ce463b9ccb8d53d3001f16e3ca1be03", null ],
+      [ "frightendWhite", "d0/d06/classGhost.html#a50c71c474f217d429894f992310e4ffcaf366de67037187b610459f1d9575188f", null ]
+    ] ],
     [ "state_t", "d0/d06/classGhost.html#a73f7df0fd4a1e3de6e2d9654cd975bae", [
       [ "inMaze", "d0/d06/classGhost.html#a73f7df0fd4a1e3de6e2d9654cd975baeaa4222734485ec861eb8456d90a1249db", null ],
       [ "inGhostHouse", "d0/d06/classGhost.html#a73f7df0fd4a1e3de6e2d9654cd975baea75498af1fdccd3320ffe940bfdd7fa9a", null ],
@@ -20,9 +24,11 @@ var classGhost =
     [ "setFrightened", "d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192", null ],
     [ "setPaused", "d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc", null ],
     [ "step", "d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee", null ],
+    [ "toggleFrightenedSprite", "d0/d06/classGhost.html#ab9af002e55e7e95949e492c820d92869", null ],
     [ "clonePixmap", "d0/d06/classGhost.html#aa464e3b739b781324d203d7ed91c91d1", null ],
     [ "direction", "d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e", null ],
     [ "dotLimitGhostHouse", "d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55", null ],
+    [ "frightnedSpriteTimer", "d0/d06/classGhost.html#a44caad0965d2ca88a211c1a23a8d405d", null ],
     [ "globalMovement", "d0/d06/classGhost.html#abe1b57ac222bab6f05b5f1ac1077f648", null ],
     [ "gs", "d0/d06/classGhost.html#a3dc8412b0d407180d484510f7fcb4923", null ],
     [ "maze", "d0/d06/classGhost.html#aae6e98971004b78a976a21c64ad27283", null ],
@@ -34,10 +40,13 @@ var classGhost =
     [ "player", "d0/d06/classGhost.html#ab4919b308d77f53f5ca29077633ccb8f", null ],
     [ "position", "d0/d06/classGhost.html#acedf20d923bbd63d54f1056c849a17ea", null ],
     [ "resetPosition", "d0/d06/classGhost.html#ad925df9709f49313d2529ae5bd6ecc62", null ],
+    [ "scaleFactor", "d0/d06/classGhost.html#ae8fb708fcd4359a00c0464fc9f86f113", null ],
     [ "spriteDown", "d0/d06/classGhost.html#a048657d607dc60b0055043da8d6b30b6", null ],
-    [ "spriteFrightend", "d0/d06/classGhost.html#a9c86efed54319e94efd056ae3981ff5f", null ],
+    [ "spriteFrightendBlue", "d0/d06/classGhost.html#afa9fd2a9b4985ad8dceef786db923424", null ],
+    [ "spriteFrightendWhite", "d0/d06/classGhost.html#a923ec14655d59ccd86ba3afdc22ac641", null ],
     [ "spriteSideL", "d0/d06/classGhost.html#ad202e75655d99e7d109fae1fa4acd122", null ],
     [ "spriteSideR", "d0/d06/classGhost.html#a2d3e296abf4faaca4a7c056099c35e7b", null ],
+    [ "spriteStatus", "d0/d06/classGhost.html#abeb274460bb4ff1b564b5ec4c9abb3c4", null ],
     [ "spriteUp", "d0/d06/classGhost.html#ac12ba8591c2de1e94cd4b5dc5ad5c1eb", null ],
     [ "state", "d0/d06/classGhost.html#a4ef4cb172f5c800f14bd1051e64d7c40", null ],
     [ "stepTick", "d0/d06/classGhost.html#a49e422e7ff048cb885bc0e596c74d62d", null ],

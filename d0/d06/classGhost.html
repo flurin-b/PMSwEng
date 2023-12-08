@@ -114,6 +114,9 @@ Public Slots</h2></td></tr>
 <tr class="memitem:a062b8159339f25f517a14511833fa05e"><td class="memItemLeft" align="right" valign="top"><a id="a062b8159339f25f517a14511833fa05e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>paint</b> ()</td></tr>
 <tr class="separator:a062b8159339f25f517a14511833fa05e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a572aa783158f8cd97e3ddb6ac0721192"><td class="memItemLeft" align="right" valign="top"><a id="a572aa783158f8cd97e3ddb6ac0721192"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setFrightened</b> (bool frightened)</td></tr>
+<tr class="separator:a572aa783158f8cd97e3ddb6ac0721192"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
@@ -133,9 +136,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8af48a7f68176b5f10e798b39dc88abc"><td class="memItemLeft" align="right" valign="top"><a id="a8af48a7f68176b5f10e798b39dc88abc"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setPaused</b> (bool paused)</td></tr>
 <tr class="separator:a8af48a7f68176b5f10e798b39dc88abc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a572aa783158f8cd97e3ddb6ac0721192"><td class="memItemLeft" align="right" valign="top"><a id="a572aa783158f8cd97e3ddb6ac0721192"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setFrightened</b> (bool frightened)</td></tr>
-<tr class="separator:a572aa783158f8cd97e3ddb6ac0721192"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd1bd47ee90195f67baeb64946a4f10f"><td class="memItemLeft" align="right" valign="top"><a id="acd1bd47ee90195f67baeb64946a4f10f"></a>
 QPoint&#160;</td><td class="memItemRight" valign="bottom"><b>getField</b> (void)</td></tr>
 <tr class="separator:acd1bd47ee90195f67baeb64946a4f10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,12 +157,19 @@ Protected Types</h2></td></tr>
 , <b>frightened</b>
  }</td></tr>
 <tr class="separator:a583f10f0b5cd024af0e89e87191bc5fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50c71c474f217d429894f992310e4ffc"><td class="memItemLeft" align="right" valign="top"><a id="a50c71c474f217d429894f992310e4ffc"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>spriteStatus_t</b> { <b>frightendBlue</b>
+, <b>frightendWhite</b>
+ }</td></tr>
+<tr class="separator:a50c71c474f217d429894f992310e4ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-slots"></a>
 Protected Slots</h2></td></tr>
 <tr class="memitem:a5e76d2458c22abb211544afb6ac76d78"><td class="memItemLeft" align="right" valign="top"><a id="a5e76d2458c22abb211544afb6ac76d78"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>nextMovementPattern</b> ()</td></tr>
 <tr class="separator:a5e76d2458c22abb211544afb6ac76d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9af002e55e7e95949e492c820d92869"><td class="memItemLeft" align="right" valign="top"><a id="ab9af002e55e7e95949e492c820d92869"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>toggleFrightenedSprite</b> ()</td></tr>
+<tr class="separator:ab9af002e55e7e95949e492c820d92869"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -217,6 +224,9 @@ QTimer&#160;</td><td class="memItemRight" valign="bottom"><b>movementTimer</b> {
 <tr class="memitem:a49e422e7ff048cb885bc0e596c74d62d"><td class="memItemLeft" align="right" valign="top"><a id="a49e422e7ff048cb885bc0e596c74d62d"></a>
 QTimer&#160;</td><td class="memItemRight" valign="bottom"><b>stepTick</b> {}</td></tr>
 <tr class="separator:a49e422e7ff048cb885bc0e596c74d62d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44caad0965d2ca88a211c1a23a8d405d"><td class="memItemLeft" align="right" valign="top"><a id="a44caad0965d2ca88a211c1a23a8d405d"></a>
+QTimer&#160;</td><td class="memItemRight" valign="bottom"><b>frightnedSpriteTimer</b></td></tr>
+<tr class="separator:a44caad0965d2ca88a211c1a23a8d405d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a352cfc52a5ae7761f791d056241f6de1"><td class="memItemLeft" align="right" valign="top"><a id="a352cfc52a5ae7761f791d056241f6de1"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>movementTimerCache</b> = -1</td></tr>
 <tr class="separator:a352cfc52a5ae7761f791d056241f6de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -229,6 +239,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>movementCounter</b> = 
 <tr class="memitem:abe1b57ac222bab6f05b5f1ac1077f648"><td class="memItemLeft" align="right" valign="top"><a id="abe1b57ac222bab6f05b5f1ac1077f648"></a>
 movement_t&#160;</td><td class="memItemRight" valign="bottom"><b>globalMovement</b> = chase</td></tr>
 <tr class="separator:abe1b57ac222bab6f05b5f1ac1077f648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8fb708fcd4359a00c0464fc9f86f113"><td class="memItemLeft" align="right" valign="top"><a id="ae8fb708fcd4359a00c0464fc9f86f113"></a>
+const float&#160;</td><td class="memItemRight" valign="bottom"><b>scaleFactor</b> = 1.3</td></tr>
+<tr class="separator:ae8fb708fcd4359a00c0464fc9f86f113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeb274460bb4ff1b564b5ec4c9abb3c4"><td class="memItemLeft" align="right" valign="top"><a id="abeb274460bb4ff1b564b5ec4c9abb3c4"></a>
+spriteStatus_t&#160;</td><td class="memItemRight" valign="bottom"><b>spriteStatus</b> = frightendBlue</td></tr>
+<tr class="separator:abeb274460bb4ff1b564b5ec4c9abb3c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad202e75655d99e7d109fae1fa4acd122"><td class="memItemLeft" align="right" valign="top"><a id="ad202e75655d99e7d109fae1fa4acd122"></a>
 QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>spriteSideL</b></td></tr>
 <tr class="separator:ad202e75655d99e7d109fae1fa4acd122"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -241,9 +257,12 @@ QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>spriteUp</b></td><
 <tr class="memitem:a048657d607dc60b0055043da8d6b30b6"><td class="memItemLeft" align="right" valign="top"><a id="a048657d607dc60b0055043da8d6b30b6"></a>
 QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>spriteDown</b></td></tr>
 <tr class="separator:a048657d607dc60b0055043da8d6b30b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c86efed54319e94efd056ae3981ff5f"><td class="memItemLeft" align="right" valign="top"><a id="a9c86efed54319e94efd056ae3981ff5f"></a>
-QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>spriteFrightend</b></td></tr>
-<tr class="separator:a9c86efed54319e94efd056ae3981ff5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa9fd2a9b4985ad8dceef786db923424"><td class="memItemLeft" align="right" valign="top"><a id="afa9fd2a9b4985ad8dceef786db923424"></a>
+QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>spriteFrightendBlue</b></td></tr>
+<tr class="separator:afa9fd2a9b4985ad8dceef786db923424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a923ec14655d59ccd86ba3afdc22ac641"><td class="memItemLeft" align="right" valign="top"><a id="a923ec14655d59ccd86ba3afdc22ac641"></a>
+QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>spriteFrightendWhite</b></td></tr>
+<tr class="separator:a923ec14655d59ccd86ba3afdc22ac641"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e43247770458b1cfe874f0120e06df2"><td class="memItemLeft" align="right" valign="top"><a id="a0e43247770458b1cfe874f0120e06df2"></a>
 QGraphicsPixmapItem *&#160;</td><td class="memItemRight" valign="bottom"><b>pixmap</b></td></tr>
 <tr class="separator:a0e43247770458b1cfe874f0120e06df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
