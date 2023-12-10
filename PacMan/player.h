@@ -50,6 +50,14 @@ private:
     QPoint direction;
     QPoint pendingDirection;
 
+    // used in setPaused()
+    int stepTickCache = -1, energizerTimeoutCache = -1;//,spriteTimerChache = -1;
+
+    // used in paint()
+    QPointF subposition;
+    bool ate = false;
+    QPoint lastDirection;
+
     status_t status;                 // marks if a energizer was eaten
     bool eating;                     // marks if any food is being eaten
     QTimer *energizerTimeout, stepTick, spriteTimer;

@@ -8,38 +8,45 @@
  */
 Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):gs(gsPointer),maze(mazePointer),player(playerPointer)
 {
-    connect(&movementTimer, &QTimer::timeout, this, &Ghost::nextMovementPattern);
+    movementTimer = new QTimer;
+    connect(movementTimer, &QTimer::timeout, this, &Ghost::nextMovementPattern);
     nextMovementPattern();
-    movementTimer.stop();
+    movementTimer->stop();
     spriteFrightend =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth());
+
+    stepTick = new QTimer;
+    stepTick->setTimerType(Qt::PreciseTimer);
 }
 
 /**
  * @brief Ghost::~Ghost Dealocate memory
  */
 Ghost::~Ghost()
-{}
+{
+    delete movementTimer;
+    delete stepTick;
+}
 
 void Ghost::setPaused(bool paused)
 {
     if(paused)
     {
-        stepTickCache = stepTick.remainingTime();
-        movementTimerCache = movementTimer.remainingTime();
-        stepTick.stop();
-        movementTimer.stop();
+        stepTickCache = stepTick->remainingTime();
+        movementTimerCache = movementTimer->remainingTime();
+        stepTick->stop();
+        movementTimer->stop();
     }
     else
     {
         if (stepTickCache != -1)
         {
-            stepTick.start(stepTickCache);
-            movementTimer.start(movementTimerCache);
+            stepTick->start(stepTickCache);
+            movementTimer->start(movementTimerCache);
         }
         else
         {
-            stepTick.start();
-            movementTimer.start();
+            stepTick->start();
+            movementTimer->start();
         }
     }
 }
@@ -51,13 +58,13 @@ void Ghost::setFrightened(bool frightened)
         position -= direction;
         if (state == Ghost::inMaze)
             direction = -direction;
-        stepTick.setInterval(Ghost::stepIntervalFrightened * stepTick.remainingTime()/getStepInterval());
+        stepTick->setInterval(Ghost::stepIntervalFrightened * stepTick->remainingTime()/getStepInterval());
         movement = Ghost::frightened;
     }
     else if (!frightened && movement == Ghost::frightened)
     {
         movement = globalMovement;
-        stepTick.setInterval(getStepInterval() * stepTick.remainingTime()/Ghost::stepIntervalFrightened);
+        stepTick->setInterval(getStepInterval() * stepTick->remainingTime()/Ghost::stepIntervalFrightened);
     }
 }
 
@@ -100,21 +107,21 @@ void Ghost::nextMovementPattern()
     if (globalMovement == chase)
     {
         globalMovement = scatter;
-        movementTimer.setInterval(patternTimes[movementCounter++]);
+        movementTimer->setInterval(patternTimes[movementCounter++]);
     }
     else
     {
         globalMovement = chase;
-        movementTimer.setInterval(patternTimes[movementCounter++]);
+        movementTimer->setInterval(patternTimes[movementCounter++]);
     }
     if (movementCounter >= 8)
         movementCounter = 7;
 }
 
 void Ghost::step(QPoint target) {
-    #ifdef DEBUG_TARGETS
-        debugTarget->setRect(target.x()*maze->getFieldWidth(), target.y()*maze->getFieldWidth(), maze->getFieldWidth(), maze->getFieldWidth());
-    #endif
+#ifdef DEBUG_TARGETS
+    debugTarget->setRect(target.x()*maze->getFieldWidth(), target.y()*maze->getFieldWidth(), maze->getFieldWidth(), maze->getFieldWidth());
+#endif
     switch (state)
     {
     case Ghost::inMaze:
@@ -162,7 +169,7 @@ void Ghost::step(QPoint target) {
         break;
     }
     case Ghost::inGhostHouse:
-        stepTick.setInterval(10);
+        stepTick->setInterval(10);
         if(maze->getDotsEaten() < dotLimitGhostHouse)
             return;
         else
@@ -195,7 +202,7 @@ void Ghost::step(QPoint target) {
                 position += direction;
             }
             state = Ghost::inMaze;
-            stepTick.setInterval(getStepInterval() / 2);
+            stepTick->setInterval(getStepInterval() / 2);
             return;
         }
         break;
@@ -206,15 +213,15 @@ void Ghost::step(QPoint target) {
     if(position.x() < 0 || position.x() > 27)
         position.setX((position.x()+maze->width) % maze->width);
 
-    stepTick.setInterval(getStepInterval());
+    stepTick->setInterval(getStepInterval());
 }
 
 void Ghost::paint()
 {
     // if not paused, update subposition
-    if(stepTick.remainingTime() != -1 && state != Ghost::inGhostHouse)
+    if(stepTick->remainingTime() != -1 && state != Ghost::inGhostHouse)
     {
-        float delta = 1.0 - (float)stepTick.remainingTime() / getStepInterval();
+        float delta = 1.0 - (float)stepTick->remainingTime() / getStepInterval();
         subposition = direction.toPointF();
         subposition *= delta;
         subposition -= direction;
@@ -272,7 +279,7 @@ void Ghost::paint()
             position = resetPosition;
             state = Ghost::leavingGhostHouse;
             movement = Ghost::chase;
-            stepTick.setInterval(getStepInterval() * stepTick.remainingTime()/Ghost::stepIntervalFrightened);
+            stepTick->setInterval(getStepInterval() * stepTick->remainingTime()/Ghost::stepIntervalFrightened);
             // TODO: give points for eating a ghost
         }
     }
@@ -298,16 +305,14 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPoint
     direction = QPoint {-1, 0};
     state = Ghost::inMaze;
 
-    #ifdef DEBUG_TARGETS
-        color = QColor::fromRgb(255, 0, 0);
-        debugTarget = gs->addRect(0, 0, 0, 0);
-        debugTarget->setBrush(QBrush(color));
-    #endif
+#ifdef DEBUG_TARGETS
+    color = QColor::fromRgb(255, 0, 0);
+    debugTarget = gs->addRect(0, 0, 0, 0);
+    debugTarget->setBrush(QBrush(color));
+#endif
 
-    stepTick.setTimerType(Qt::PreciseTimer);
-    QObject::connect(&stepTick, &QTimer::timeout, this, &Blinky::step);
-
-    stepTick.setInterval(Ghost::stepIntervalNormal / 2);
+    QObject::connect(stepTick, &QTimer::timeout, this, &Blinky::step);
+    stepTick->setInterval(Ghost::stepIntervalNormal / 2);
 
     spriteSideL = QPixmap(":/Sprite/Blinky/BlinkySideL.PNG").scaledToWidth(maze->getFieldWidth());
     spriteSideR = QPixmap(":/Sprite/Blinky/BlinkySideR.PNG").scaledToWidth(maze->getFieldWidth());
@@ -352,15 +357,14 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     //direction = QPoint {0, -1};
     state = Ghost::leavingGhostHouse;
 
-    #ifdef DEBUG_TARGETS
-        color = QColor::fromRgb(255, 184, 255);
-        debugTarget = gs->addRect(0, 0, 0, 0);
-        debugTarget->setBrush(QBrush(color));
-    #endif
+#ifdef DEBUG_TARGETS
+    color = QColor::fromRgb(255, 184, 255);
+    debugTarget = gs->addRect(0, 0, 0, 0);
+    debugTarget->setBrush(QBrush(color));
+#endif
 
-    stepTick.setTimerType(Qt::PreciseTimer);
-    QObject::connect(&stepTick, &QTimer::timeout, this, &Pinky::step);
-    stepTick.setInterval(0);
+    QObject::connect(stepTick, &QTimer::timeout, this, &Pinky::step);
+    stepTick->setInterval(0);
 
     spriteSideL = QPixmap(":/Sprite/Pinky/PinkySideL.PNG").scaledToWidth(maze->getFieldWidth());
     spriteSideR = QPixmap(":/Sprite/Pinky/PinkySideR.PNG").scaledToWidth(maze->getFieldWidth());
@@ -404,16 +408,15 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer, 
     subposition = QPointF {position.x()+0.5, float(position.y())};
     dotLimitGhostHouse = 30;
 
-    #ifdef DEBUG_TARGETS
-        color = QColor::fromRgb(0, 255, 255);
-        debugTarget = gs->addRect(0, 0, 0, 0);
-        debugTarget->setBrush(QBrush(color));
-    #endif
+#ifdef DEBUG_TARGETS
+    color = QColor::fromRgb(0, 255, 255);
+    debugTarget = gs->addRect(0, 0, 0, 0);
+    debugTarget->setBrush(QBrush(color));
+#endif
 
-    stepTick.setTimerType(Qt::PreciseTimer);
-    QObject::connect(&stepTick, &QTimer::timeout, this, &Inky::step);
+    QObject::connect(stepTick, &QTimer::timeout, this, &Inky::step);
 
-    stepTick.setInterval(10);
+    stepTick->setInterval(10);
 
     spriteSideL = QPixmap(":/Sprite/Inky/InkySideL.PNG").scaledToWidth(maze->getFieldWidth());
     spriteSideR = QPixmap(":/Sprite/Inky/InkySideR.PNG").scaledToWidth(maze->getFieldWidth());
@@ -456,16 +459,14 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     subposition = QPointF {position.x()+0.5, (float)position.y()};
     dotLimitGhostHouse = 60;
 
-    #ifdef DEBUG_TARGETS
-        color = QColor::fromRgb(255, 184, 82);
-        debugTarget = gs->addRect(0, 0, 0, 0);
-        debugTarget->setBrush(QBrush(color));
-    #endif
+#ifdef DEBUG_TARGETS
+    color = QColor::fromRgb(255, 184, 82);
+    debugTarget = gs->addRect(0, 0, 0, 0);
+    debugTarget->setBrush(QBrush(color));
+#endif
 
-    stepTick.setTimerType(Qt::PreciseTimer);
-    QObject::connect(&stepTick, &QTimer::timeout, this, &Clyde::step);
-
-    stepTick.setInterval(10);
+    QObject::connect(stepTick, &QTimer::timeout, this, &Clyde::step);
+    stepTick->setInterval(10);
 
     spriteSideL = QPixmap(":/Sprite/Clyde/ClydeSideL.PNG").scaledToWidth(maze->getFieldWidth());
     spriteSideR = QPixmap(":/Sprite/Clyde/ClydeSideR.PNG").scaledToWidth(maze->getFieldWidth());

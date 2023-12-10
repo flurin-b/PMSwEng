@@ -69,7 +69,7 @@ protected:
         frightened,
     } movement_t;
     movement_t movement = chase;
-    QTimer movementTimer{}, stepTick{};
+    QTimer *movementTimer, *stepTick;
     int movementTimerCache = -1, stepTickCache = -1;
     int movementCounter = 0;
     movement_t globalMovement = chase;

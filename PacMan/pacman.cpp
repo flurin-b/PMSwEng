@@ -13,25 +13,14 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
 {
     int fieldSize_px = 20;
     gs = new QGraphicsScene();
+
     gv->setScene(gs);
     gv->setFixedSize(Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
     gs->setSceneRect(0, 0, Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
     gv->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     gv->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    maze= new Maze(gs, gv);
-    // add one pixel to width in order to compensate for the margin of QGraphicsView.
-    player = new Player(gs,maze);
-    ghosts[0] = new Blinky(gs,maze,player);
-    ghosts[1] = new Pinky (gs,maze,player);
-    Inky *inky = new Inky  (gs,maze,player,ghosts[0]);
-    ghosts[2] = inky;
-    ghosts[3] = new Clyde (gs,maze,player);
-    for(Ghost* ghost : ghosts)
-    {
-        QObject::connect(ghost, &Ghost::gameOver, this, &PacMan::gameOverHandler);
-        QObject::connect(player, &Player::energizedChanged, ghost, &Ghost::setFrightened);
-    }
+    initGameObjects();
 }
 
 /**
@@ -39,6 +28,9 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
  */
 PacMan::~PacMan()
 {
+    delete gs;
+    gs = nullptr;
+
     delete maze;
     maze = nullptr;
 
@@ -50,9 +42,6 @@ PacMan::~PacMan()
         delete ghost;
         ghost = nullptr;
     }
-
-    delete gameTick;
-    gameTick = nullptr;
 }
 
 
@@ -61,20 +50,29 @@ PacMan::~PacMan()
  */
 void PacMan::paint()
 {
-    static QGraphicsTextItem* gameOverText = gs->addText("Game Over");
-    if(gameOver) {
-        gameOverText->setPlainText(gameWon ? "Game Over, you win!" : "Game Over, you loose!");
-        gameOverText->setDefaultTextColor(Qt::white);
-        gameOverText->show();
+    switch (gameState)
+    {
+    case won:
+    case lost:
+        gameStateText->setPlainText(gameState == won ? "Game Over, you win!" : "Game Over, you loose!");
+        gameStateText->show();
+        break;
+    case paused:
+        gameStateText->setPlainText("Game Paused, press ENTER to resume.");
+        gameStateText->show();
+        break;
+    case running:
+        gameStateText->hide();
+        break;
+    case start:
+        gameStateText->setPlainText("Press ENTER to start playing.");
+        gameStateText->show();
+        break;
     }
-    else {
-        gameOverText->hide();
-
-        maze->paint();
-        player->paint();
-        for(Ghost* ghost : ghosts)
-            ghost->paint();
-    }
+    maze->paint();
+    player->paint();
+    for(Ghost* ghost : ghosts)
+        ghost->paint();
 }
 
 /**
@@ -89,24 +87,65 @@ void PacMan::handleKeyPress(QKeyEvent* event)
     case Qt::Key_Down:
     case Qt::Key_Left:
     case Qt::Key_Right:
-        if(!paused)
-            player->changeDirection(event);
+        player->changeDirection(event);
         break;
     case Qt::Key_Enter:
     case Qt::Key_Return:
-        paused = !paused;
-        player->setPaused(paused);
-        for(Ghost* ghost : ghosts)
-            ghost->setPaused(paused);
-        break;
+        switch (gameState) {
+        case paused:
+        case start:
+            player->setPaused(false);
+            for(Ghost* ghost : ghosts)
+                ghost->setPaused(false);
+            gameState = running;
+            break;
+            break;
+        case running:
+            player->setPaused(true);
+            for(Ghost* ghost : ghosts)
+                ghost->setPaused(true);
+            gameState = paused;
+            break;
+        case won:
+        case lost:
+            initGameObjects();
+            gameState = start;
+            break;
+        }
     default:
         break;
     }
 }
 
+void PacMan::initGameObjects()
+{
+    gs->clear();
+
+    delete maze;
+    maze = new Maze(gs, gv);
+    delete player;
+    player = new Player(gs, maze);
+
+    for (Ghost *ghost : ghosts)
+        delete ghost;
+    ghosts[0] = new Blinky (gs, maze, player);
+    ghosts[1] = new Pinky  (gs, maze, player);
+    ghosts[2] = new Inky   (gs, maze, player, ghosts[0]);
+    ghosts[3] = new Clyde  (gs, maze, player);
+
+    for(Ghost* ghost : ghosts)
+    {
+        QObject::connect(ghost, &Ghost::gameOver, this, &PacMan::gameOverHandler);
+        QObject::connect(player, &Player::energizedChanged, ghost, &Ghost::setFrightened);
+    }
+
+    gameStateText = gs->addText("");
+    gameStateText->setDefaultTextColor(Qt::white);
+}
+
 void PacMan::gameOverHandler(bool won) {
-    this->gameOver = true;
-    this->gameWon = won;
+    gameState = (won ? PacMan::won : PacMan::lost);
+
     player->setPaused(true);
     for(Ghost *ghost: ghosts) {
         ghost->setPaused(true);
