@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['setdots_16',['setDots',['../d6/d74/classMaze.html#abec460be061ee3007126dd376bf99532',1,'Maze']]],
-  ['step_17',['step',['../d9/dfc/classBlinky.html#ac656b6857a9dfeb2f890270a2c5e8842',1,'Blinky::step()'],['../dd/db7/classPinky.html#ae154bd3acea5dd2baf724cc2667a5bb3',1,'Pinky::step()'],['../d6/d64/classInky.html#a3df5f3f6ebbde10fe81db79cae3275eb',1,'Inky::step()'],['../dd/d49/classClyde.html#a76ed124fa629bbccf459ba5562edfdd4',1,'Clyde::step()'],['../d2/d4b/classPlayer.html#a2f6ec1dacee0bd16546fd5ece89472ea',1,'Player::step()']]]
+  ['pacman_20',['PacMan',['../d9/d66/classPacMan.html',1,'PacMan'],['../d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722',1,'PacMan::PacMan()']]],
+  ['paint_21',['paint',['../d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e',1,'Ghost::paint()'],['../d9/d66/classPacMan.html#a9cab52526497ad3f306f460de0f92b1b',1,'PacMan::paint()'],['../d2/d4b/classPlayer.html#a8a2fc2c5d18c4601e1e881767d6f8d07',1,'Player::paint()']]],
+  ['pinky_22',['Pinky',['../dd/db7/classPinky.html',1,'Pinky'],['../dd/db7/classPinky.html#a0313532cd1c1d7ee0f3ff9f158b87d1d',1,'Pinky::Pinky()']]],
+  ['player_23',['Player',['../d2/d4b/classPlayer.html',1,'Player'],['../d2/d4b/classPlayer.html#a25b3344ceb96d7c4cec38db6d026ff93',1,'Player::Player()']]]
 ];
