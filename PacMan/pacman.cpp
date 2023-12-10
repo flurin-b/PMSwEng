@@ -6,8 +6,8 @@
 
 
 /**
- * @brief PacMan::PacMan Creates the Pac-Man which is moveable from the Player
- * @param scPointer
+ * @brief PacMan::PacMan Initalize everything needed for a round of Pac-Man
+ * @param gvPointer A Pointer to the GraphicsView in which Pac-Man will be displayed
  */
 PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
 {
@@ -57,7 +57,7 @@ PacMan::~PacMan()
 
 
 /**
- * @brief PacMan::paint Paints all menu items.
+ * @brief PacMan::paint Handles the painting of the game
  */
 void PacMan::paint()
 {
@@ -78,8 +78,8 @@ void PacMan::paint()
 }
 
 /**
- * @brief PacMan::handleKeyPress
- * @param event
+ * @brief PacMan::handleKeyPress Read the Keyboard Input and forwoard it to the appropriate method
+ * @param event The pressed Key
  */
 void PacMan::handleKeyPress(QKeyEvent* event)
 {
@@ -104,6 +104,10 @@ void PacMan::handleKeyPress(QKeyEvent* event)
     }
 }
 
+/**
+ * @brief PacMan::gameOverHandler Handle a GameOver caused bye either a ghost eating the Player or the Player eating every dot in the maze
+ * @param won
+ */
 void PacMan::gameOverHandler(bool won) {
     this->gameOver = true;
     this->gameWon = won;

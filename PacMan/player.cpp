@@ -3,9 +3,9 @@
 #include <QKeyEvent>
 
 /**
- * @brief Player::Player
- * @param scPointer A Pointer to the maze where the player can move in
- * @param mazePointer
+ * @brief Player::Player Constructer of the Player entity
+ * @param gsPointer Pointer to the GraphicScene where the Player should operate in
+ * @param mazePointer Pointer to the Maze where the should operate in
  */
 Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{mazePointer}
 {
@@ -22,18 +22,23 @@ Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{
 
     spriteTimer.setTimerType(Qt::PreciseTimer);
     QObject::connect(&spriteTimer, &QTimer::timeout, this, &Player::swapSprite);
-    spriteTimer.setInterval(100);
+    spriteTimer.setInterval(150);
 
     float fieldWidth_px = maze->getFieldWidth();
     spriteShut = QPixmap(":/Sprite/Player/PlayerShut.png").scaledToWidth(fieldWidth_px * scaleFactor);
     spriteOpen = QPixmap(":/Sprite/Player/PlayerOpen.png").scaledToWidth(fieldWidth_px * scaleFactor);
     pixmap = gs->addPixmap(spriteOpen);
+    pixmap->setZValue(1);
     pixmap->setTransformOriginPoint((QPoint((fieldWidth_px * scaleFactor)/2,(fieldWidth_px * scaleFactor)/2)));
     clone = gs->addPixmap(spriteOpen);
     clone->setTransformOriginPoint((QPoint((fieldWidth_px * scaleFactor)/2,(fieldWidth_px * scaleFactor)/2)));
     spriteStatus = spriteIsOpen;
 }
 
+/**
+ * @brief Player::setPaused Stop the Player logic from updating
+ * @param paused Stop if true continue if false
+ */
 void Player::setPaused(bool paused)
 {
     static int stepTickCache = -1, energizerTimeoutCache = -1;
@@ -61,7 +66,7 @@ void Player::setPaused(bool paused)
 }
 
 /**
- * @brief Player::paint
+ * @brief Player::paint Draw Player at new location and eat Dots if available
  */
 void Player::paint(void)
 {
@@ -115,7 +120,7 @@ void Player::paint(void)
     float yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
     pixmap->setPos(xPosition, yPosition);
 
-    // Test if the player is in the tunnel
+    // Test if the player is in the tunnel if so show clone at the other end of the tunnel for more emersion
     if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
     {
         clone->setVisible(true);
@@ -141,7 +146,7 @@ void Player::paint(void)
 }
 
 /**
- * @brief Player::step Update Direction based on Keyboard Inputed Direction and Current Direction
+ * @brief Player::step Update Direction and move Player in the new Direction
  */
 void Player::step(void)
 {
@@ -178,6 +183,7 @@ void Player::step(void)
     position += direction;
     stepTick.setInterval(getStepInterval());
 
+    //Move to the otherside of the tunnel
     if(position.x() < 0 || position.x() > 27)
     {
         position.setX((position.x()+maze->width) % maze->width);
@@ -185,7 +191,7 @@ void Player::step(void)
 }
 
 /**
- * @brief Player::getField Function used for getting the Field Pac-Man is currently in
+ * @brief Player::getField Function used for getting the Field the Player is currently in
  * @return A QPoint in the maze with the position of Pac-Man
  */
 QPoint Player::getField(void)
@@ -194,19 +200,27 @@ QPoint Player::getField(void)
     return position - subposition.toPoint();
 }
 
+/**
+ * @brief Player::getDirection Get the Current Direction the Player is heading as a QPoint
+ * @return Up, Down,  Left, Right
+ */
 QPoint Player::getDirection(void)
 {
     return direction;
 }
 
+/**
+ * @brief Player::getStatus Get the Status of Player which depends on if a energizer was eaten
+ * @return normal, energized
+ */
 char Player::getStatus(void)
 {
     return status;
 }
 
 /**
- * @brief Player::MovePlayer Read which Key was pressed
- * @param event
+ * @brief Player::changeDirection Read the direction inputed via Keyboard without normally changing the direction immediately
+ * @param event The pressed Key
  */
 void Player::changeDirection(QKeyEvent* event)
 {
@@ -242,6 +256,10 @@ void Player::changeDirection(QKeyEvent* event)
     }
 }
 
+/**
+ * @brief Player::eatItem Change the contend of a field in the Maze
+ * @param location The Field which should be changed
+ */
 void Player::eatItem(QPoint location)
 {
     char Item = maze->getDots(location);
@@ -264,12 +282,19 @@ void Player::eatItem(QPoint location)
     }
 }
 
+/**
+ * @brief Player::resetEnergized Reset the Player status after a set amount of time specified with a timer
+ */
 void Player::resetEnergized(void)
 {
     status = normal;
     emit Player::energizedChanged(false);
 }
 
+/**
+ * @brief Player::getStepInterval Get the current Intervall time with which the function Player::step is called
+ * @return Time in ms
+ */
 int Player::getStepInterval(void)
 {
 
@@ -279,9 +304,11 @@ int Player::getStepInterval(void)
         return eating ? stepIntervalCoin : stepIntervalNoCoin;
 }
 
+/**
+ * @brief Player::swapSprite Change between two sprite Version to create an eating animation
+ */
 void Player::swapSprite(void)
 {
-    //Animate the Player sprite by swaping between two versions
     if(spriteStatus == spriteIsOpen)
     {
         pixmap->setPixmap(spriteShut);
