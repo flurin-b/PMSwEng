@@ -57,16 +57,19 @@ protected:
         stepIntervalNormal     = int(Maze::baseStepInterval / 0.75),
         stepIntervalTunnel     = int(Maze::baseStepInterval / 0.40),
         stepIntervalFrightened = int(Maze::baseStepInterval / 0.50),
+        stepIntervalReturning  = int(Maze::baseStepInterval / 1.50),
     };
     enum{
         inMaze,
         inGhostHouse,
         leavingGhostHouse,
+        enteringGhostHouse,
     } state = inGhostHouse;
     typedef enum {
         chase,
         scatter,
         frightened,
+        returning,
     } movement_t;
     movement_t movement = chase;
     movement_t globalMovement = chase;

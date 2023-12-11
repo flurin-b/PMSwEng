@@ -124,6 +124,7 @@ void PacMan::initGameObjects()
 
     delete maze;
     maze = new Maze(gs, gv);
+    QObject::connect(maze, &Maze::gameOver, this, &PacMan::gameOverHandler);
     delete player;
     player = new Player(gs, maze);
 
