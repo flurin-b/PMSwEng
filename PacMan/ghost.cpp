@@ -43,7 +43,7 @@ void Ghost::setPaused(bool paused)
     {
         stepTickCache = stepTick->remainingTime();
         movementTimerCache = movementTimer->remainingTime();
-        ftightnedSpriteTimerCache = frightenedSpriteTimer->remainingTime();
+        frightenedSpriteTimerCache = frightenedSpriteTimer->remainingTime();
         stepTick->stop();
         movementTimer->stop();
         frightenedSpriteTimer->stop();
@@ -54,13 +54,15 @@ void Ghost::setPaused(bool paused)
         {
             stepTick->start(stepTickCache);
             movementTimer->start(movementTimerCache);
-            frightenedSpriteTimer->start(ftightnedSpriteTimerCache);
         }
         else
         {
             stepTick->start();
             movementTimer->start();
-            frightenedSpriteTimer->start();
+        }
+        if (frightenedSpriteTimer->remainingTime() != -1)
+        {
+            frightenedSpriteTimer->start(frightenedSpriteTimerCache);
         }
     }
 }
@@ -342,20 +344,22 @@ void Ghost::paint()
     }
 
     // Check if the ghost ate PacMan or vice versa
-    if (movement == Ghost::frightened)
+    if (player->getField() == subposition.toPoint())
     {
-        if (player->getField() == subposition.toPoint()) {
+        if (movement == Ghost::frightened)
+        {
             position = resetPosition;
             state = Ghost::leavingGhostHouse;
-            movement = Ghost::chase;
-            stepTick->setInterval(getStepInterval() * stepTick->remainingTime()/Ghost::stepIntervalFrightened);
+            movement = globalMovement;
+            stepTick->setInterval(getStepInterval() / 2);
+            frightenedSpriteTimer->stop();
             // TODO: give points for eating a ghost
         }
-    }
-    else
-    {
-        if (player->getField() == subposition.toPoint()) {
-            emit gameOver(false);
+        else
+        {
+            if (player->getField() == subposition.toPoint()) {
+                emit gameOver(false);
+            }
         }
     }
 }
@@ -401,6 +405,7 @@ void Blinky::step(void)
 {
     if(movement == chase || movement == scatter)
         movement = globalMovement;
+
     switch (movement)
     {
     case chase:
@@ -563,7 +568,32 @@ void Clyde::step(void)
     case chase:
         if(getDistance(getField(), player->getField()) < 8)
         {
-            Ghost::step(scatterTarget);
+            QPoint target;
+            // get all possible directions
+            std::vector<QPoint> possibleDirs = maze->getMaze(position);
+            int i = 0;
+            // delete opposite of current direction as no 180 degree turns can be made
+            for(QPoint possibleDir : possibleDirs)
+            {
+                if(possibleDir == -direction)
+                {
+                    possibleDirs.erase(possibleDirs.begin() + i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            // decide where to go to get as far away from the player as possible.
+            int largest = 0;
+            for(int i = 1; i < possibleDirs.size(); i++){
+                if (getDistance(position+possibleDirs[largest], target) > getDistance(position+possibleDirs[i], target))
+                {
+                    largest = i;
+                }
+            }
+            target = possibleDirs[largest] + getField();
+            Ghost::step(target);
         }
         else
         {

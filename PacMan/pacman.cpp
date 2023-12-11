@@ -54,7 +54,7 @@ void PacMan::paint()
     {
     case won:
     case lost:
-        gameStateText->setPlainText(gameState == won ? "Game Over, you win!" : "Game Over, you loose!");
+        gameStateText->setPlainText(gameState == won ? "Game Over, you win! Press ENTER to play again." : "Game Over, you loose! Press ENTER to play again.");
         gameStateText->show();
         break;
     case paused:
