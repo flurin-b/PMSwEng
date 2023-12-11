@@ -86,13 +86,9 @@ protected:
     }spriteStatus_t;
 
     const float scaleFactor = 1.3;
-    spriteStatus_t spriteStatus = frightendBlue;
-    QPixmap spriteSideL;
-    QPixmap spriteSideR;
-    QPixmap spriteUp;
-    QPixmap spriteDown;
-    QPixmap spriteFrightendBlue;
-    QPixmap spriteFrightendWhite;
+    QPixmap spriteSideL, spriteSideR, spriteUp, spriteDown;
+    QPixmap spriteFrightendBlue, spriteFrightendWhite;
+    QPixmap eyeL, eyeR, eyeUp, eyeDown;
     QGraphicsPixmapItem *pixmap,*clonePixmap;
 };
 
