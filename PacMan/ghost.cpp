@@ -15,6 +15,10 @@ Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
 
     spriteFrightendBlue =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteFrightendWhite = QPixmap(":/Sprite/Ghost/GhostFrightendEnding.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    eyeL = QPixmap(":/Sprite/Ghost/AugenL.PNG");
+    eyeR = QPixmap(":/Sprite/Ghost/AugenL.PNG");
+    eyeUp = QPixmap(":/Sprite/Ghost/AugenL.PNG");
+    eyeDown = QPixmap(":/Sprite/Ghost/AugenL.PNG");
 
     stepTick = new QTimer;
     stepTick->setTimerType(Qt::PreciseTimer);

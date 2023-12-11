@@ -26,7 +26,7 @@ public:
     QPoint getField(void);
 
 public slots:
-    void paint(); 
+    void paint();
     void setFrightened(bool frightened);
 
 protected slots:
@@ -89,12 +89,9 @@ protected:
     } spriteStatus = frightendBlue;
 
     const float scaleFactor = 1.3;
-    QPixmap spriteSideL;
-    QPixmap spriteSideR;
-    QPixmap spriteUp;
-    QPixmap spriteDown;
-    QPixmap spriteFrightendBlue;
-    QPixmap spriteFrightendWhite;
+    QPixmap spriteSideL, spriteSideR, spriteUp, spriteDown;
+    QPixmap spriteFrightendBlue, spriteFrightendWhite;
+    QPixmap eyeL, eyeR, eyeUp, eyeDown;
     QGraphicsPixmapItem *pixmap,*clonePixmap;
 };
 
