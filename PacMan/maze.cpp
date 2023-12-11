@@ -21,9 +21,9 @@ Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, g
     labyrinth->setPos(0,fieldSize_px * 3);
 
     // Debug Score Display
-    scoreText = gs->addSimpleText("score");
+    scoreText = gs->addSimpleText("");
     scoreText->setBrush(QBrush(QColor::fromRgb(255, 255, 255)));
-    scoreText->setPos(200, 20);
+    scoreText->setPos(5, 20);
 
     for (int x = 0; x < width; x++)
     {
@@ -71,8 +71,8 @@ void Maze::paint(){
     }
 
     // Debug Score Display
-    char buf[10] = "";
-    sprintf(buf, "%d", this->score);
+    char buf[7] = "";
+    sprintf(buf, "%06d", this->score);
     scoreText->setText(buf);
 }
 

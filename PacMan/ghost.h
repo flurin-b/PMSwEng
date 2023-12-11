@@ -72,7 +72,7 @@ protected:
     movement_t globalMovement = chase;
 
     QTimer *movementTimer, *stepTick, *frightenedSpriteTimer;
-    int movementTimerCache = -1, stepTickCache = -1, ftightnedSpriteTimerCache = -1;
+    int movementTimerCache = -1, stepTickCache = -1, frightenedSpriteTimerCache = -1;
     int movementCounter = 0;
 
     static float getDistance(QPoint field1, QPoint field2);
