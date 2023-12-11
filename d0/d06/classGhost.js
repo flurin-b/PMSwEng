@@ -20,7 +20,7 @@ var classGhost =
     [ "direction", "d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e", null ],
     [ "dotLimitGhostHouse", "d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55", null ],
     [ "frightenedSpriteTimer", "d0/d06/classGhost.html#aaf2ee9c07e279eaa7de10b78819d4090", null ],
-    [ "ftightnedSpriteTimerCache", "d0/d06/classGhost.html#a179e7455bdad856e039902f66f36c4d4", null ],
+    [ "frightenedSpriteTimerCache", "d0/d06/classGhost.html#ab8fe3ce3d02fbe9ae4f039890e639547", null ],
     [ "globalMovement", "d0/d06/classGhost.html#abe1b57ac222bab6f05b5f1ac1077f648", null ],
     [ "gs", "d0/d06/classGhost.html#a3dc8412b0d407180d484510f7fcb4923", null ],
     [ "maze", "d0/d06/classGhost.html#aae6e98971004b78a976a21c64ad27283", null ],
