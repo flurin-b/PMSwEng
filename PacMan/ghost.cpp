@@ -1,7 +1,7 @@
 #include "ghost.h"
 
 /**
- * @brief Ghost::Ghost Abstrakte Klasse die das Grund gerüst für Blinky/Pinky/Inky/Clyde ist
+ * @brief Ghost::Ghost Create the base for any specific Ghost (Blinky/Pinky/Inky/Clyde)
  * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
  * @param mazePointer A Pointer to the maze where to ghosts operade in
  * @param playerPointer A Pointer to the player so that they can chase him
@@ -12,10 +12,16 @@ Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     connect(movementTimer, &QTimer::timeout, this, &Ghost::nextMovementPattern);
     nextMovementPattern();
     movementTimer->stop();
-    spriteFrightend =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth());
+
+    spriteFrightendBlue =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteFrightendWhite = QPixmap(":/Sprite/Ghost/GhostFrightendEnding.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
 
     stepTick = new QTimer;
     stepTick->setTimerType(Qt::PreciseTimer);
+
+    frightenedSpriteTimer = new QTimer;
+    frightenedSpriteTimer->setTimerType(Qt::PreciseTimer);
+    QObject::connect(frightenedSpriteTimer, &QTimer::timeout, this, &Ghost::toggleFrightenedSprite);
 }
 
 /**
@@ -27,14 +33,20 @@ Ghost::~Ghost()
     delete stepTick;
 }
 
+/**
+ * @brief Ghost::setPaused Stop the Ghost logic from updating
+ * @param paused Stop if true continue if false
+ */
 void Ghost::setPaused(bool paused)
 {
     if(paused)
     {
         stepTickCache = stepTick->remainingTime();
         movementTimerCache = movementTimer->remainingTime();
+        ftightnedSpriteTimerCache = frightenedSpriteTimer->remainingTime();
         stepTick->stop();
         movementTimer->stop();
+        frightenedSpriteTimer->stop();
     }
     else
     {
@@ -42,29 +54,65 @@ void Ghost::setPaused(bool paused)
         {
             stepTick->start(stepTickCache);
             movementTimer->start(movementTimerCache);
+            frightenedSpriteTimer->start(ftightnedSpriteTimerCache);
         }
         else
         {
             stepTick->start();
             movementTimer->start();
+            frightenedSpriteTimer->start();
         }
     }
 }
 
+/**
+ * @brief Ghost::setFrightened
+ * @param frightened
+ */
 void Ghost::setFrightened(bool frightened)
 {
-    if (frightened && movement != Ghost::frightened)
+    if(frightened)
     {
-        position -= direction;
-        if (state == Ghost::inMaze)
-            direction = -direction;
-        stepTick->setInterval(Ghost::stepIntervalFrightened * stepTick->remainingTime()/getStepInterval());
-        movement = Ghost::frightened;
+        pixmap->setPixmap(spriteFrightendBlue);
+        spriteStatus = frightendBlue;
+        frightenedSpriteTimer->setInterval(Player::energizerDuration * 0.7);
+        frightenedSpriteTimer->start();
+
+        if (movement != Ghost::frightened)
+        {
+            if (state == Ghost::inMaze)
+                position -= direction;
+                direction = -direction;
+            stepTick->setInterval(Ghost::stepIntervalFrightened * stepTick->remainingTime()/getStepInterval());
+            movement = Ghost::frightened;
+        }
     }
     else if (!frightened && movement == Ghost::frightened)
     {
         movement = globalMovement;
         stepTick->setInterval(getStepInterval() * stepTick->remainingTime()/Ghost::stepIntervalFrightened);
+
+        frightenedSpriteTimer->stop();
+    }
+}
+
+/**
+ * @brief Ghost::toggleFrightenedSprite Swap between two frightend sprites to show the Player the energized Time is running out
+ */
+void Ghost::toggleFrightenedSprite()
+{
+    if(spriteStatus == frightendBlue)
+    {
+        frightenedSpriteTimer->setInterval(200);
+        pixmap->setPixmap(spriteFrightendWhite);
+        clonePixmap->setPixmap(spriteFrightendWhite);
+        spriteStatus = frightendWhite;
+    }
+    else if(spriteStatus == frightendWhite)
+    {
+        pixmap->setPixmap(spriteFrightendBlue);
+        clonePixmap->setPixmap(spriteFrightendBlue);
+        spriteStatus = frightendBlue;
     }
 }
 
@@ -79,6 +127,10 @@ float Ghost::getDistance(QPoint field1, QPoint field2){
     return sqrt(dx*dx + dy*dy);
 }
 
+/**
+ * @brief Ghost::getStepInterval Get the current Intervall time with which the function Ghost::step is called
+ * @return Time in ms
+ */
 int Ghost::getStepInterval(void)
 {
     if((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
@@ -95,11 +147,18 @@ int Ghost::getStepInterval(void)
     }
 }
 
+/**
+ * @brief Ghost::getField Get the field in which the Ghost is currently in
+ * @return A field in the Maze
+ */
 QPoint Ghost::getField (void)
 {
     return subposition.toPoint();
 }
 
+/**
+ * @brief Ghost::nextMovementPattern
+ */
 void Ghost::nextMovementPattern()
 {
     const static int patternTimes[8] = {7000, 20000, 7000, 20000, 5000, 20000, 5000, 20000};
@@ -118,6 +177,10 @@ void Ghost::nextMovementPattern()
         movementCounter = 7;
 }
 
+/**
+ * @brief Ghost::step
+ * @param target
+ */
 void Ghost::step(QPoint target) {
 #ifdef DEBUG_TARGETS
     debugTarget->setRect(target.x()*maze->getFieldWidth(), target.y()*maze->getFieldWidth(), maze->getFieldWidth(), maze->getFieldWidth());
@@ -216,6 +279,9 @@ void Ghost::step(QPoint target) {
     stepTick->setInterval(getStepInterval());
 }
 
+/**
+ * @brief Ghost::paint
+ */
 void Ghost::paint()
 {
     // if not paused, update subposition
@@ -232,11 +298,7 @@ void Ghost::paint()
         }
     }
 
-    if(movement == Ghost::frightened)
-    {
-        pixmap->setPixmap(spriteFrightend);
-    }
-    else
+    if(movement != Ghost::frightened)
     {
         if(direction.x() != 0)
         {
@@ -249,8 +311,11 @@ void Ghost::paint()
         }
     }
 
+    //Calculate the top left position if the sprite would be as wide as the field and subtract half of the wide pixels that are to wide becuse of the scaling
     float fieldWidth_px = maze->getFieldWidth();
-    pixmap->setPos(subposition.x() * fieldWidth_px, subposition.y() * fieldWidth_px);
+    float xPosition = subposition.x() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+    float yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+    pixmap->setPos(xPosition, yPosition);
 
     // Test if the ghost is in the tunnel
     if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
@@ -258,13 +323,17 @@ void Ghost::paint()
         clonePixmap->setVisible(true);
         if (position.x() == 0)
         {
+            xPosition = (subposition.x() + maze->width) * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+            yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
             clonePixmap->setPixmap(spriteSideL);
-            clonePixmap->setOffset((subposition.x() + maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px);
+            clonePixmap->setPos(xPosition,yPosition);
         }
         else
         {
+            xPosition = (subposition.x() - maze->width) * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+            yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
             clonePixmap->setPixmap(spriteSideR);
-            clonePixmap->setOffset((subposition.x() - maze->width) * fieldWidth_px, subposition.y() * fieldWidth_px);
+            clonePixmap->setPos(xPosition,yPosition);
         }
     }
     else
@@ -314,12 +383,13 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPoint
     QObject::connect(stepTick, &QTimer::timeout, this, &Blinky::step);
     stepTick->setInterval(Ghost::stepIntervalNormal / 2);
 
-    spriteSideL = QPixmap(":/Sprite/Blinky/BlinkySideL.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteSideR = QPixmap(":/Sprite/Blinky/BlinkySideR.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteUp = QPixmap(":/Sprite/Blinky/BlinkyUp.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteDown = QPixmap(":/Sprite/Blinky/BlinkyDown.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideL = QPixmap(":/Sprite/Blinky/BlinkySideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteSideR = QPixmap(":/Sprite/Blinky/BlinkySideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteUp = QPixmap(":/Sprite/Blinky/BlinkyUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteDown = QPixmap(":/Sprite/Blinky/BlinkyDown.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
 
     pixmap = gs->addPixmap(spriteSideL);
+    pixmap->setZValue(1);
     clonePixmap = gs->addPixmap(spriteSideL);
     clonePixmap->setVisible(false);
 }
@@ -366,11 +436,12 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     QObject::connect(stepTick, &QTimer::timeout, this, &Pinky::step);
     stepTick->setInterval(0);
 
-    spriteSideL = QPixmap(":/Sprite/Pinky/PinkySideL.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteSideR = QPixmap(":/Sprite/Pinky/PinkySideR.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteUp = QPixmap(":/Sprite/Pinky/PinkyUp.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteDown = QPixmap(":/Sprite/Pinky/PinkyDown.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideL = QPixmap(":/Sprite/Pinky/PinkySideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteSideR = QPixmap(":/Sprite/Pinky/PinkySideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteUp = QPixmap(":/Sprite/Pinky/PinkyUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteDown = QPixmap(":/Sprite/Pinky/PinkyDown.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     pixmap = gs->addPixmap(spriteSideL);
+    pixmap->setZValue(1);
     clonePixmap = gs->addPixmap(spriteSideL);
     clonePixmap->setVisible(false);
 }
@@ -418,11 +489,12 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer, 
 
     stepTick->setInterval(10);
 
-    spriteSideL = QPixmap(":/Sprite/Inky/InkySideL.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteSideR = QPixmap(":/Sprite/Inky/InkySideR.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteUp = QPixmap(":/Sprite/Inky/InkyUp.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteDown = QPixmap(":/Sprite/Inky/InkyDown.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideL = QPixmap(":/Sprite/Inky/InkySideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteSideR = QPixmap(":/Sprite/Inky/InkySideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteUp = QPixmap(":/Sprite/Inky/InkyUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteDown = QPixmap(":/Sprite/Inky/InkyDown.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     pixmap = gs->addPixmap(spriteSideR);
+    pixmap->setZValue(1);
     clonePixmap = gs->addPixmap(spriteSideL);
     clonePixmap->setVisible(false);
 }
@@ -468,11 +540,12 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     QObject::connect(stepTick, &QTimer::timeout, this, &Clyde::step);
     stepTick->setInterval(10);
 
-    spriteSideL = QPixmap(":/Sprite/Clyde/ClydeSideL.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteSideR = QPixmap(":/Sprite/Clyde/ClydeSideR.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteUp = QPixmap(":/Sprite/Clyde/ClydeUp.PNG").scaledToWidth(maze->getFieldWidth());
-    spriteDown = QPixmap(":/Sprite/Clyde/ClydeDown.PNG").scaledToWidth(maze->getFieldWidth());
+    spriteSideL = QPixmap(":/Sprite/Clyde/ClydeSideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteSideR = QPixmap(":/Sprite/Clyde/ClydeSideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteUp = QPixmap(":/Sprite/Clyde/ClydeUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    spriteDown = QPixmap(":/Sprite/Clyde/ClydeDown.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     pixmap = gs->addPixmap(spriteSideL);
+    pixmap->setZValue(1);
     clonePixmap = gs->addPixmap(spriteSideL);
     clonePixmap->setVisible(false);
 }

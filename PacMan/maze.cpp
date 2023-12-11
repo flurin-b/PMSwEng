@@ -97,6 +97,10 @@ int Maze::getDots(QPoint position)
     return contend;
 }
 
+/**
+ * @brief Maze::getDotsEaten Get the amount of small Dots eaten by the Player
+ * @return 0-244
+ */
 int Maze::getDotsEaten(){
     return dotsEaten;
 }
@@ -122,7 +126,7 @@ void Maze::setDots(QPoint position, item_t item)
  */
 std::vector<QPoint> Maze::getMaze(QPoint position)
 {
-    ///If the requested Position doesn't exist No Offset willb be given back
+    ///If the requested Position doesn't exist No Offset will be given back
     QPoint errorPosition(0,0);
     std::vector<QPoint> directions = {errorPosition};
 
@@ -137,12 +141,21 @@ std::vector<QPoint> Maze::getMaze(QPoint position)
     return directions;
 }
 
+/**
+ * @brief Maze::getFieldWidth Get the current Width of a Field in the Maze
+ * @return The width of a Field in Pixel
+ */
 float Maze::getFieldWidth(void) {
     return gv->width() / width;
 }
 
+/**
+ * @brief Maze::increaseScore Update the score made by the Player
+ * @param offset The amount the score should be changed
+ */
 void Maze::increaseScore(int offset)
 {
+    //The score can only ever be increased never decreased
     if(offset > 0)
     {
         score += offset;

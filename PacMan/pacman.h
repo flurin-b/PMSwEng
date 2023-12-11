@@ -39,7 +39,7 @@ private:
         paused,
         won,
         lost
-    } gameState = won;
+    } gameState = start;
 
     void initGameObjects();
 };
