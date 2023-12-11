@@ -5,15 +5,6 @@ var classGhost =
       [ "scatter", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fba59b5274694b70ac8486fb30b5274c9ea", null ],
       [ "frightened", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fba7200316dc151cd47c90bdf9d917bd3fe", null ]
     ] ],
-    [ "spriteStatus_t", "d0/d06/classGhost.html#a50c71c474f217d429894f992310e4ffc", [
-      [ "frightendBlue", "d0/d06/classGhost.html#a50c71c474f217d429894f992310e4ffca0ce463b9ccb8d53d3001f16e3ca1be03", null ],
-      [ "frightendWhite", "d0/d06/classGhost.html#a50c71c474f217d429894f992310e4ffcaf366de67037187b610459f1d9575188f", null ]
-    ] ],
-    [ "state_t", "d0/d06/classGhost.html#a73f7df0fd4a1e3de6e2d9654cd975bae", [
-      [ "inMaze", "d0/d06/classGhost.html#a73f7df0fd4a1e3de6e2d9654cd975baeaa4222734485ec861eb8456d90a1249db", null ],
-      [ "inGhostHouse", "d0/d06/classGhost.html#a73f7df0fd4a1e3de6e2d9654cd975baea75498af1fdccd3320ffe940bfdd7fa9a", null ],
-      [ "leavingGhostHouse", "d0/d06/classGhost.html#a73f7df0fd4a1e3de6e2d9654cd975baea874defdc3388b28e5b95b7413eb3164f", null ]
-    ] ],
     [ "Ghost", "d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196", null ],
     [ "~Ghost", "d0/d06/classGhost.html#a063ed19c1b6f5c07b9109020c6198319", null ],
     [ "gameOver", "d0/d06/classGhost.html#a3414af266c4bdcb026dc25c33797f3a7", null ],
@@ -28,13 +19,14 @@ var classGhost =
     [ "clonePixmap", "d0/d06/classGhost.html#aa464e3b739b781324d203d7ed91c91d1", null ],
     [ "direction", "d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e", null ],
     [ "dotLimitGhostHouse", "d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55", null ],
-    [ "frightnedSpriteTimer", "d0/d06/classGhost.html#a44caad0965d2ca88a211c1a23a8d405d", null ],
+    [ "frightenedSpriteTimer", "d0/d06/classGhost.html#aaf2ee9c07e279eaa7de10b78819d4090", null ],
+    [ "ftightnedSpriteTimerCache", "d0/d06/classGhost.html#a179e7455bdad856e039902f66f36c4d4", null ],
     [ "globalMovement", "d0/d06/classGhost.html#abe1b57ac222bab6f05b5f1ac1077f648", null ],
     [ "gs", "d0/d06/classGhost.html#a3dc8412b0d407180d484510f7fcb4923", null ],
     [ "maze", "d0/d06/classGhost.html#aae6e98971004b78a976a21c64ad27283", null ],
     [ "movement", "d0/d06/classGhost.html#a3320aaad1d22a3726af8a87034979807", null ],
     [ "movementCounter", "d0/d06/classGhost.html#a81935a04d991e9829cead29092c27a1e", null ],
-    [ "movementTimer", "d0/d06/classGhost.html#a73b7126ba7fa5fcb48e33e2a3fbc0899", null ],
+    [ "movementTimer", "d0/d06/classGhost.html#a8f8157957343fa4372772aa3230ceb42", null ],
     [ "movementTimerCache", "d0/d06/classGhost.html#a352cfc52a5ae7761f791d056241f6de1", null ],
     [ "pixmap", "d0/d06/classGhost.html#a0e43247770458b1cfe874f0120e06df2", null ],
     [ "player", "d0/d06/classGhost.html#ab4919b308d77f53f5ca29077633ccb8f", null ],
@@ -46,10 +38,10 @@ var classGhost =
     [ "spriteFrightendWhite", "d0/d06/classGhost.html#a923ec14655d59ccd86ba3afdc22ac641", null ],
     [ "spriteSideL", "d0/d06/classGhost.html#ad202e75655d99e7d109fae1fa4acd122", null ],
     [ "spriteSideR", "d0/d06/classGhost.html#a2d3e296abf4faaca4a7c056099c35e7b", null ],
-    [ "spriteStatus", "d0/d06/classGhost.html#abeb274460bb4ff1b564b5ec4c9abb3c4", null ],
+    [ "spriteStatus", "d0/d06/classGhost.html#ad82e1044755828003ee91c2a08e691c0", null ],
     [ "spriteUp", "d0/d06/classGhost.html#ac12ba8591c2de1e94cd4b5dc5ad5c1eb", null ],
-    [ "state", "d0/d06/classGhost.html#a4ef4cb172f5c800f14bd1051e64d7c40", null ],
-    [ "stepTick", "d0/d06/classGhost.html#a49e422e7ff048cb885bc0e596c74d62d", null ],
+    [ "state", "d0/d06/classGhost.html#a99ed0ea110ef66eb4204fa0050a27cd0", null ],
+    [ "stepTick", "d0/d06/classGhost.html#a726b33723e623a85704cb3573801534e", null ],
     [ "stepTickCache", "d0/d06/classGhost.html#af523cad1e07159795c57f1353886ea4b", null ],
     [ "subposition", "d0/d06/classGhost.html#a2a95c784149e5d800e10cb08287a0466", null ]
 ];
