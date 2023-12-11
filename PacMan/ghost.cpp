@@ -15,10 +15,10 @@ Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
 
     spriteFrightendBlue =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteFrightendWhite = QPixmap(":/Sprite/Ghost/GhostFrightendEnding.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
-    eyeL = QPixmap(":/Sprite/Ghost/AugenL.PNG");
-    eyeR = QPixmap(":/Sprite/Ghost/AugenL.PNG");
-    eyeUp = QPixmap(":/Sprite/Ghost/AugenL.PNG");
-    eyeDown = QPixmap(":/Sprite/Ghost/AugenL.PNG");
+    eyeL = QPixmap(":/Sprite/Ghost/AugenL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    eyeR = QPixmap(":/Sprite/Ghost/AugenL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    eyeUp = QPixmap(":/Sprite/Ghost/AugenL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
+    eyeDown = QPixmap(":/Sprite/Ghost/AugenL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
 
     stepTick = new QTimer;
     stepTick->setTimerType(Qt::PreciseTimer);
@@ -348,8 +348,10 @@ void Ghost::paint()
         }
     }
 
-    if(movement != Ghost::frightened)
+    switch (movement)
     {
+    case chase:
+    case scatter:
         if(direction.x() != 0)
         {
             pixmap->setPixmap(direction.x() > 0 ? spriteSideR : spriteSideL);
@@ -359,6 +361,21 @@ void Ghost::paint()
         {
             pixmap->setPixmap(direction.y() < 0 ? spriteUp : spriteDown);
         }
+        break;
+    case returning:
+
+        if(direction.x() != 0)
+        {
+            pixmap->setPixmap(direction.x() > 0 ? eyeR : eyeL);
+        }
+
+        else
+        {
+            pixmap->setPixmap(direction.y() < 0 ? eyeUp : eyeDown);
+        }
+        break;
+    case frightened:
+        break;
     }
 
     //Calculate the top left position if the sprite would be as wide as the field and subtract half of the wide pixels that are to wide becuse of the scaling
