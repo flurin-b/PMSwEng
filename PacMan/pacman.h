@@ -25,17 +25,23 @@ public slots:
     void gameOverHandler(bool won);
 
 private:
-    QGraphicsView *gv;
-    QGraphicsScene *gs;
-    Maze *maze;
-    Ghost *ghosts[4];
-    Player *player;
-    QTimer *gameTick;
+    QGraphicsView     *gv;
+    QGraphicsScene    *gs;
+    QGraphicsTextItem *gameStateText = nullptr;
 
-    //TODO: create gameStat-Enum
-    bool paused = true;
-    bool gameOver = false;
-    bool gameWon = false;
+    Maze    *maze      =  nullptr;
+    Player  *player    =  nullptr;
+    Ghost   *ghosts[4] = {nullptr, nullptr, nullptr, nullptr};
+
+    enum {
+        start,
+        running,
+        paused,
+        won,
+        lost
+    } gameState = start;
+
+    void initGameObjects();
 };
 
 #endif // PACMAN_H

@@ -58,35 +58,34 @@ protected:
         stepIntervalTunnel     = int(Maze::baseStepInterval / 0.40),
         stepIntervalFrightened = int(Maze::baseStepInterval / 0.50),
     };
-    typedef enum{
+    enum{
         inMaze,
         inGhostHouse,
         leavingGhostHouse,
-    } state_t;
-    state_t state = inGhostHouse;
+    } state = inGhostHouse;
     typedef enum {
         chase,
         scatter,
         frightened,
     } movement_t;
     movement_t movement = chase;
-    QTimer movementTimer{}, stepTick{},frightnedSpriteTimer;
-    int movementTimerCache = -1, stepTickCache = -1;
-    int movementCounter = 0;
     movement_t globalMovement = chase;
+
+    QTimer *movementTimer, *stepTick, *frightenedSpriteTimer;
+    int movementTimerCache = -1, stepTickCache = -1, ftightnedSpriteTimerCache = -1;
+    int movementCounter = 0;
 
     static float getDistance(QPoint field1, QPoint field2);
     int getStepInterval(void);
 
     void step (QPoint target);
 
-    typedef enum{
+    enum{
         frightendBlue,
         frightendWhite
-    }spriteStatus_t;
+    } spriteStatus = frightendBlue;
 
     const float scaleFactor = 1.3;
-    spriteStatus_t spriteStatus = frightendBlue;
     QPixmap spriteSideL;
     QPixmap spriteSideR;
     QPixmap spriteUp;

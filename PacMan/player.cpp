@@ -11,6 +11,7 @@ Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{
 {
     //playerPosition Start unclear right now, change latter down the line
     position = QPoint{13,26};
+    subposition = QPointF{position.x()+0.5, float(position.y())};
     direction = QPoint{-1,0};
     energizerTimeout = new QTimer();
     energizerTimeout->setSingleShot(true);
@@ -41,7 +42,6 @@ Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{
  */
 void Player::setPaused(bool paused)
 {
-    static int stepTickCache = -1, energizerTimeoutCache = -1;
     if(paused)
     {
         stepTickCache = stepTick.remainingTime();
@@ -70,7 +70,6 @@ void Player::setPaused(bool paused)
  */
 void Player::paint(void)
 {
-    static QPointF subposition{position.x()+0.5, float(position.y())};
     // if not paused, update subposition
     if(stepTick.remainingTime() != -1)
     {
@@ -81,9 +80,7 @@ void Player::paint(void)
         subposition += position.toPointF();
     }
 
-    static bool ate = false; // true if PacMan has eaten whatever was in the current field
     // check for 180 degree turns as otherwise the player could eat dots he hasn't touched yet
-    static QPoint lastDirection(direction);
     if (lastDirection == -direction)
         ate = true;
     lastDirection = direction;
@@ -248,7 +245,8 @@ void Player::changeDirection(QKeyEvent* event)
     {
         position -= direction;
         direction = pendingDirection;
-        stepTick.setInterval(getStepInterval()-stepTick.remainingTime());
+        if(stepTick.remainingTime() != -1)
+            stepTick.setInterval(getStepInterval()-stepTick.remainingTime());
     }
     if (direction == QPoint{0, 0})
     {

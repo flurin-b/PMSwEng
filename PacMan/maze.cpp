@@ -7,64 +7,73 @@
  * @param scPointer A Pointer to the GraphicScene onto which the items will be placed
  */
 Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, gv{gvPointer}
-{}
+{
+    const float dot_size = 0.15;
+    const float fieldSize_px = gv->width() / width;
+
+#ifdef MAZE_DEBUG_ARROWS
+    const float arrow_len = 0.45;
+    const float arrow_hat = 0.15;
+#endif /* MAZE_DEBUG_ARROWS */
+
+    gs->setBackgroundBrush(Qt::black);
+    QGraphicsPixmapItem* labyrinth =  gs->addPixmap(QPixmap(":/Sprite/Maze/maze.png").scaledToWidth(gs->width()-2));
+    labyrinth->setPos(0,fieldSize_px * 3);
+
+    // Debug Score Display
+    scoreText = gs->addSimpleText("score");
+    scoreText->setBrush(QBrush(QColor::fromRgb(255, 255, 255)));
+    scoreText->setPos(200, 20);
+
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
+        {
+
+#ifdef MAZE_DEBUG_ARROWS
+            std::vector<QPoint> dirs = getMaze(QPoint(x, y));
+            for (QPoint dir : dirs)
+            {
+                gs->addLine((x+0.5)*fieldSize_px, (y+0.5)*fieldSize_px, (x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px,QPen(Qt::white));
+                gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5+dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5+dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px,QPen(Qt::white));
+                gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5-dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5-dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px,QPen(Qt::white));
+            }
+#endif /* MAZE_DEBUG_ARROWS */
+
+            switch (getDots(QPoint(x, y)))
+            {
+            case noItem:
+                dotSprites[x][y] = nullptr;
+                break;
+            case smallPoint:
+                dotSprites[x][y] = gs->addEllipse((x+0.5-dot_size/2) * fieldSize_px, (y+0.5-dot_size/2) * fieldSize_px, dot_size * fieldSize_px, dot_size * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
+                break;
+            case bigPoint:
+                dotSprites[x][y] = gs->addEllipse((x+0.5-dot_size) * fieldSize_px, (y+0.5-dot_size) * fieldSize_px, dot_size * 3 * fieldSize_px, dot_size * 3 * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
+                break;
+            }
+        }
+    }
+}
 
 void Maze::paint(){
 
-    const float arrow_len = 0.45;
-    const float arrow_hat = 0.15;
-    const float dot_size = 0.15;
-    const float fieldSize_px = gv->width() / width;
-    static bool mazeDisplayed = false;
-    static QGraphicsEllipseItem* dots[width][height];
-
-    if(!mazeDisplayed){
-        gs->setBackgroundBrush(Qt::black);
-        QGraphicsPixmapItem* labyrinth =  gs->addPixmap(QPixmap(":/Sprite/Maze/maze.png").scaledToWidth(gs->width()-2));
-        labyrinth->setPos(0,fieldSize_px * 3);
-
-        for (int x = 0; x < width; x++)
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
         {
-            for (int y = 0; y < height; y++)
-            {
-                /*std::vector<QPoint> dirs = getMaze(QPoint(x, y));
-                for (QPoint dir : dirs)
-                {
-                    gs->addLine((x+0.5)*fieldSize_px, (y+0.5)*fieldSize_px, (x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px,QPen(Qt::white));
-                    gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5+dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5+dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px,QPen(Qt::white));
-                    gs->addLine((x+0.5+dir.x()*arrow_len) * fieldSize_px, (y+0.5+dir.y()*arrow_len) * fieldSize_px, (x+0.5-dir.y()*arrow_hat+dir.x()*arrow_hat) * fieldSize_px, (y+0.5-dir.x()*arrow_hat+dir.y()*arrow_hat) * fieldSize_px,QPen(Qt::white));
-                }*/
-                switch (getDots(QPoint(x, y)))
-                {
-                case noItem:
-                    dots[x][y] = nullptr;
-                    break;
-                case smallPoint:
-                    dots[x][y] = gs->addEllipse((x+0.5-dot_size/2) * fieldSize_px, (y+0.5-dot_size/2) * fieldSize_px, dot_size * fieldSize_px, dot_size * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
-                    break;
-                case bigPoint:
-                    dots[x][y] = gs->addEllipse((x+0.5-dot_size) * fieldSize_px, (y+0.5-dot_size) * fieldSize_px, dot_size * 3 * fieldSize_px, dot_size * 3 * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
-                    break;
-                }
-            }
-        }
-        mazeDisplayed = true;
-    }
-    else {
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                if(dots[x][y] != nullptr && getDots(QPoint(x, y)) == noItem) {
-                    dots[x][y]->setVisible(false);
-                    delete dots[x][y];
-                    dots[x][y] = nullptr;
-                }
+            if(dotSprites[x][y] != nullptr && getDots(QPoint(x, y)) == noItem) {
+                dotSprites[x][y]->setVisible(false);
+                delete dotSprites[x][y];
+                dotSprites[x][y] = nullptr;
             }
         }
     }
 
-
+    // Debug Score Display
+    char buf[10] = "";
+    sprintf(buf, "%d", this->score);
+    scoreText->setText(buf);
 }
 
 /**
