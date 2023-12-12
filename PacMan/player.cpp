@@ -268,7 +268,7 @@ void Player::eatItem(QPoint location)
         break;
     case Maze::smallPoint:
         maze->setDots(location,Maze::noItem);
-        maze->increaseScore(10);
+        //maze->increaseScore(10);
         break;
     case Maze::bigPoint:
         maze->setDots(location,Maze::noItem);

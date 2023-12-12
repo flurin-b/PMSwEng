@@ -73,11 +73,17 @@ void Ghost::setPaused(bool paused)
 }
 
 /**
+ * @brief Ghost::nextGhostPoints Stores how many points are awarded for eating the next ghost.
+ */
+int Ghost::nextGhostPoints;
+
+/**
  * @brief Ghost::setFrightened
  * @param frightened
  */
 void Ghost::setFrightened(bool frightened)
 {
+    nextGhostPoints = 200;
     if(frightened && movement != returning)
     {
         pixmap->setPixmap(spriteFrightendBlue);
@@ -417,11 +423,12 @@ void Ghost::paint()
             stepTick->setInterval(stepTick->remainingTime() * stepIntervalReturning / getStepInterval());
             movement = returning;
             frightenedSpriteTimer->stop();
-            // TODO: give points for eating a ghost
+            maze->increaseScore(nextGhostPoints);
+            nextGhostPoints *= 2;
             break;
         case scatter:
         case chase:
-            emit gameOver(false);
+            //emit gameOver(false);
             break;
         case returning:
             break;

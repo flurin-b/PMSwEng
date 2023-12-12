@@ -74,6 +74,8 @@ protected:
     movement_t movement = chase;
     movement_t globalMovement = chase;
 
+    static int nextGhostPoints;
+
     QTimer *movementTimer, *stepTick, *frightenedSpriteTimer;
     int movementTimerCache = -1, stepTickCache = -1, frightenedSpriteTimerCache = -1;
     int movementCounter = 0;
