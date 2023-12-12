@@ -141,16 +141,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>gameOver</b> (bool wo
 <tr class="memitem:a0e4066cefbd83e52eb1c1529bf3e59d9 inherit pro_types_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="a0e4066cefbd83e52eb1c1529bf3e59d9"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>stepIntervalNormal</b> = int(Maze::baseStepInterval / 0.75)
 , <b>stepIntervalTunnel</b> = int(Maze::baseStepInterval / 0.40)
 , <b>stepIntervalFrightened</b> = int(Maze::baseStepInterval / 0.50)
+, <b>stepIntervalReturning</b> = int(Maze::baseStepInterval / 1.50)
  }</td></tr>
 <tr class="separator:a0e4066cefbd83e52eb1c1529bf3e59d9 inherit pro_types_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a700f17a584d2ea46d2c10a0a927c6008 inherit pro_types_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="a700f17a584d2ea46d2c10a0a927c6008"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>inMaze</b>
 , <b>inGhostHouse</b>
 , <b>leavingGhostHouse</b>
+, <b>enteringGhostHouse</b>
  }</td></tr>
 <tr class="separator:a700f17a584d2ea46d2c10a0a927c6008 inherit pro_types_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a583f10f0b5cd024af0e89e87191bc5fb inherit pro_types_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="a583f10f0b5cd024af0e89e87191bc5fb"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>movement_t</b> { <b>chase</b>
 , <b>scatter</b>
 , <b>frightened</b>
+, <b>returning</b>
  }</td></tr>
 <tr class="separator:a583f10f0b5cd024af0e89e87191bc5fb inherit pro_types_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a584cd61b87b07120effdac26fdfe930f inherit pro_types_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="a584cd61b87b07120effdac26fdfe930f"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>frightendBlue</b>
@@ -256,12 +259,29 @@ QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>spriteFrightendBlu
 <tr class="memitem:a923ec14655d59ccd86ba3afdc22ac641 inherit pro_attribs_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="a923ec14655d59ccd86ba3afdc22ac641"></a>
 QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>spriteFrightendWhite</b></td></tr>
 <tr class="separator:a923ec14655d59ccd86ba3afdc22ac641 inherit pro_attribs_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6881203ad5b2a766b9f5077584096efd inherit pro_attribs_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="a6881203ad5b2a766b9f5077584096efd"></a>
+QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>eyeL</b></td></tr>
+<tr class="separator:a6881203ad5b2a766b9f5077584096efd inherit pro_attribs_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1aecc58e6eea5c14de2b0809c36f3216 inherit pro_attribs_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="a1aecc58e6eea5c14de2b0809c36f3216"></a>
+QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>eyeR</b></td></tr>
+<tr class="separator:a1aecc58e6eea5c14de2b0809c36f3216 inherit pro_attribs_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74949c20c3680d47df08361224dd28f8 inherit pro_attribs_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="a74949c20c3680d47df08361224dd28f8"></a>
+QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>eyeUp</b></td></tr>
+<tr class="separator:a74949c20c3680d47df08361224dd28f8 inherit pro_attribs_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd781d6398825a2f484df0ca4ad20d2c inherit pro_attribs_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="abd781d6398825a2f484df0ca4ad20d2c"></a>
+QPixmap&#160;</td><td class="memItemRight" valign="bottom"><b>eyeDown</b></td></tr>
+<tr class="separator:abd781d6398825a2f484df0ca4ad20d2c inherit pro_attribs_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e43247770458b1cfe874f0120e06df2 inherit pro_attribs_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="a0e43247770458b1cfe874f0120e06df2"></a>
 QGraphicsPixmapItem *&#160;</td><td class="memItemRight" valign="bottom"><b>pixmap</b></td></tr>
 <tr class="separator:a0e43247770458b1cfe874f0120e06df2 inherit pro_attribs_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa464e3b739b781324d203d7ed91c91d1 inherit pro_attribs_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="aa464e3b739b781324d203d7ed91c91d1"></a>
 QGraphicsPixmapItem *&#160;</td><td class="memItemRight" valign="bottom"><b>clonePixmap</b></td></tr>
 <tr class="separator:aa464e3b739b781324d203d7ed91c91d1 inherit pro_attribs_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_attribs_classGhost"><td colspan="2" onclick="javascript:toggleInherit('pro_static_attribs_classGhost')"><img src="../../closed.png" alt="-"/>&#160;Static Protected Attributes inherited from <a class="el" href="../../d0/d06/classGhost.html">Ghost</a></td></tr>
+<tr class="memitem:ad096262becd61adf877ad799371cb397 inherit pro_static_attribs_classGhost"><td class="memItemLeft" align="right" valign="top"><a id="ad096262becd61adf877ad799371cb397"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397">nextGhostPoints</a></td></tr>
+<tr class="memdesc:ad096262becd61adf877ad799371cb397 inherit pro_static_attribs_classGhost"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397" title="Ghost::nextGhostPoints Stores how many points are awarded for eating the next ghost.">Ghost::nextGhostPoints</a> Stores how many points are awarded for eating the next ghost. <br /></td></tr>
+<tr class="separator:ad096262becd61adf877ad799371cb397 inherit pro_static_attribs_classGhost"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af998007346726b1df4256b6ce79cf92e"></a>

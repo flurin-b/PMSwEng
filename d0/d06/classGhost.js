@@ -3,7 +3,8 @@ var classGhost =
     [ "movement_t", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fb", [
       [ "chase", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fbac565d55754cdf928faa8e7d3ea582002", null ],
       [ "scatter", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fba59b5274694b70ac8486fb30b5274c9ea", null ],
-      [ "frightened", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fba7200316dc151cd47c90bdf9d917bd3fe", null ]
+      [ "frightened", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fba7200316dc151cd47c90bdf9d917bd3fe", null ],
+      [ "returning", "d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fba40db4e6b15a983ce94a7c1fcac8b0d78", null ]
     ] ],
     [ "Ghost", "d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196", null ],
     [ "~Ghost", "d0/d06/classGhost.html#a063ed19c1b6f5c07b9109020c6198319", null ],
@@ -19,6 +20,10 @@ var classGhost =
     [ "clonePixmap", "d0/d06/classGhost.html#aa464e3b739b781324d203d7ed91c91d1", null ],
     [ "direction", "d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e", null ],
     [ "dotLimitGhostHouse", "d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55", null ],
+    [ "eyeDown", "d0/d06/classGhost.html#abd781d6398825a2f484df0ca4ad20d2c", null ],
+    [ "eyeL", "d0/d06/classGhost.html#a6881203ad5b2a766b9f5077584096efd", null ],
+    [ "eyeR", "d0/d06/classGhost.html#a1aecc58e6eea5c14de2b0809c36f3216", null ],
+    [ "eyeUp", "d0/d06/classGhost.html#a74949c20c3680d47df08361224dd28f8", null ],
     [ "frightenedSpriteTimer", "d0/d06/classGhost.html#aaf2ee9c07e279eaa7de10b78819d4090", null ],
     [ "frightenedSpriteTimerCache", "d0/d06/classGhost.html#ab8fe3ce3d02fbe9ae4f039890e639547", null ],
     [ "globalMovement", "d0/d06/classGhost.html#abe1b57ac222bab6f05b5f1ac1077f648", null ],
