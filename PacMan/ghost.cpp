@@ -428,7 +428,7 @@ void Ghost::paint()
             break;
         case scatter:
         case chase:
-            //emit gameOver(false);
+            emit gameOver(false);
             break;
         case returning:
             break;
