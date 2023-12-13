@@ -12,11 +12,14 @@
 PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
 {
     int fieldSize_px = 20;
-    gs = new QGraphicsScene();
+    menuScene = new QGraphicsScene();
+    gameScene = new QGraphicsScene();
 
-    gv->setScene(gs);
+    gv->setScene(menuScene);
     gv->setFixedSize(Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
-    gs->setSceneRect(0, 0, Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
+    menuScene->setSceneRect(0, 0, Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
+    menuScene->setBackgroundBrush(Qt::black);
+    gameScene->setSceneRect(0, 0, Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
     gv->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     gv->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -28,8 +31,8 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
  */
 PacMan::~PacMan()
 {
-    delete gs;
-    gs = nullptr;
+    delete gameScene;
+    gameScene = nullptr;
 
     delete maze;
     maze = nullptr;
@@ -50,21 +53,41 @@ PacMan::~PacMan()
  */
 void PacMan::paint()
 {
+    gv->setScene(menuScene);
+    int id = QFontDatabase::addApplicationFont(":/Sprite/Font/emulogic.ttf");
+    QString pacManFont = QFontDatabase::applicationFontFamilies(id).at(0);
+
     switch (gameState)
     {
     case won:
     case lost:
-        gameStateText->setPlainText(gameState == won ? "Game Over, you win! Press ENTER to play again." : "Game Over, you loose! Press ENTER to play again.");
-        gameStateText->show();
+    {
+        menuText->setFont(QFont(pacManFont, 18));
+        menuText->setPlainText(gameState == won ? "Game Over, you win!" : "Game Over, you loose!");
+        menuPrompt->setFont(QFont(pacManFont, 10));
+        menuPrompt->setPlainText("Press ENTER to play again.");
+        scoreText->setFont(QFont(pacManFont, 10));
+        char buf[14] = "";
+        sprintf(buf, "Score: %06d", maze->getScore());
+        scoreText->setPlainText(buf);
+        menuText->setPos((QPoint((menuScene->sceneRect().width() - menuText->boundingRect().width()) / 2, (menuScene->sceneRect().height() - menuText->boundingRect().height()) * 0.3)));
+        menuPrompt->setPos((QPoint((menuScene->sceneRect().width() - menuPrompt->boundingRect().width()) / 2, (menuScene->sceneRect().height() - menuPrompt->boundingRect().height()) * 0.35)));
+        scoreText->setPos((QPoint((menuScene->sceneRect().width() - scoreText->boundingRect().width()) / 2, (menuScene->sceneRect().height() - scoreText->boundingRect().height()) * 0.40)));
         break;
+    }
     case paused:
+        gv->setScene(gameScene);
+        gameStateText->setFont(QFont(pacManFont, 10));
         gameStateText->setPlainText("Game Paused, press ENTER to resume.");
         gameStateText->show();
         break;
     case running:
+        gv->setScene(gameScene);
         gameStateText->hide();
         break;
     case start:
+        gv->setScene(gameScene);
+        gameStateText->setFont(QFont(pacManFont, 10));
         gameStateText->setPlainText("Press ENTER to start playing.");
         gameStateText->show();
         break;
@@ -120,20 +143,21 @@ void PacMan::handleKeyPress(QKeyEvent* event)
 
 void PacMan::initGameObjects()
 {
-    gs->clear();
+    gameScene->clear();
+    menuScene->clear();
 
     delete maze;
-    maze = new Maze(gs, gv);
+    maze = new Maze(gameScene, gv);
     QObject::connect(maze, &Maze::gameOver, this, &PacMan::gameOverHandler);
     delete player;
-    player = new Player(gs, maze);
+    player = new Player(gameScene, maze);
 
     for (Ghost *ghost : ghosts)
         delete ghost;
-    ghosts[0] = new Blinky (gs, maze, player);
-    ghosts[1] = new Pinky  (gs, maze, player);
-    ghosts[2] = new Inky   (gs, maze, player, ghosts[0]);
-    ghosts[3] = new Clyde  (gs, maze, player);
+    ghosts[0] = new Blinky (gameScene, maze, player);
+    ghosts[1] = new Pinky  (gameScene, maze, player);
+    ghosts[2] = new Inky   (gameScene, maze, player, ghosts[0]);
+    ghosts[3] = new Clyde  (gameScene, maze, player);
 
     for(Ghost* ghost : ghosts)
     {
@@ -141,7 +165,14 @@ void PacMan::initGameObjects()
         QObject::connect(player, &Player::energizedChanged, ghost, &Ghost::setFrightened);
     }
 
-    gameStateText = gs->addText("");
+    menuText = menuScene->addText("");
+    menuText->setDefaultTextColor(Qt::white);
+    menuPrompt = menuScene->addText("");
+    menuPrompt->setDefaultTextColor(Qt::white);
+    scoreText = menuScene->addText("");
+    scoreText->setDefaultTextColor(Qt::white);
+
+    gameStateText = gameScene->addText("");
     gameStateText->setDefaultTextColor(Qt::white);
 }
 

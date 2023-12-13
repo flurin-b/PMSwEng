@@ -25,5 +25,6 @@
         <file>Sprite/Ghost/AugenL.PNG</file>
         <file>Sprite/Ghost/AugenR.PNG</file>
         <file>Sprite/Ghost/AugenUp.PNG</file>
+        <file>Sprite/Font/emulogic.ttf</file>
     </qresource>
 </RCC>

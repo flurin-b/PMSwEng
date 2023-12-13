@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsEllipseItem>
+#include <QFontDatabase>
 #include <QObject>
 
 class PACMANLIB_EXPORT Maze : public QObject
@@ -27,6 +28,7 @@ public:
     float getFieldWidth(void);
     std::vector<QPoint> getMaze(QPoint position);
     void increaseScore(int offset);
+    int getScore(void);
 
     const static int baseStepInterval = 100;
 
