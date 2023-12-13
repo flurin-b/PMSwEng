@@ -9,7 +9,7 @@
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
-//#include <QTimer>
+#include <QFontDatabase>
 #include <QKeyEvent>
 
 class PACMANLIB_EXPORT PacMan : public QObject
@@ -26,8 +26,8 @@ public slots:
 
 private:
     QGraphicsView     *gv;
-    QGraphicsScene    *gs;
-    QGraphicsTextItem *gameStateText = nullptr;
+    QGraphicsScene    *gameScene, *menuScene;
+    QGraphicsTextItem *menuPrompt = nullptr, *menuText = nullptr, *gameStateText = nullptr, *scoreText = nullptr;
 
     Maze    *maze      =  nullptr;
     Player  *player    =  nullptr;

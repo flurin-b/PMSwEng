@@ -20,10 +20,14 @@ Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, g
     QGraphicsPixmapItem* labyrinth =  gs->addPixmap(QPixmap(":/Sprite/Maze/maze.png").scaledToWidth(gs->width()-2));
     labyrinth->setPos(0,fieldSize_px * 3);
 
-    // Debug Score Display
+    // Score Display
+    int id = QFontDatabase::addApplicationFont(":/Sprite/Font/emulogic.ttf");
+    QString pacManFont = QFontDatabase::applicationFontFamilies(id).at(0);
+
     scoreText = gs->addSimpleText("");
-    scoreText->setBrush(QBrush(QColor::fromRgb(255, 255, 255)));
-    scoreText->setPos(5, 20);
+    scoreText->setBrush(Qt::white);
+    scoreText->setPos(5, 25);
+    scoreText->setFont(QFont(pacManFont, 10));
 
     for (int x = 0; x < width; x++)
     {
@@ -70,7 +74,7 @@ void Maze::paint(){
         }
     }
 
-    // Debug Score Display
+    // Score Display
     char buf[7] = "";
     sprintf(buf, "%06d", this->score);
     scoreText->setText(buf);
@@ -166,4 +170,13 @@ void Maze::increaseScore(int offset)
     {
         score += offset;
     }
+}
+
+
+/**
+ * @brief Maze::getScore Get the current score.
+ * @return The current score.
+ */
+int Maze::getScore(void) {
+    return score;
 }
