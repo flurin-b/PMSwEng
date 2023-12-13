@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['increasescore_60',['increaseScore',['../d6/d74/classMaze.html#a435a73008cf1ebf100ff5142e13fc04f',1,'Maze']]],
-  ['inky_61',['Inky',['../d6/d64/classInky.html#abec1c2eafdea79224050fefa8222554e',1,'Inky']]]
+  ['increasescore_62',['increaseScore',['../d6/d74/classMaze.html#a435a73008cf1ebf100ff5142e13fc04f',1,'Maze']]],
+  ['inky_63',['Inky',['../d6/d64/classInky.html#abec1c2eafdea79224050fefa8222554e',1,'Inky']]]
 ];

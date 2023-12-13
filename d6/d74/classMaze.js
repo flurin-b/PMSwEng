@@ -12,6 +12,7 @@ var classMaze =
     [ "getDotsEaten", "d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482", null ],
     [ "getFieldWidth", "d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14", null ],
     [ "getMaze", "d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533", null ],
+    [ "getScore", "d6/d74/classMaze.html#aea3a36e7b680787d8975aa44488ddec9", null ],
     [ "increaseScore", "d6/d74/classMaze.html#a435a73008cf1ebf100ff5142e13fc04f", null ],
     [ "paint", "d6/d74/classMaze.html#afc0db50e7f4b40f15d9334b4a7a0db9b", null ],
     [ "setDots", "d6/d74/classMaze.html#abec460be061ee3007126dd376bf99532", null ]
