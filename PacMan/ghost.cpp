@@ -94,9 +94,11 @@ void Ghost::setFrightened(bool frightened)
         if (movement != Ghost::frightened)
         {
             if (state == Ghost::inMaze)
+            {
                 position -= direction;
+                stepTick->setInterval(Ghost::stepIntervalFrightened * (1.0 - ((float)stepTick->remainingTime()/getStepInterval())));
                 direction = -direction;
-            stepTick->setInterval(Ghost::stepIntervalFrightened * stepTick->remainingTime()/getStepInterval());
+            }
             movement = Ghost::frightened;
         }
     }
