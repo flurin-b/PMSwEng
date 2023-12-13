@@ -114,7 +114,13 @@ void Maze::setDots(QPoint position, item_t item)
 {
     // If a small dot is eaten, increment dotsEaten
     if(dots[position.y()][position.x()] == smallPoint && item == noItem)
+    {
         dotsEaten += 1;
+        if (dotsEaten == dotCount)
+        {
+            emit gameOver(true);
+        }
+    }
 
     dots[position.y()][position.x()] = item;
 }

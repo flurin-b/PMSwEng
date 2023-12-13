@@ -21,5 +21,9 @@
         <file>Sprite/Ghost/GhostFrightendEnding.PNG</file>
         <file>Sprite/Player/PlayerOpen.png</file>
         <file>Sprite/Player/PlayerShut.png</file>
+        <file>Sprite/Ghost/AugenDown.PNG</file>
+        <file>Sprite/Ghost/AugenL.PNG</file>
+        <file>Sprite/Ghost/AugenR.PNG</file>
+        <file>Sprite/Ghost/AugenUp.PNG</file>
     </qresource>
 </RCC>

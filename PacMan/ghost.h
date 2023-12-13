@@ -26,7 +26,7 @@ public:
     QPoint getField(void);
 
 public slots:
-    void paint(); 
+    void paint();
     void setFrightened(bool frightened);
 
 protected slots:
@@ -57,19 +57,24 @@ protected:
         stepIntervalNormal     = int(Maze::baseStepInterval / 0.75),
         stepIntervalTunnel     = int(Maze::baseStepInterval / 0.40),
         stepIntervalFrightened = int(Maze::baseStepInterval / 0.50),
+        stepIntervalReturning  = int(Maze::baseStepInterval / 1.50),
     };
     enum{
         inMaze,
         inGhostHouse,
         leavingGhostHouse,
+        enteringGhostHouse,
     } state = inGhostHouse;
     typedef enum {
         chase,
         scatter,
         frightened,
+        returning,
     } movement_t;
     movement_t movement = chase;
     movement_t globalMovement = chase;
+
+    static int nextGhostPoints;
 
     QTimer *movementTimer, *stepTick, *frightenedSpriteTimer;
     int movementTimerCache = -1, stepTickCache = -1, frightenedSpriteTimerCache = -1;
@@ -86,12 +91,9 @@ protected:
     } spriteStatus = frightendBlue;
 
     const float scaleFactor = 1.3;
-    QPixmap spriteSideL;
-    QPixmap spriteSideR;
-    QPixmap spriteUp;
-    QPixmap spriteDown;
-    QPixmap spriteFrightendBlue;
-    QPixmap spriteFrightendWhite;
+    QPixmap spriteSideL, spriteSideR, spriteUp, spriteDown;
+    QPixmap spriteFrightendBlue, spriteFrightendWhite;
+    QPixmap eyeL, eyeR, eyeUp, eyeDown;
     QGraphicsPixmapItem *pixmap,*clonePixmap;
 };
 

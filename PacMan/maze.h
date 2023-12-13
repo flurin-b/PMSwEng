@@ -23,7 +23,6 @@ public:
 
     int getDots(QPoint position);
     int getDotsEaten(void);
-    int dotsEaten = 0;
     void setDots(QPoint position, item_t item);
     float getFieldWidth(void);
     std::vector<QPoint> getMaze(QPoint position);
@@ -37,6 +36,9 @@ public:
 public slots:
     void paint(void);
 
+signals:
+    void gameOver(bool won);
+
 private:
     QGraphicsScene *gs;
     QGraphicsView  *gv;
@@ -45,6 +47,8 @@ private:
     QGraphicsEllipseItem    *dotSprites[width][height];
 
     int score = 0;
+    const int dotCount = 240;
+    int dotsEaten = 0;
 
     item_t dots[height][width] = {
         {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},
