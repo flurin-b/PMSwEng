@@ -5,11 +5,12 @@
 
 #include <QWidget>
 
+/**
+ * @brief The MyWidget class is used to redirect keyboard inputs to the PacMan class.
+ */
 class LOCALLIB_EXPORT MyWidget : public QWidget
 {
     Q_OBJECT
-public:
-    explicit MyWidget(QWidget *parent = nullptr);
 signals:
     void keyPressed(QKeyEvent *event);
 protected:

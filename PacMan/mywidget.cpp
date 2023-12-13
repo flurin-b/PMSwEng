@@ -1,9 +1,9 @@
 #include "mywidget.h"
 
-MyWidget::MyWidget(QWidget *parent)
-    : QWidget{parent}
-{}
-
+/**
+ * @brief MyWidget::keyPressEvent Exposes the keyPressEvent event as a signal.
+ * @param event The key that was pressed.
+ */
 void MyWidget::keyPressEvent(QKeyEvent *event){
     emit keyPressed(event);
 }
