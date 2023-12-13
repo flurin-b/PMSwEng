@@ -28,6 +28,7 @@ private:
     QGraphicsView     *gv;
     QGraphicsScene    *gameScene, *menuScene;
     QGraphicsTextItem *menuPrompt = nullptr, *menuText = nullptr, *gameStateText = nullptr, *scoreText = nullptr;
+    QFont              pacManFont, pacManFontLarge;
 
     Maze    *maze      =  nullptr;
     Player  *player    =  nullptr;

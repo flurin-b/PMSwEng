@@ -15,6 +15,10 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
     menuScene = new QGraphicsScene();
     gameScene = new QGraphicsScene();
 
+    int id = QFontDatabase::addApplicationFont(":/Sprite/Font/emulogic.ttf");
+    pacManFont      = QFont(QFontDatabase::applicationFontFamilies(id).at(0), 10);
+    pacManFontLarge = QFont(QFontDatabase::applicationFontFamilies(id).at(0), 18);
+
     gv->setScene(menuScene);
     gv->setFixedSize(Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
     menuScene->setSceneRect(0, 0, Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
@@ -54,19 +58,17 @@ PacMan::~PacMan()
 void PacMan::paint()
 {
     gv->setScene(menuScene);
-    int id = QFontDatabase::addApplicationFont(":/Sprite/Font/emulogic.ttf");
-    QString pacManFont = QFontDatabase::applicationFontFamilies(id).at(0);
 
     switch (gameState)
     {
     case won:
     case lost:
     {
-        menuText->setFont(QFont(pacManFont, 18));
+        menuText->setFont(pacManFontLarge);
         menuText->setPlainText(gameState == won ? "Game Over, you win!" : "Game Over, you loose!");
-        menuPrompt->setFont(QFont(pacManFont, 10));
+        menuPrompt->setFont(pacManFont);
         menuPrompt->setPlainText("Press ENTER to play again.");
-        scoreText->setFont(QFont(pacManFont, 10));
+        scoreText->setFont(pacManFont);
         char buf[14] = "";
         sprintf(buf, "Score: %06d", maze->getScore());
         scoreText->setPlainText(buf);
@@ -77,7 +79,7 @@ void PacMan::paint()
     }
     case paused:
         gv->setScene(gameScene);
-        gameStateText->setFont(QFont(pacManFont, 10));
+        gameStateText->setFont(pacManFont);
         gameStateText->setPlainText("Game Paused, press ENTER to resume.");
         gameStateText->show();
         break;
@@ -87,7 +89,7 @@ void PacMan::paint()
         break;
     case start:
         gv->setScene(gameScene);
-        gameStateText->setFont(QFont(pacManFont, 10));
+        gameStateText->setFont(pacManFont);
         gameStateText->setPlainText("Press ENTER to start playing.");
         gameStateText->show();
         break;
