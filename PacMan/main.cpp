@@ -17,7 +17,7 @@
  */
 int main(int argc, char *argv[])
 {
-    // Application and Widget
+    // Application and Widget Objects
     QApplication a(argc, argv);
     MyWidget w;
     w.setFocusPolicy(Qt::StrongFocus);
@@ -30,18 +30,19 @@ int main(int argc, char *argv[])
     gv->setFocusPolicy(Qt::NoFocus);
     hb->addWidget(gv);
 
-    // PacMan
+    // PacMan Object
     PacMan* pm = new PacMan(gv);
-    // Keyboard Inputs
+    // Connect Keyboard Input Events
     QObject::connect(&w, &MyWidget::keyPressed, pm, &PacMan::handleKeyPress);
 
-    // Show Widget
+    // Add Layout to Widget and Show Widget
     w.setLayout(hb);
     w.show();
 
+    // Setup the frameTimer that triggers the paint loop.
     QTimer frameTimer;
     QObject::connect(&frameTimer, &QTimer::timeout, pm, &PacMan::paint);
-    frameTimer.start(10);
+    frameTimer.start(10);   // 10 ms -> 100 fps
 
 //    QThread *thread = QThread::create([&pm]{
 //        while(1)
@@ -49,5 +50,6 @@ int main(int argc, char *argv[])
 //    });
 //    thread->start();
 
+    // Run the Application and wait for it to stop.
     return a.exec();
 }
