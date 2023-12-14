@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['spritestatus_85',['spriteStatus',['../d0/d06/classGhost.html#ad82e1044755828003ee91c2a08e691c0',1,'Ghost']]],
-  ['state_86',['state',['../d0/d06/classGhost.html#a99ed0ea110ef66eb4204fa0050a27cd0',1,'Ghost']]]
+  ['direction_116',['direction',['../d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e',1,'Ghost']]],
+  ['dotlimitghosthouse_117',['dotLimitGhostHouse',['../d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55',1,'Ghost']]]
 ];

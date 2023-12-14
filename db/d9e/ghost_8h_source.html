@@ -125,110 +125,148 @@ $(document).ready(function(){initNavTree('db/d9e/ghost_8h_source.html','../../')
 <div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a3414af266c4bdcb026dc25c33797f3a7">   45</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="../../d0/d06/classGhost.html#a3414af266c4bdcb026dc25c33797f3a7">gameOver</a>(<span class="keywordtype">bool</span> won);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    QGraphicsScene *gs;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="../../d6/d74/classMaze.html">Maze</a>    *maze;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="../../d2/d4b/classPlayer.html">Player</a>  *player;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    QPoint  position;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    QPointF subposition;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    QPoint  direction{0, 0};</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">    #ifdef DEBUG_TARGETS</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        QGraphicsRectItem *debugTarget;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        QColor color;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">    #endif</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">const</span> QPoint resetPosition{13, 17};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">int</span> dotLimitGhostHouse = 0;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">enum</span> {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        stepIntervalNormal     = int(Maze::baseStepInterval / 0.75),</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        stepIntervalTunnel     = int(Maze::baseStepInterval / 0.40),</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        stepIntervalFrightened = int(Maze::baseStepInterval / 0.50),</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        stepIntervalReturning  = int(Maze::baseStepInterval / 1.50),</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    };</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">enum</span>{</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        inMaze,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        inGhostHouse,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        leavingGhostHouse,</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        enteringGhostHouse,</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a99ed0ea110ef66eb4204fa0050a27cd0">   81</a></span>&#160;    } state = inGhostHouse;</div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fb">   86</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        chase,</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        scatter,</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        frightened,</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        returning,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    } movement_t;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    movement_t movement = chase;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    movement_t globalMovement = chase;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397">   95</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="../../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397">nextGhostPoints</a>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    QTimer *movementTimer, *stepTick, *frightenedSpriteTimer;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">int</span> movementTimerCache = -1, stepTickCache = -1, frightenedSpriteTimerCache = -1;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">int</span> movementCounter = 0;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">float</span> getDistance(QPoint field1, QPoint field2);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">int</span> getStepInterval(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> step (QPoint target);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">enum</span>{</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        frightendBlue,</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        frightendWhite</div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ad82e1044755828003ee91c2a08e691c0">  113</a></span>&#160;    } spriteStatus = frightendBlue;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> scaleFactor = 1.3;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    QPixmap spriteSideL, spriteSideR, spriteUp, spriteDown;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    QPixmap spriteFrightendBlue, spriteFrightendWhite;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    QPixmap eyeL, eyeR, eyeUp, eyeDown;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    QGraphicsPixmapItem *pixmap,*clonePixmap;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;};</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="../../d9/dfc/classBlinky.html">  124</a></span>&#160;<span class="keyword">class </span>PACMANLIB_EXPORT <a class="code" href="../../d9/dfc/classBlinky.html">Blinky</a> : <span class="keyword">public</span> <a class="code" href="../../d0/d06/classGhost.html">Ghost</a></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;{</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="../../d9/dfc/classBlinky.html">Blinky</a>(QGraphicsScene *gsPointer, <a class="code" href="../../d6/d74/classMaze.html">Maze</a> *mazePointer, <a class="code" href="../../d2/d4b/classPlayer.html">Player</a> *playerPointer);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">void</span> step(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">const</span> QPoint scatterTarget{25, 0};</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;};</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="../../dd/db7/classPinky.html">  136</a></span>&#160;<span class="keyword">class </span>PACMANLIB_EXPORT <a class="code" href="../../dd/db7/classPinky.html">Pinky</a> : <span class="keyword">public</span> <a class="code" href="../../d0/d06/classGhost.html">Ghost</a></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;{</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <a class="code" href="../../dd/db7/classPinky.html">Pinky</a>(QGraphicsScene *gsPointer, <a class="code" href="../../d6/d74/classMaze.html">Maze</a> *mazePointer, <a class="code" href="../../d2/d4b/classPlayer.html">Player</a> *playerPointer);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordtype">void</span> step(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keyword">const</span> QPoint scatterTarget{2, 0};</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;};</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="../../d6/d64/classInky.html">  148</a></span>&#160;<span class="keyword">class </span>PACMANLIB_EXPORT <a class="code" href="../../d6/d64/classInky.html">Inky</a> : <span class="keyword">public</span> <a class="code" href="../../d0/d06/classGhost.html">Ghost</a></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;{</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <a class="code" href="../../d6/d64/classInky.html">Inky</a>(QGraphicsScene *gsPointer, <a class="code" href="../../d6/d74/classMaze.html">Maze</a> *mazePointer, <a class="code" href="../../d2/d4b/classPlayer.html">Player</a> *playerPointer, <a class="code" href="../../d0/d06/classGhost.html">Ghost</a> *blinkyPointer);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordtype">void</span> step(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keyword">const</span> QPoint scatterTarget{27, 35};</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <a class="code" href="../../d0/d06/classGhost.html">Ghost</a> *blinky;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a3dc8412b0d407180d484510f7fcb4923">   51</a></span>&#160;    QGraphicsScene *<a class="code" href="../../d0/d06/classGhost.html#a3dc8412b0d407180d484510f7fcb4923">gs</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#aae6e98971004b78a976a21c64ad27283">   55</a></span>&#160;    <a class="code" href="../../d6/d74/classMaze.html">Maze</a>    *<a class="code" href="../../d0/d06/classGhost.html#aae6e98971004b78a976a21c64ad27283">maze</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ab4919b308d77f53f5ca29077633ccb8f">   59</a></span>&#160;    <a class="code" href="../../d2/d4b/classPlayer.html">Player</a>  *<a class="code" href="../../d0/d06/classGhost.html#ab4919b308d77f53f5ca29077633ccb8f">player</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#acedf20d923bbd63d54f1056c849a17ea">   63</a></span>&#160;    QPoint  <a class="code" href="../../d0/d06/classGhost.html#acedf20d923bbd63d54f1056c849a17ea">position</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a2a95c784149e5d800e10cb08287a0466">   67</a></span>&#160;    QPointF <a class="code" href="../../d0/d06/classGhost.html#a2a95c784149e5d800e10cb08287a0466">subposition</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e">   71</a></span>&#160;    QPoint  direction{0, 0};</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">    #ifdef DEBUG_TARGETS</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        QGraphicsRectItem *debugTarget;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        QColor color;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">    #endif</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ad925df9709f49313d2529ae5bd6ecc62">   81</a></span>&#160;    <span class="keyword">const</span> QPoint resetPosition{13, 17};</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55">   86</a></span>&#160;    <span class="keywordtype">int</span> dotLimitGhostHouse = 0;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">enum</span> {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        stepIntervalNormal     = int(Maze::baseStepInterval / 0.75),</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        stepIntervalTunnel     = int(Maze::baseStepInterval / 0.40),</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        stepIntervalFrightened = int(Maze::baseStepInterval / 0.50),</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        stepIntervalReturning  = int(Maze::baseStepInterval / 1.50),</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    };</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">enum</span>{</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        inMaze,</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        inGhostHouse,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        leavingGhostHouse,</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        enteringGhostHouse,</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a99ed0ea110ef66eb4204fa0050a27cd0">  105</a></span>&#160;    } state = inGhostHouse;</div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fb">  110</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        chase,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        scatter,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        frightened,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        returning,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    } movement_t;</div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a3320aaad1d22a3726af8a87034979807">  119</a></span>&#160;    <a class="code" href="../../d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fb">movement_t</a> movement = chase;</div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#abe1b57ac222bab6f05b5f1ac1077f648">  124</a></span>&#160;    <a class="code" href="../../d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fb">movement_t</a> globalMovement = chase;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="comment">// brief in ghost.cpp</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397">  127</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="../../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397">nextGhostPoints</a>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a8f8157957343fa4372772aa3230ceb42">  132</a></span>&#160;    QTimer *<a class="code" href="../../d0/d06/classGhost.html#a8f8157957343fa4372772aa3230ceb42">movementTimer</a>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a2bf3c490ddece9f1fa6f909733be42fb">  136</a></span>&#160;    QTimer *<a class="code" href="../../d0/d06/classGhost.html#a2bf3c490ddece9f1fa6f909733be42fb">stepTick</a>;</div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a73cc8331395c0b49d713b8ba501ab04e">  140</a></span>&#160;    QTimer  *<a class="code" href="../../d0/d06/classGhost.html#a73cc8331395c0b49d713b8ba501ab04e">frightenedSpriteTimer</a>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a352cfc52a5ae7761f791d056241f6de1">  144</a></span>&#160;    <span class="keywordtype">int</span> movementTimerCache = -1;</div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#af523cad1e07159795c57f1353886ea4b">  148</a></span>&#160;    <span class="keywordtype">int</span> stepTickCache = -1;</div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ab8fe3ce3d02fbe9ae4f039890e639547">  152</a></span>&#160;    <span class="keywordtype">int</span> frightenedSpriteTimerCache = -1;</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a81935a04d991e9829cead29092c27a1e">  156</a></span>&#160;    <span class="keywordtype">int</span> movementCounter = 0;</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="../../dd/d49/classClyde.html">  162</a></span>&#160;<span class="keyword">class </span>PACMANLIB_EXPORT <a class="code" href="../../dd/d49/classClyde.html">Clyde</a> : <span class="keyword">public</span> <a class="code" href="../../d0/d06/classGhost.html">Ghost</a></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;{</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <a class="code" href="../../dd/d49/classClyde.html">Clyde</a>(QGraphicsScene *gsPointer, <a class="code" href="../../d6/d74/classMaze.html">Maze</a> *mazePointer, <a class="code" href="../../d2/d4b/classPlayer.html">Player</a> *playerPointer);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordtype">void</span> step(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keyword">const</span> QPoint scatterTarget{0, 35};</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;};</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// GHOST_H</span></div>
-<div class="ttc" id="aclassBlinky_html"><div class="ttname"><a href="../../d9/dfc/classBlinky.html">Blinky</a></div><div class="ttdoc">Blinky targets Player directly.</div><div class="ttdef"><b>Definition:</b> ghost.h:125</div></div>
-<div class="ttc" id="aclassClyde_html"><div class="ttname"><a href="../../dd/d49/classClyde.html">Clyde</a></div><div class="ttdoc">Clyde moves like Blinky as long as his distance to the Player is more than 8 tiles....</div><div class="ttdef"><b>Definition:</b> ghost.h:163</div></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">float</span> getDistance(QPoint field1, QPoint field2);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">int</span> getStepInterval(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">void</span> step (QPoint target);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">enum</span>{</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        frightendBlue,</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        frightendWhite</div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ad82e1044755828003ee91c2a08e691c0">  170</a></span>&#160;    } spriteStatus = frightendBlue;</div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ae8fb708fcd4359a00c0464fc9f86f113">  174</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> scaleFactor = 1.3;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ad202e75655d99e7d109fae1fa4acd122">  177</a></span>&#160;    QPixmap <a class="code" href="../../d0/d06/classGhost.html#ad202e75655d99e7d109fae1fa4acd122">spriteSideL</a>;</div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a2d3e296abf4faaca4a7c056099c35e7b">  179</a></span>&#160;    QPixmap <a class="code" href="../../d0/d06/classGhost.html#a2d3e296abf4faaca4a7c056099c35e7b">spriteSideR</a>;</div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#ac12ba8591c2de1e94cd4b5dc5ad5c1eb">  181</a></span>&#160;    QPixmap <a class="code" href="../../d0/d06/classGhost.html#ac12ba8591c2de1e94cd4b5dc5ad5c1eb">spriteUp</a>;</div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a048657d607dc60b0055043da8d6b30b6">  183</a></span>&#160;    QPixmap <a class="code" href="../../d0/d06/classGhost.html#a048657d607dc60b0055043da8d6b30b6">spriteDown</a>;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#afa9fd2a9b4985ad8dceef786db923424">  186</a></span>&#160;    QPixmap <a class="code" href="../../d0/d06/classGhost.html#afa9fd2a9b4985ad8dceef786db923424">spriteFrightendBlue</a>;</div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a923ec14655d59ccd86ba3afdc22ac641">  188</a></span>&#160;    QPixmap <a class="code" href="../../d0/d06/classGhost.html#a923ec14655d59ccd86ba3afdc22ac641">spriteFrightendWhite</a>;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a6881203ad5b2a766b9f5077584096efd">  191</a></span>&#160;    QPixmap <a class="code" href="../../d0/d06/classGhost.html#a6881203ad5b2a766b9f5077584096efd">eyeL</a>;</div>
+<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a1aecc58e6eea5c14de2b0809c36f3216">  193</a></span>&#160;    QPixmap <a class="code" href="../../d0/d06/classGhost.html#a1aecc58e6eea5c14de2b0809c36f3216">eyeR</a>;</div>
+<div class="line"><a name="l00195"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a74949c20c3680d47df08361224dd28f8">  195</a></span>&#160;    QPixmap <a class="code" href="../../d0/d06/classGhost.html#a74949c20c3680d47df08361224dd28f8">eyeUp</a>;</div>
+<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#abd781d6398825a2f484df0ca4ad20d2c">  197</a></span>&#160;    QPixmap <a class="code" href="../../d0/d06/classGhost.html#abd781d6398825a2f484df0ca4ad20d2c">eyeDown</a>;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a0e43247770458b1cfe874f0120e06df2">  200</a></span>&#160;    QGraphicsPixmapItem *<a class="code" href="../../d0/d06/classGhost.html#a0e43247770458b1cfe874f0120e06df2">pixmap</a>;</div>
+<div class="line"><a name="l00202"></a><span class="lineno"><a class="line" href="../../d0/d06/classGhost.html#a5c0b4bf7f48e0183406d0ea31bc0fa2e">  202</a></span>&#160;    QGraphicsPixmapItem *<a class="code" href="../../d0/d06/classGhost.html#a5c0b4bf7f48e0183406d0ea31bc0fa2e">clonePixmap</a>;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;};</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="../../d9/dfc/classBlinky.html">  208</a></span>&#160;<span class="keyword">class </span>PACMANLIB_EXPORT <a class="code" href="../../d9/dfc/classBlinky.html">Blinky</a> : <span class="keyword">public</span> <a class="code" href="../../d0/d06/classGhost.html">Ghost</a></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;{</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <a class="code" href="../../d9/dfc/classBlinky.html">Blinky</a>(QGraphicsScene *gsPointer, <a class="code" href="../../d6/d74/classMaze.html">Maze</a> *mazePointer, <a class="code" href="../../d2/d4b/classPlayer.html">Player</a> *playerPointer);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordtype">void</span> step(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keyword">const</span> QPoint scatterTarget{25, 0};</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;};</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="../../dd/db7/classPinky.html">  220</a></span>&#160;<span class="keyword">class </span>PACMANLIB_EXPORT <a class="code" href="../../dd/db7/classPinky.html">Pinky</a> : <span class="keyword">public</span> <a class="code" href="../../d0/d06/classGhost.html">Ghost</a></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;{</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <a class="code" href="../../dd/db7/classPinky.html">Pinky</a>(QGraphicsScene *gsPointer, <a class="code" href="../../d6/d74/classMaze.html">Maze</a> *mazePointer, <a class="code" href="../../d2/d4b/classPlayer.html">Player</a> *playerPointer);</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordtype">void</span> step(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">const</span> QPoint scatterTarget{2, 0};</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;};</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno"><a class="line" href="../../d6/d64/classInky.html">  232</a></span>&#160;<span class="keyword">class </span>PACMANLIB_EXPORT <a class="code" href="../../d6/d64/classInky.html">Inky</a> : <span class="keyword">public</span> <a class="code" href="../../d0/d06/classGhost.html">Ghost</a></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;{</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <a class="code" href="../../d6/d64/classInky.html">Inky</a>(QGraphicsScene *gsPointer, <a class="code" href="../../d6/d74/classMaze.html">Maze</a> *mazePointer, <a class="code" href="../../d2/d4b/classPlayer.html">Player</a> *playerPointer, <a class="code" href="../../d0/d06/classGhost.html">Ghost</a> *blinkyPointer);</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordtype">void</span> step(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keyword">const</span> QPoint scatterTarget{27, 35};</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <a class="code" href="../../d0/d06/classGhost.html">Ghost</a> *blinky;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;};</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="../../dd/d49/classClyde.html">  246</a></span>&#160;<span class="keyword">class </span>PACMANLIB_EXPORT <a class="code" href="../../dd/d49/classClyde.html">Clyde</a> : <span class="keyword">public</span> <a class="code" href="../../d0/d06/classGhost.html">Ghost</a></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;{</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <a class="code" href="../../dd/d49/classClyde.html">Clyde</a>(QGraphicsScene *gsPointer, <a class="code" href="../../d6/d74/classMaze.html">Maze</a> *mazePointer, <a class="code" href="../../d2/d4b/classPlayer.html">Player</a> *playerPointer);</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordtype">void</span> step(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keyword">const</span> QPoint scatterTarget{0, 35};</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;};</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// GHOST_H</span></div>
+<div class="ttc" id="aclassBlinky_html"><div class="ttname"><a href="../../d9/dfc/classBlinky.html">Blinky</a></div><div class="ttdoc">Blinky targets Player directly.</div><div class="ttdef"><b>Definition:</b> ghost.h:209</div></div>
+<div class="ttc" id="aclassClyde_html"><div class="ttname"><a href="../../dd/d49/classClyde.html">Clyde</a></div><div class="ttdoc">Clyde moves like Blinky as long as his distance to the Player is more than 8 tiles....</div><div class="ttdef"><b>Definition:</b> ghost.h:247</div></div>
 <div class="ttc" id="aclassGhost_html"><div class="ttname"><a href="../../d0/d06/classGhost.html">Ghost</a></div><div class="ttdoc">The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...</div><div class="ttdef"><b>Definition:</b> ghost.h:23</div></div>
+<div class="ttc" id="aclassGhost_html_a048657d607dc60b0055043da8d6b30b6"><div class="ttname"><a href="../../d0/d06/classGhost.html#a048657d607dc60b0055043da8d6b30b6">Ghost::spriteDown</a></div><div class="ttdeci">QPixmap spriteDown</div><div class="ttdoc">Sprite of the ghost going down.</div><div class="ttdef"><b>Definition:</b> ghost.h:183</div></div>
+<div class="ttc" id="aclassGhost_html_a0e43247770458b1cfe874f0120e06df2"><div class="ttname"><a href="../../d0/d06/classGhost.html#a0e43247770458b1cfe874f0120e06df2">Ghost::pixmap</a></div><div class="ttdeci">QGraphicsPixmapItem * pixmap</div><div class="ttdoc">Pointer to the object used to display the current sprite.</div><div class="ttdef"><b>Definition:</b> ghost.h:200</div></div>
+<div class="ttc" id="aclassGhost_html_a1aecc58e6eea5c14de2b0809c36f3216"><div class="ttname"><a href="../../d0/d06/classGhost.html#a1aecc58e6eea5c14de2b0809c36f3216">Ghost::eyeR</a></div><div class="ttdeci">QPixmap eyeR</div><div class="ttdoc">Sprite of the ghost returning and going right.</div><div class="ttdef"><b>Definition:</b> ghost.h:193</div></div>
+<div class="ttc" id="aclassGhost_html_a2a95c784149e5d800e10cb08287a0466"><div class="ttname"><a href="../../d0/d06/classGhost.html#a2a95c784149e5d800e10cb08287a0466">Ghost::subposition</a></div><div class="ttdeci">QPointF subposition</div><div class="ttdoc">The subposition of the ghost in Fields used in Ghost::paint to draw the sprites.</div><div class="ttdef"><b>Definition:</b> ghost.h:67</div></div>
+<div class="ttc" id="aclassGhost_html_a2bf3c490ddece9f1fa6f909733be42fb"><div class="ttname"><a href="../../d0/d06/classGhost.html#a2bf3c490ddece9f1fa6f909733be42fb">Ghost::stepTick</a></div><div class="ttdeci">QTimer * stepTick</div><div class="ttdoc">Calls the step function.</div><div class="ttdef"><b>Definition:</b> ghost.h:136</div></div>
+<div class="ttc" id="aclassGhost_html_a2d3e296abf4faaca4a7c056099c35e7b"><div class="ttname"><a href="../../d0/d06/classGhost.html#a2d3e296abf4faaca4a7c056099c35e7b">Ghost::spriteSideR</a></div><div class="ttdeci">QPixmap spriteSideR</div><div class="ttdoc">Sprite of the ghost going right.</div><div class="ttdef"><b>Definition:</b> ghost.h:179</div></div>
 <div class="ttc" id="aclassGhost_html_a3414af266c4bdcb026dc25c33797f3a7"><div class="ttname"><a href="../../d0/d06/classGhost.html#a3414af266c4bdcb026dc25c33797f3a7">Ghost::gameOver</a></div><div class="ttdeci">void gameOver(bool won)</div><div class="ttdoc">Ghost::gameOver is emitted if the ghost has eaten PacMan.</div></div>
-<div class="ttc" id="aclassGhost_html_ad096262becd61adf877ad799371cb397"><div class="ttname"><a href="../../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397">Ghost::nextGhostPoints</a></div><div class="ttdeci">static int nextGhostPoints</div><div class="ttdoc">Ghost::nextGhostPoints stores how many points will be awarded for eating the next ghost.</div><div class="ttdef"><b>Definition:</b> ghost.h:95</div></div>
-<div class="ttc" id="aclassInky_html"><div class="ttname"><a href="../../d6/d64/classInky.html">Inky</a></div><div class="ttdoc">Inky uses the current position of the Player and Blinky and adds the difference of the two to the Pla...</div><div class="ttdef"><b>Definition:</b> ghost.h:149</div></div>
+<div class="ttc" id="aclassGhost_html_a3dc8412b0d407180d484510f7fcb4923"><div class="ttname"><a href="../../d0/d06/classGhost.html#a3dc8412b0d407180d484510f7fcb4923">Ghost::gs</a></div><div class="ttdeci">QGraphicsScene * gs</div><div class="ttdoc">The QGraphicsScene the Ghost will be rendered to.</div><div class="ttdef"><b>Definition:</b> ghost.h:51</div></div>
+<div class="ttc" id="aclassGhost_html_a583f10f0b5cd024af0e89e87191bc5fb"><div class="ttname"><a href="../../d0/d06/classGhost.html#a583f10f0b5cd024af0e89e87191bc5fb">Ghost::movement_t</a></div><div class="ttdeci">movement_t</div><div class="ttdoc">movement_t describes a type that is used to store the current movement type.   This determines speed,...</div><div class="ttdef"><b>Definition:</b> ghost.h:110</div></div>
+<div class="ttc" id="aclassGhost_html_a5c0b4bf7f48e0183406d0ea31bc0fa2e"><div class="ttname"><a href="../../d0/d06/classGhost.html#a5c0b4bf7f48e0183406d0ea31bc0fa2e">Ghost::clonePixmap</a></div><div class="ttdeci">QGraphicsPixmapItem * clonePixmap</div><div class="ttdoc">Pointer to the object used to display the current sprites clone.</div><div class="ttdef"><b>Definition:</b> ghost.h:202</div></div>
+<div class="ttc" id="aclassGhost_html_a6881203ad5b2a766b9f5077584096efd"><div class="ttname"><a href="../../d0/d06/classGhost.html#a6881203ad5b2a766b9f5077584096efd">Ghost::eyeL</a></div><div class="ttdeci">QPixmap eyeL</div><div class="ttdoc">Sprite of the ghost returning and going left.</div><div class="ttdef"><b>Definition:</b> ghost.h:191</div></div>
+<div class="ttc" id="aclassGhost_html_a73cc8331395c0b49d713b8ba501ab04e"><div class="ttname"><a href="../../d0/d06/classGhost.html#a73cc8331395c0b49d713b8ba501ab04e">Ghost::frightenedSpriteTimer</a></div><div class="ttdeci">QTimer * frightenedSpriteTimer</div><div class="ttdoc">Swaps the frightened ghosts sprites when the energizer time is running out.</div><div class="ttdef"><b>Definition:</b> ghost.h:140</div></div>
+<div class="ttc" id="aclassGhost_html_a74949c20c3680d47df08361224dd28f8"><div class="ttname"><a href="../../d0/d06/classGhost.html#a74949c20c3680d47df08361224dd28f8">Ghost::eyeUp</a></div><div class="ttdeci">QPixmap eyeUp</div><div class="ttdoc">Sprite of the ghost returning and going up.</div><div class="ttdef"><b>Definition:</b> ghost.h:195</div></div>
+<div class="ttc" id="aclassGhost_html_a8f8157957343fa4372772aa3230ceb42"><div class="ttname"><a href="../../d0/d06/classGhost.html#a8f8157957343fa4372772aa3230ceb42">Ghost::movementTimer</a></div><div class="ttdeci">QTimer * movementTimer</div><div class="ttdoc">Switches globalMovement between scatter and chase.</div><div class="ttdef"><b>Definition:</b> ghost.h:132</div></div>
+<div class="ttc" id="aclassGhost_html_a923ec14655d59ccd86ba3afdc22ac641"><div class="ttname"><a href="../../d0/d06/classGhost.html#a923ec14655d59ccd86ba3afdc22ac641">Ghost::spriteFrightendWhite</a></div><div class="ttdeci">QPixmap spriteFrightendWhite</div><div class="ttdoc">Sprite of the ghost while frightened and white.</div><div class="ttdef"><b>Definition:</b> ghost.h:188</div></div>
+<div class="ttc" id="aclassGhost_html_aae6e98971004b78a976a21c64ad27283"><div class="ttname"><a href="../../d0/d06/classGhost.html#aae6e98971004b78a976a21c64ad27283">Ghost::maze</a></div><div class="ttdeci">Maze * maze</div><div class="ttdoc">The Maze in which the Ghost will move and eat.</div><div class="ttdef"><b>Definition:</b> ghost.h:55</div></div>
+<div class="ttc" id="aclassGhost_html_ab4919b308d77f53f5ca29077633ccb8f"><div class="ttname"><a href="../../d0/d06/classGhost.html#ab4919b308d77f53f5ca29077633ccb8f">Ghost::player</a></div><div class="ttdeci">Player * player</div><div class="ttdoc">The Player that is in the Maze together with the Ghost.</div><div class="ttdef"><b>Definition:</b> ghost.h:59</div></div>
+<div class="ttc" id="aclassGhost_html_abd781d6398825a2f484df0ca4ad20d2c"><div class="ttname"><a href="../../d0/d06/classGhost.html#abd781d6398825a2f484df0ca4ad20d2c">Ghost::eyeDown</a></div><div class="ttdeci">QPixmap eyeDown</div><div class="ttdoc">Sprite of the ghost returning and going down.</div><div class="ttdef"><b>Definition:</b> ghost.h:197</div></div>
+<div class="ttc" id="aclassGhost_html_ac12ba8591c2de1e94cd4b5dc5ad5c1eb"><div class="ttname"><a href="../../d0/d06/classGhost.html#ac12ba8591c2de1e94cd4b5dc5ad5c1eb">Ghost::spriteUp</a></div><div class="ttdeci">QPixmap spriteUp</div><div class="ttdoc">Sprite of the ghost going up.</div><div class="ttdef"><b>Definition:</b> ghost.h:181</div></div>
+<div class="ttc" id="aclassGhost_html_acedf20d923bbd63d54f1056c849a17ea"><div class="ttname"><a href="../../d0/d06/classGhost.html#acedf20d923bbd63d54f1056c849a17ea">Ghost::position</a></div><div class="ttdeci">QPoint position</div><div class="ttdoc">The current position of the ghost in Fields.</div><div class="ttdef"><b>Definition:</b> ghost.h:63</div></div>
+<div class="ttc" id="aclassGhost_html_ad096262becd61adf877ad799371cb397"><div class="ttname"><a href="../../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397">Ghost::nextGhostPoints</a></div><div class="ttdeci">static int nextGhostPoints</div><div class="ttdoc">Ghost::nextGhostPoints stores how many points will be awarded for eating the next ghost.</div><div class="ttdef"><b>Definition:</b> ghost.h:127</div></div>
+<div class="ttc" id="aclassGhost_html_ad202e75655d99e7d109fae1fa4acd122"><div class="ttname"><a href="../../d0/d06/classGhost.html#ad202e75655d99e7d109fae1fa4acd122">Ghost::spriteSideL</a></div><div class="ttdeci">QPixmap spriteSideL</div><div class="ttdoc">Sprite of the ghost going left.</div><div class="ttdef"><b>Definition:</b> ghost.h:177</div></div>
+<div class="ttc" id="aclassGhost_html_afa9fd2a9b4985ad8dceef786db923424"><div class="ttname"><a href="../../d0/d06/classGhost.html#afa9fd2a9b4985ad8dceef786db923424">Ghost::spriteFrightendBlue</a></div><div class="ttdeci">QPixmap spriteFrightendBlue</div><div class="ttdoc">Sprite of the ghost while frightened and blue.</div><div class="ttdef"><b>Definition:</b> ghost.h:186</div></div>
+<div class="ttc" id="aclassInky_html"><div class="ttname"><a href="../../d6/d64/classInky.html">Inky</a></div><div class="ttdoc">Inky uses the current position of the Player and Blinky and adds the difference of the two to the Pla...</div><div class="ttdef"><b>Definition:</b> ghost.h:233</div></div>
 <div class="ttc" id="aclassMaze_html"><div class="ttname"><a href="../../d6/d74/classMaze.html">Maze</a></div><div class="ttdef"><b>Definition:</b> maze.h:13</div></div>
-<div class="ttc" id="aclassPinky_html"><div class="ttname"><a href="../../dd/db7/classPinky.html">Pinky</a></div><div class="ttdoc">Pinky targets four fields in front of the Player in the current movement direction of the Player.</div><div class="ttdef"><b>Definition:</b> ghost.h:137</div></div>
+<div class="ttc" id="aclassPinky_html"><div class="ttname"><a href="../../dd/db7/classPinky.html">Pinky</a></div><div class="ttdoc">Pinky targets four fields in front of the Player in the current movement direction of the Player.</div><div class="ttdef"><b>Definition:</b> ghost.h:221</div></div>
 <div class="ttc" id="aclassPlayer_html"><div class="ttname"><a href="../../d2/d4b/classPlayer.html">Player</a></div><div class="ttdef"><b>Definition:</b> player.h:16</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

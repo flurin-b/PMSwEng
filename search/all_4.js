@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['increasescore_17',['increaseScore',['../d6/d74/classMaze.html#a435a73008cf1ebf100ff5142e13fc04f',1,'Maze']]],
-  ['inky_18',['Inky',['../d6/d64/classInky.html',1,'Inky'],['../d6/d64/classInky.html#abec1c2eafdea79224050fefa8222554e',1,'Inky::Inky()']]]
+  ['frightenedspritetimer_10',['frightenedSpriteTimer',['../d0/d06/classGhost.html#a73cc8331395c0b49d713b8ba501ab04e',1,'Ghost']]],
+  ['frightenedspritetimercache_11',['frightenedSpriteTimerCache',['../d0/d06/classGhost.html#ab8fe3ce3d02fbe9ae4f039890e639547',1,'Ghost']]]
 ];

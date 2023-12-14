@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['test_35',['Test',['../df/da6/classTest.html',1,'']]],
-  ['testtest_36',['TestTest',['../db/d5e/classTestTest.html',1,'']]],
-  ['togglefrightenedsprite_37',['toggleFrightenedSprite',['../d0/d06/classGhost.html#ab9af002e55e7e95949e492c820d92869',1,'Ghost']]]
+  ['nextghostpoints_40',['nextGhostPoints',['../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397',1,'Ghost']]],
+  ['nextmovementpattern_41',['nextMovementPattern',['../d0/d06/classGhost.html#a5e76d2458c22abb211544afb6ac76d78',1,'Ghost']]]
 ];
