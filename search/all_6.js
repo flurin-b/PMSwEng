@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['nextghostpoints_20',['nextGhostPoints',['../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397',1,'Ghost']]],
-  ['nextmovementpattern_21',['nextMovementPattern',['../d0/d06/classGhost.html#a5e76d2458c22abb211544afb6ac76d78',1,'Ghost']]]
+  ['maze_19',['Maze',['../d6/d74/classMaze.html',1,'Maze'],['../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920',1,'Maze::Maze()']]],
+  ['mywidget_20',['MyWidget',['../d4/d8f/classMyWidget.html',1,'']]]
 ];

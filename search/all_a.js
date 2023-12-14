@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['_7eghost_33',['~Ghost',['../d0/d06/classGhost.html#a063ed19c1b6f5c07b9109020c6198319',1,'Ghost']]],
-  ['_7epacman_34',['~PacMan',['../d9/d66/classPacMan.html#a5c60749168e26d4dc87aa1323a15e998',1,'PacMan']]]
+  ['test_31',['Test',['../df/da6/classTest.html',1,'']]],
+  ['testtest_32',['TestTest',['../db/d5e/classTestTest.html',1,'']]],
+  ['togglefrightenedsprite_33',['toggleFrightenedSprite',['../d0/d06/classGhost.html#ab9af002e55e7e95949e492c820d92869',1,'Ghost']]]
 ];

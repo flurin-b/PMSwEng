@@ -97,16 +97,21 @@ $(document).ready(function(){initNavTree('d0/d06/classGhost.html','../../'); ini
 <div class="title">Ghost Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> class implements a basic movement function (<a class="el" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step Called periodically to update the ghosts position.">Ghost::step</a>) as well as a paint function (<a class="el" href="../../d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e" title="Ghost::paint.">Ghost::paint</a>). It also implements functions to pause movement, calculate distances and some more obscure game mechanics.  
+ <a href="../../d0/d06/classGhost.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../db/d9e/ghost_8h_source.html">ghost.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Ghost:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="../../d0/d06/classGhost.png" usemap="#Ghost_map" alt=""/>
   <map id="Ghost_map" name="Ghost_map">
-<area href="../../d9/dfc/classBlinky.html" alt="Blinky" shape="rect" coords="0,112,59,136"/>
-<area href="../../dd/d49/classClyde.html" alt="Clyde" shape="rect" coords="69,112,128,136"/>
-<area href="../../d6/d64/classInky.html" alt="Inky" shape="rect" coords="138,112,197,136"/>
-<area href="../../dd/db7/classPinky.html" alt="Pinky" shape="rect" coords="207,112,266,136"/>
+<area href="../../d9/dfc/classBlinky.html" title="Blinky targets Player directly." alt="Blinky" shape="rect" coords="0,112,59,136"/>
+<area href="../../dd/d49/classClyde.html" title="Clyde moves like Blinky as long as his distance to Player is more than 8 tiles. If Clyde is closer,..." alt="Clyde" shape="rect" coords="69,112,128,136"/>
+<area href="../../d6/d64/classInky.html" title="Inky uses the current position of Player and Blinky and adds the difference of the two to Players cur..." alt="Inky" shape="rect" coords="138,112,197,136"/>
+<area href="../../dd/db7/classPinky.html" title="Pinky targets four fields in front of Player in the Players current movement direction." alt="Pinky" shape="rect" coords="207,112,266,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -117,7 +122,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <tr class="memdesc:a062b8159339f25f517a14511833fa05e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e" title="Ghost::paint.">Ghost::paint</a>. <br /></td></tr>
 <tr class="separator:a062b8159339f25f517a14511833fa05e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a572aa783158f8cd97e3ddb6ac0721192"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192">setFrightened</a> (bool frightened)</td></tr>
-<tr class="memdesc:a572aa783158f8cd97e3ddb6ac0721192"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192" title="Ghost::setFrightened.">Ghost::setFrightened</a>.  <a href="../../d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192">More...</a><br /></td></tr>
+<tr class="memdesc:a572aa783158f8cd97e3ddb6ac0721192"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192" title="Ghost::setFrightened Puts the Ghost into firghtened or normal mode if applicable.">Ghost::setFrightened</a> Puts the <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> into firghtened or normal mode if applicable.  <a href="../../d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192">More...</a><br /></td></tr>
 <tr class="separator:a572aa783158f8cd97e3ddb6ac0721192"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
@@ -129,17 +134,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>gameOver</b> (bool wo
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4c87807626e6a25df960a5f3ffa69196"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196">Ghost</a> (QGraphicsScene *gsPointer, <a class="el" href="../../d6/d74/classMaze.html">Maze</a> *mazePointer, <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> *playerPointer)</td></tr>
-<tr class="memdesc:a4c87807626e6a25df960a5f3ffa69196"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196" title="Ghost::Ghost Create the base for any specific Ghost (Blinky/Pinky/Inky/Clyde)">Ghost::Ghost</a> Create the base for any specific <a class="el" href="../../d0/d06/classGhost.html">Ghost</a> (Blinky/Pinky/Inky/Clyde)  <a href="../../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196">More...</a><br /></td></tr>
+<tr class="memdesc:a4c87807626e6a25df960a5f3ffa69196"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196" title="Ghost::Ghost Create the base for any specific Ghost (Blinky/Pinky/Inky/Clyde)">Ghost::Ghost</a> Create the base for any specific <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> (Blinky/Pinky/Inky/Clyde)  <a href="../../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196">More...</a><br /></td></tr>
 <tr class="separator:a4c87807626e6a25df960a5f3ffa69196"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a063ed19c1b6f5c07b9109020c6198319"><td class="memItemLeft" align="right" valign="top"><a id="a063ed19c1b6f5c07b9109020c6198319"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/classGhost.html#a063ed19c1b6f5c07b9109020c6198319">~Ghost</a> ()</td></tr>
 <tr class="memdesc:a063ed19c1b6f5c07b9109020c6198319"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a063ed19c1b6f5c07b9109020c6198319" title="Ghost::~Ghost Dealocate memory.">Ghost::~Ghost</a> Dealocate memory. <br /></td></tr>
 <tr class="separator:a063ed19c1b6f5c07b9109020c6198319"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8af48a7f68176b5f10e798b39dc88abc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc">setPaused</a> (bool paused)</td></tr>
-<tr class="memdesc:a8af48a7f68176b5f10e798b39dc88abc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc" title="Ghost::setPaused Stop the Ghost logic from updating.">Ghost::setPaused</a> Stop the <a class="el" href="../../d0/d06/classGhost.html">Ghost</a> logic from updating.  <a href="../../d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc">More...</a><br /></td></tr>
+<tr class="memdesc:a8af48a7f68176b5f10e798b39dc88abc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc" title="Ghost::setPaused Pause or resume the ghosts movement.">Ghost::setPaused</a> Pause or resume the ghosts movement.  <a href="../../d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc">More...</a><br /></td></tr>
 <tr class="separator:a8af48a7f68176b5f10e798b39dc88abc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd1bd47ee90195f67baeb64946a4f10f"><td class="memItemLeft" align="right" valign="top">QPoint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f">getField</a> (void)</td></tr>
-<tr class="memdesc:acd1bd47ee90195f67baeb64946a4f10f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f" title="Ghost::getField Get the field in which the Ghost is currently in.">Ghost::getField</a> Get the field in which the <a class="el" href="../../d0/d06/classGhost.html">Ghost</a> is currently in.  <a href="../../d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f">More...</a><br /></td></tr>
+<tr class="memdesc:acd1bd47ee90195f67baeb64946a4f10f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f" title="Ghost::getField Get the field in which the Ghost is currently in.">Ghost::getField</a> Get the field in which the <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> is currently in.  <a href="../../d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f">More...</a><br /></td></tr>
 <tr class="separator:acd1bd47ee90195f67baeb64946a4f10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
@@ -171,20 +176,20 @@ Protected Types</h2></td></tr>
 Protected Slots</h2></td></tr>
 <tr class="memitem:a5e76d2458c22abb211544afb6ac76d78"><td class="memItemLeft" align="right" valign="top"><a id="a5e76d2458c22abb211544afb6ac76d78"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/classGhost.html#a5e76d2458c22abb211544afb6ac76d78">nextMovementPattern</a> ()</td></tr>
-<tr class="memdesc:a5e76d2458c22abb211544afb6ac76d78"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a5e76d2458c22abb211544afb6ac76d78" title="Ghost::nextMovementPattern.">Ghost::nextMovementPattern</a>. <br /></td></tr>
+<tr class="memdesc:a5e76d2458c22abb211544afb6ac76d78"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a5e76d2458c22abb211544afb6ac76d78" title="Ghost::nextMovementPattern Sets the next movement pattern and restarts the movementTimer for the next...">Ghost::nextMovementPattern</a> Sets the next movement pattern and restarts the movementTimer for the next phase. <br /></td></tr>
 <tr class="separator:a5e76d2458c22abb211544afb6ac76d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9af002e55e7e95949e492c820d92869"><td class="memItemLeft" align="right" valign="top"><a id="ab9af002e55e7e95949e492c820d92869"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/classGhost.html#ab9af002e55e7e95949e492c820d92869">toggleFrightenedSprite</a> ()</td></tr>
-<tr class="memdesc:ab9af002e55e7e95949e492c820d92869"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#ab9af002e55e7e95949e492c820d92869" title="Ghost::toggleFrightenedSprite Swap between two frightend sprites to show the Player the energized Tim...">Ghost::toggleFrightenedSprite</a> Swap between two frightend sprites to show the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> the energized Time is running out. <br /></td></tr>
+<tr class="memdesc:ab9af002e55e7e95949e492c820d92869"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#ab9af002e55e7e95949e492c820d92869" title="Ghost::toggleFrightenedSprite Swap between the two frightend sprites to show the Player the energized...">Ghost::toggleFrightenedSprite</a> Swap between the two frightend sprites to show the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> the energized Time is running out. <br /></td></tr>
 <tr class="separator:ab9af002e55e7e95949e492c820d92869"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:abb9c9b3a950606ae5b4f52b2f387d5f4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4">getStepInterval</a> (void)</td></tr>
-<tr class="memdesc:abb9c9b3a950606ae5b4f52b2f387d5f4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4" title="Ghost::getStepInterval Get the current Intervall time with which the function Ghost::step is called.">Ghost::getStepInterval</a> Get the current Intervall time with which the function <a class="el" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step.">Ghost::step</a> is called.  <a href="../../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4">More...</a><br /></td></tr>
+<tr class="memdesc:abb9c9b3a950606ae5b4f52b2f387d5f4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4" title="Ghost::getStepInterval Get the current Time between step calls.">Ghost::getStepInterval</a> Get the current Time between step calls.  <a href="../../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4">More...</a><br /></td></tr>
 <tr class="separator:abb9c9b3a950606ae5b4f52b2f387d5f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4add3cbc51388566117201ad2fba0fee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee">step</a> (QPoint target)</td></tr>
-<tr class="memdesc:a4add3cbc51388566117201ad2fba0fee"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step.">Ghost::step</a>.  <a href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee">More...</a><br /></td></tr>
+<tr class="memdesc:a4add3cbc51388566117201ad2fba0fee"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step Called periodically to update the ghosts position.">Ghost::step</a> Called periodically to update the ghosts position.  <a href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee">More...</a><br /></td></tr>
 <tr class="separator:a4add3cbc51388566117201ad2fba0fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
@@ -299,7 +304,9 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <tr class="memdesc:ad096262becd61adf877ad799371cb397"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397" title="Ghost::nextGhostPoints Stores how many points are awarded for eating the next ghost.">Ghost::nextGhostPoints</a> Stores how many points are awarded for eating the next ghost. <br /></td></tr>
 <tr class="separator:ad096262becd61adf877ad799371cb397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> class implements a basic movement function (<a class="el" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step Called periodically to update the ghosts position.">Ghost::step</a>) as well as a paint function (<a class="el" href="../../d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e" title="Ghost::paint.">Ghost::paint</a>). It also implements functions to pause movement, calculate distances and some more obscure game mechanics. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4c87807626e6a25df960a5f3ffa69196"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4c87807626e6a25df960a5f3ffa69196">&#9670;&nbsp;</a></span>Ghost()</h2>
 
@@ -332,7 +339,7 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196" title="Ghost::Ghost Create the base for any specific Ghost (Blinky/Pinky/Inky/Clyde)">Ghost::Ghost</a> Create the base for any specific <a class="el" href="../../d0/d06/classGhost.html">Ghost</a> (Blinky/Pinky/Inky/Clyde) </p>
+<p><a class="el" href="../../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196" title="Ghost::Ghost Create the base for any specific Ghost (Blinky/Pinky/Inky/Clyde)">Ghost::Ghost</a> Create the base for any specific <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> (Blinky/Pinky/Inky/Clyde) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scPointer</td><td>A Pointer to the GraphicScene where the ghosts will be placed </td></tr>
@@ -406,8 +413,8 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f" title="Ghost::getField Get the field in which the Ghost is currently in.">Ghost::getField</a> Get the field in which the <a class="el" href="../../d0/d06/classGhost.html">Ghost</a> is currently in. </p>
-<dl class="section return"><dt>Returns</dt><dd>A field in the <a class="el" href="../../d6/d74/classMaze.html">Maze</a> </dd></dl>
+<p><a class="el" href="../../d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f" title="Ghost::getField Get the field in which the Ghost is currently in.">Ghost::getField</a> Get the field in which the <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> is currently in. </p>
+<dl class="section return"><dt>Returns</dt><dd>A field in the <a class="el" href="../../d6/d74/classMaze.html">Maze</a> as a QPoint </dd></dl>
 
 </div>
 </div>
@@ -435,8 +442,8 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4" title="Ghost::getStepInterval Get the current Intervall time with which the function Ghost::step is called.">Ghost::getStepInterval</a> Get the current Intervall time with which the function <a class="el" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step.">Ghost::step</a> is called. </p>
-<dl class="section return"><dt>Returns</dt><dd>Time in ms </dd></dl>
+<p><a class="el" href="../../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4" title="Ghost::getStepInterval Get the current Time between step calls.">Ghost::getStepInterval</a> Get the current Time between step calls. </p>
+<dl class="section return"><dt>Returns</dt><dd>Zeit in ms </dd></dl>
 
 </div>
 </div>
@@ -464,10 +471,10 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192" title="Ghost::setFrightened.">Ghost::setFrightened</a>. </p>
+<p><a class="el" href="../../d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192" title="Ghost::setFrightened Puts the Ghost into firghtened or normal mode if applicable.">Ghost::setFrightened</a> Puts the <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> into firghtened or normal mode if applicable. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">frightened</td><td></td></tr>
+    <tr><td class="paramname">frightened</td><td>Weather or not the ghosts should be frightened. </td></tr>
   </table>
   </dd>
 </dl>
@@ -490,10 +497,10 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc" title="Ghost::setPaused Stop the Ghost logic from updating.">Ghost::setPaused</a> Stop the <a class="el" href="../../d0/d06/classGhost.html">Ghost</a> logic from updating. </p>
+<p><a class="el" href="../../d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc" title="Ghost::setPaused Pause or resume the ghosts movement.">Ghost::setPaused</a> Pause or resume the ghosts movement. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">paused</td><td>Stop if true continue if false </td></tr>
+    <tr><td class="paramname">paused</td><td>Stop if true, resume if false. </td></tr>
   </table>
   </dd>
 </dl>
@@ -524,7 +531,7 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step.">Ghost::step</a>. </p>
+<p><a class="el" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step Called periodically to update the ghosts position.">Ghost::step</a> Called periodically to update the ghosts position. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">target</td><td></td></tr>

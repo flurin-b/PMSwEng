@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['maze_64',['Maze',['../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920',1,'Maze']]]
+  ['keypressevent_65',['keyPressEvent',['../d4/d8f/classMyWidget.html#a9699ad26ec6891d5178f29c56d3464ad',1,'MyWidget']]]
 ];
