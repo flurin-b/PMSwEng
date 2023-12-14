@@ -61,18 +61,28 @@ protected:
 
     int dotLimitGhostHouse = 0;
 
+    /**
+     *  @brief This enum stores the step intervals for the different movement speeds.
+     */
     enum {
         stepIntervalNormal     = int(Maze::baseStepInterval / 0.75),
         stepIntervalTunnel     = int(Maze::baseStepInterval / 0.40),
         stepIntervalFrightened = int(Maze::baseStepInterval / 0.50),
         stepIntervalReturning  = int(Maze::baseStepInterval / 1.50),
     };
+    /**
+     * @brief state stores where the ghost currently is.
+     */
     enum{
         inMaze,
         inGhostHouse,
         leavingGhostHouse,
         enteringGhostHouse,
     } state = inGhostHouse;
+    /**
+     * @brief movement_t describes a type that is used to store the current movement type. <br>
+     *        This determines speed, sprite and some other things.
+     */
     typedef enum {
         chase,
         scatter,
@@ -93,11 +103,14 @@ protected:
 
     void step (QPoint target);
 
+    /**
+     * @brief spriteStatus stores the color of the sprite that is currently displayed. <br>
+     *        This in only used in frightened mode.
+     */
     enum{
         frightendBlue,
         frightendWhite
     } spriteStatus = frightendBlue;
-
     const float scaleFactor = 1.3;
     QPixmap spriteSideL, spriteSideR, spriteUp, spriteDown;
     QPixmap spriteFrightendBlue, spriteFrightendWhite;
