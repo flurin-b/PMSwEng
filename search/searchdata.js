@@ -3,7 +3,8 @@ var indexSectionsWithContent =
   0: "bcghikmnpst~",
   1: "bcgimpt",
   2: "bcghikmnpst~",
-  3: "n"
+  3: "ns",
+  4: "m"
 };
 
 var indexSectionNames =
@@ -11,7 +12,8 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "functions",
-  3: "variables"
+  3: "variables",
+  4: "enums"
 };
 
 var indexSectionLabels =
@@ -19,6 +21,7 @@ var indexSectionLabels =
   0: "All",
   1: "Classes",
   2: "Functions",
-  3: "Variables"
+  3: "Variables",
+  4: "Enumerations"
 };
 
