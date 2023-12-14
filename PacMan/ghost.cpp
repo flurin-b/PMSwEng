@@ -1,7 +1,7 @@
 #include "ghost.h"
 
 /**
- * @brief Ghost::Ghost creates the base for any specific Ghost (Blinky/Pinky/Inky/Clyde)
+ * @brief Ghost::Ghost creates the base for any specific Ghost ( Blinky / Pinky / Inky / Clyde )
  * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
  * @param mazePointer A Pointer to the maze where to ghosts operade in
  * @param playerPointer A Pointer to the player so that they can chase him
