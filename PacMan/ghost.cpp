@@ -8,11 +8,13 @@
  */
 Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):gs(gsPointer),maze(mazePointer),player(playerPointer)
 {
+    // Timer that calls the function to switch between the movement modes chase and scatter.
     movementTimer = new QTimer;
     connect(movementTimer, &QTimer::timeout, this, &Ghost::nextMovementPattern);
     nextMovementPattern();
     movementTimer->stop();
 
+    // All the sprites to display the ghosts.
     spriteFrightendBlue =  QPixmap(":/Sprite/Ghost/GhostFrightend.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteFrightendWhite = QPixmap(":/Sprite/Ghost/GhostFrightendEnding.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     eyeL = QPixmap(":/Sprite/Ghost/AugenL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
@@ -20,11 +22,13 @@ Ghost::Ghost(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     eyeUp = QPixmap(":/Sprite/Ghost/AugenL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     eyeDown = QPixmap(":/Sprite/Ghost/AugenL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
 
+    // Timer that calls the periodic step function.
+    // This Timer is set to be a Precise Timer because it determines the movement speed of the ghosts.
     stepTick = new QTimer;
     stepTick->setTimerType(Qt::PreciseTimer);
 
+    // This Timer controlls the ghosts blinking when he nears his frightened period.
     frightenedSpriteTimer = new QTimer;
-    frightenedSpriteTimer->setTimerType(Qt::PreciseTimer);
     QObject::connect(frightenedSpriteTimer, &QTimer::timeout, this, &Ghost::toggleFrightenedSprite);
 }
 
@@ -39,16 +43,18 @@ Ghost::~Ghost()
 }
 
 /**
- * @brief Ghost::setPaused Stop the Ghost logic from updating
- * @param paused Stop if true continue if false
+ * @brief Ghost::setPaused Pause or resume the ghosts movement.
+ * @param paused Stop if true, resume if false.
  */
 void Ghost::setPaused(bool paused)
 {
     if(paused)
     {
+        // Load the timer caches with the current timer values.
         stepTickCache = stepTick->remainingTime();
         movementTimerCache = movementTimer->remainingTime();
         frightenedSpriteTimerCache = frightenedSpriteTimer->remainingTime();
+        // Stop the timers.
         stepTick->stop();
         movementTimer->stop();
         frightenedSpriteTimer->stop();
@@ -57,15 +63,20 @@ void Ghost::setPaused(bool paused)
     {
         if (stepTickCache != -1)
         {
+            // Reload the timers to the previous period if there is a cached value.
             stepTick->start(stepTickCache);
             movementTimer->start(movementTimerCache);
         }
         else
         {
+            // If there are no cached values, just start the timers.
             stepTick->start();
             movementTimer->start();
         }
-        if (frightenedSpriteTimer->remainingTime() != -1)
+
+        // frightenedSpriteTimer is not always running, therefore
+        // a seperate check checks weather it should be startet or not.
+        if (frightenedSpriteTimerCache != -1)
         {
             frightenedSpriteTimer->start(frightenedSpriteTimerCache);
         }
@@ -78,21 +89,33 @@ void Ghost::setPaused(bool paused)
 int Ghost::nextGhostPoints;
 
 /**
- * @brief Ghost::setFrightened
- * @param frightened
+ * @brief Ghost::setFrightened Puts the Ghost into firghtened or normal mode if applicable.
+ * @param frightened Weather or not the ghosts should be frightened.
  */
 void Ghost::setFrightened(bool frightened)
 {
+    // Reset the nextGhostPoints variable as every first
+    // ghost eaten after an energizer is worth 200 points.
     nextGhostPoints = 200;
-    if(frightened && movement != returning)
+
+    // Do not frighten returning ghosts.
+    if(movement == returning)
+        return;
+
+    // If the Ghost should be frightened, frighten it!
+    if (frightened)
     {
+        // Set the Pixmap to the frightened one and start the timer that makes them blink
+        // before returning to normal.
         pixmap->setPixmap(spriteFrightendBlue);
         spriteStatus = frightendBlue;
         frightenedSpriteTimer->setInterval(Player::energizerDuration * 0.7);
         frightenedSpriteTimer->start();
 
+        // If the Ghost is not yet frightened, frighten it.
         if (movement != Ghost::frightened)
         {
+            // Reverse direction if the Ghost is in the maze.
             if (state == Ghost::inMaze)
             {
                 position -= direction;
@@ -102,17 +125,22 @@ void Ghost::setFrightened(bool frightened)
             movement = Ghost::frightened;
         }
     }
-    else if (!frightened && movement == Ghost::frightened)
+    // If the ghost shouldn't be frightened, un-frighten it.
+    else
     {
-        movement = globalMovement;
-        stepTick->setInterval(getStepInterval() * stepTick->remainingTime()/Ghost::stepIntervalFrightened);
+        // If the ghosts should not be frightened but are, un-frighten them.
+        if (movement == Ghost::frightened)
+        {
+            movement = globalMovement;
+            stepTick->setInterval(getStepInterval() * stepTick->remainingTime()/Ghost::stepIntervalFrightened);
 
-        frightenedSpriteTimer->stop();
+            frightenedSpriteTimer->stop();
+        }
     }
 }
 
 /**
- * @brief Ghost::toggleFrightenedSprite Swap between two frightend sprites to show the Player the energized Time is running out
+ * @brief Ghost::toggleFrightenedSprite Swap between the two frightend sprites to show the Player the energized Time is running out.
  */
 void Ghost::toggleFrightenedSprite()
 {
@@ -143,34 +171,32 @@ float Ghost::getDistance(QPoint field1, QPoint field2){
 }
 
 /**
- * @brief Ghost::getStepInterval Get the current Intervall time with which the function Ghost::step is called
- * @return Time in ms
+ * @brief Ghost::getStepInterval Get the current Time between step calls.
+ * @return Zeit in ms
  */
 int Ghost::getStepInterval(void)
 {
+    // If the Ghost is in the tunnel return stepIntervalTunnel
     if((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
-    {
         return Ghost::stepIntervalTunnel;
-    }
-    else
+
+    // Otherwise decide which interval to return based on movement patterns.
+    switch (movement)
     {
-        switch (movement)
-        {
-        case chase:
-        case scatter:
-            return stepIntervalNormal;
-        case frightened:
-            return stepIntervalFrightened;
-        case returning:
-            return stepIntervalReturning;
-        }
+    case chase:
+    case scatter:
+        return stepIntervalNormal;
+    case frightened:
+        return stepIntervalFrightened;
+    case returning:
+        return stepIntervalReturning;
     }
     return 0;
 }
 
 /**
- * @brief Ghost::getField Get the field in which the Ghost is currently in
- * @return A field in the Maze
+ * @brief Ghost::getField Get the field in which the Ghost is currently in.
+ * @return A field in the Maze as a QPoint
  */
 QPoint Ghost::getField (void)
 {
@@ -178,28 +204,27 @@ QPoint Ghost::getField (void)
 }
 
 /**
- * @brief Ghost::nextMovementPattern
+ * @brief Ghost::nextMovementPattern Sets the next movement pattern and restarts the movementTimer for the next phase.
  */
 void Ghost::nextMovementPattern()
 {
     const static int patternTimes[8] = {7000, 20000, 7000, 20000, 5000, 20000, 5000, 20000};
     
-    if (globalMovement == chase)
+    // Only update modes when there is still a next phase
+    if (movementCounter < 8)
     {
-        globalMovement = scatter;
+        // Toggle the globalMovement movement mode.
+        if (globalMovement == chase)
+            globalMovement = scatter;
+        else
+            globalMovement = chase;
+        // Set the new patternTime
         movementTimer->setInterval(patternTimes[movementCounter++]);
     }
-    else
-    {
-        globalMovement = chase;
-        movementTimer->setInterval(patternTimes[movementCounter++]);
-    }
-    if (movementCounter >= 8)
-        movementCounter = 7;
 }
 
 /**
- * @brief Ghost::step
+ * @brief Ghost::step Called periodically to update the ghosts position.
  * @param target
  */
 void Ghost::step(QPoint target) {
@@ -207,6 +232,8 @@ void Ghost::step(QPoint target) {
     debugTarget->setRect(target.x()*maze->getFieldWidth(), target.y()*maze->getFieldWidth(), maze->getFieldWidth(), maze->getFieldWidth());
 #endif
 
+    // Check if a returning ghost has reached the ghost house entrance
+    // and if so, set its state to enteringGhostHouse.
     if(movement == returning && state != enteringGhostHouse)
     {
         if (direction == QPoint{1, 0})
@@ -232,108 +259,131 @@ void Ghost::step(QPoint target) {
 
     switch (state)
     {
-    case Ghost::inMaze:
-    {
-        // get all possible directions
-        std::vector<QPoint> possibleDirs = maze->getMaze(position);
-        int i = 0;
-        // delete opposite of current direction as no 180 degree turns can be made
-        for(QPoint possibleDir : possibleDirs)
+        // If the ghost is in the maze, pathfind towards its target.
+        case Ghost::inMaze:
         {
-            if(possibleDir == -direction)
+            // Get all possible directions.
+            std::vector<QPoint> possibleDirs = maze->getMaze(position);
+            int i = 0;
+
+            // Delete the opposite of the current direction as no 180 degree turns can be made by ghosts.
+            for(QPoint possibleDir : possibleDirs)
             {
-                possibleDirs.erase(possibleDirs.begin() + i);
-            }
-            else
-            {
-                i++;
-            }
-        }
-        // if there is only one direction, go in that direction.
-        if (possibleDirs.size() == 1)
-        {
-            direction = possibleDirs[0];
-        }
-        // otherwise decide where to go
-        else
-        {
-            if (movement == Ghost::frightened)
-            {
-                static QRandomGenerator r;
-                direction = possibleDirs[r.bounded(possibleDirs.size())];
-            }
-            else
-            {
-                int smallest = 0;
-                for(int i = 1; i < possibleDirs.size(); i++){
-                    if (getDistance(position+possibleDirs[smallest], target) > getDistance(position+possibleDirs[i], target))
-                    {
-                        smallest = i;
-                    }
+                if(possibleDir == -direction)
+                {
+                    possibleDirs.erase(possibleDirs.begin() + i);
                 }
-                direction = possibleDirs[smallest];
+                else
+                {
+                    i++;
+                }
             }
+
+            // If there is only one direction, go in that direction,
+            if (possibleDirs.size() == 1)
+            {
+                direction = possibleDirs[0];
+            }
+            // otherwise decide where to go.
+            else
+            {
+                // When frightened, choose a random direction.
+                if (movement == Ghost::frightened)
+                {
+                    static QRandomGenerator r;
+                    direction = possibleDirs[r.bounded(possibleDirs.size())];
+                }
+                // Otherwise move to the field closest to the target.
+                else
+                {
+                    // Find field nearest to target.
+                    int nearest = 0;
+                    for(int i = 1; i < possibleDirs.size(); i++){
+                        if (getDistance(position+possibleDirs[nearest], target) > getDistance(position+possibleDirs[i], target))
+                        {
+                            nearest = i;
+                        }
+                    }
+                    direction = possibleDirs[nearest];
+                }
+            }
+            break;
         }
-        break;
-    }
-    case Ghost::inGhostHouse:
-        stepTick->setInterval(10);
-        if(maze->getDotsEaten() < dotLimitGhostHouse)
-            return;
-        else
-            state = Ghost::leavingGhostHouse;
-    case Ghost::leavingGhostHouse:
-    {
-        if (position.x() < resetPosition.x())
+        // If the ghost is in the ghost house, only check if the dot limit is reached
+        // and if so, leave the ghost house.
+        case Ghost::inGhostHouse:
         {
-            direction = QPoint(1, 0);
+            stepTick->setInterval(10);
+            if(maze->getDotsEaten() < dotLimitGhostHouse)
+                return;
+            else
+                state = Ghost::leavingGhostHouse;
+            // There is intentionally no brake here, so the ghost
+            // immediately starts leaving the ghost house
         }
-        else if (position.x() > resetPosition.x())
+        // Makes the ghost move towards the exit of the ghost house.
+        case Ghost::leavingGhostHouse:
         {
-            direction = QPoint(-1, 0);
-        }
-        else if (position.y() > 14)
-        {
-            direction = QPoint(0, -1);
-        }
-        else
-        {
-            float distance_left = getDistance(position, target);
-            float distance_right = getDistance(position + QPoint(1,0), target);
-            if(distance_left < distance_right)
+            // This case uses the ghosts current position to determine
+            // the direction it should move in.
+            // Move right if too far left.
+            if (position.x() < resetPosition.x())
+            {
+                direction = QPoint(1, 0);
+            }
+            // Move left if too far right.
+            else if (position.x() > resetPosition.x())
             {
                 direction = QPoint(-1, 0);
             }
+            // Move up if horizontal position is correct but the ghost is too far down.
+            else if (position.y() > 14)
+            {
+                direction = QPoint(0, -1);
+            }
+            // If the ghost is out of the ghost house, decide in what direction it should go.
             else
             {
-                direction = QPoint(1, 0);
-                position += direction;
+                float distance_left = getDistance(position, target);
+                float distance_right = getDistance(position + QPoint(1,0), target);
+                if(distance_left < distance_right)
+                {
+                    direction = QPoint(-1, 0);
+                }
+                else
+                {
+                    direction = QPoint(1, 0);
+                    position += direction;
+                }
+                state = Ghost::inMaze;
+                stepTick->setInterval(getStepInterval() / 2);
+                return;
             }
-            state = Ghost::inMaze;
-            stepTick->setInterval(getStepInterval() / 2);
-            return;
+            break;
         }
-        break;
-    }
-    case Ghost::enteringGhostHouse:
-    {
-        if (position.y() < resetPosition.y())
+        // Move towards the reset position and re-exit the ghost house once the reset position is reached.
+        case Ghost::enteringGhostHouse:
         {
-            direction = QPoint{0, 1};
-        }
-        else
-        {
-            state = leavingGhostHouse;
-            movement = globalMovement;
-            direction = -direction;
+            if (position.y() < resetPosition.y())
+            {
+                direction = QPoint{0, 1};
+            }
+            else
+            {
+                state = leavingGhostHouse;
+                movement = globalMovement;
+                direction = -direction;
+            }
         }
     }
-    }
+    // Go in the determined direction
     position += direction;
 
+    // When tunneling, jump to the other side of the maze
     if(position.x() < 0 || position.x() > 27)
         position.setX((position.x()+maze->width) % maze->width);
 
+    // Update the stepTick interval
     stepTick->setInterval(getStepInterval());
 }
 
@@ -342,22 +392,26 @@ void Ghost::step(QPoint target) {
  */
 void Ghost::paint()
 {
-    // if not paused, update subposition
+    // If not paused, update subposition
     if(stepTick->remainingTime() != -1 && state != Ghost::inGhostHouse)
     {
+        // Determine subposition based on the remaining time of the stepTick counter.
         float delta = 1.0 - (float)stepTick->remainingTime() / getStepInterval();
         subposition = direction.toPointF();
         subposition *= delta;
         subposition -= direction;
         subposition += position.toPointF();
+        // Add 0.5 in the x direction because the fields inside the ghost house don't align with the maze fields.
         if (state == Ghost::leavingGhostHouse || state == Ghost::enteringGhostHouse)
         {
             subposition += QPointF{0.5, 0.0};
         }
     }
 
+    // Paint the correct sprite based on the current movement move.
     switch (movement)
     {
+    // Use the normal sprite while chase scatter.
     case chase:
     case scatter:
         if(direction.x() != 0)
@@ -370,47 +424,49 @@ void Ghost::paint()
             pixmap->setPixmap(direction.y() < 0 ? spriteUp : spriteDown);
         }
         break;
+    // Use the exe sprites while returning.
     case returning:
-
         if(direction.x() != 0)
         {
             pixmap->setPixmap(direction.x() > 0 ? eyeR : eyeL);
         }
-
         else
         {
             pixmap->setPixmap(direction.y() < 0 ? eyeUp : eyeDown);
         }
         break;
+    // Frightened sprites are set by toggleFrightenedSprite.
     case frightened:
         break;
     }
 
-    //Calculate the top left position if the sprite would be as wide as the field and subtract half of the wide pixels that are to wide becuse of the scaling
+    // Calculate the sprites position to make it appear centered over its current position.
+    //   To do this, the subposition is multiplied with the field width to get the top left corner of the current "subfield" in pixels.
+    //   To correct for the Pixmap being bigger than a field, the length in Fields the Sprite is bigger than a field (scaleFactor - 1) is halved and subtracted from the subposition.
     float fieldWidth_px = maze->getFieldWidth();
-    float xPosition = subposition.x() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
-    float yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+    float xPosition = (subposition.x() - (scaleFactor - 1.0) / 2) * fieldWidth_px;
+    float yPosition = (subposition.y() - (scaleFactor - 1.0) / 2) * fieldWidth_px;
     pixmap->setPos(xPosition, yPosition);
 
-    // Test if the ghost is in the tunnel
+    // Make a second sprite visible if the ghost is in the tunnel so the ghost appears on both ends of the tunnel.
     if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
     {
         clonePixmap->setVisible(true);
         if (position.x() == 0)
         {
-            xPosition = (subposition.x() + maze->width) * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
-            yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+            // Add the maze width in pixels to xPosition to make the clone appear on the right side of the screen.
+            xPosition += maze->getFieldWidth() * maze->width;
             clonePixmap->setPixmap(spriteSideL);
-            clonePixmap->setPos(xPosition,yPosition);
         }
         else
         {
-            xPosition = (subposition.x() - maze->width) * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
-            yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+            // Subtract the maze width in pixels to xPosition to make the clone appear on the left side of the screen.
+            xPosition -= maze->getFieldWidth() * maze->width;
             clonePixmap->setPixmap(spriteSideR);
-            clonePixmap->setPos(xPosition,yPosition);
         }
+        clonePixmap->setPos(xPosition,yPosition);
     }
+    // Hide said clone if the ghost is not in the tunnel.
     else
     {
         clonePixmap->setVisible(false);
@@ -421,15 +477,20 @@ void Ghost::paint()
     {
         switch (movement)
         {
+        // Make the Ghost return to the ghost house if it is eaten.
         case frightened:
+            // Update stepTick with the new speed
             stepTick->setInterval(stepTick->remainingTime() * stepIntervalReturning / getStepInterval());
             movement = returning;
+            // Stop frightenedTimer to prevent it from setting any frightened sprites.
             frightenedSpriteTimer->stop();
+            // Give points for eating a ghost and increment the points that are awarded for eating the next ghost.
             maze->increaseScore(nextGhostPoints);
             nextGhostPoints *= 2;
             break;
         case scatter:
         case chase:
+            // If the ghost ate the Player, the game is lost.
             emit gameOver(false);
             break;
         case returning:
@@ -439,16 +500,16 @@ void Ghost::paint()
 }
 
 /**
- * @brief Blinky::Blinky Creates a Ghost with a chase pattern of Blinky
- * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
- * @param mazePointer A Pointer to the maze where to ghosts operade in
- * @param playerPointer A Pointer to the player so that they can chase him
+ * @brief Blinky::Blinky Creates a Ghost with the chase pattern of Blinky
+ * @param scPointer A Pointer to the GraphicsScene where Blinky will be displayed
+ * @param mazePointer A Pointer to the maze object so Blinky can eat
+ * @param playerPointer A Pointer to the player so Blinky can chase him
  */
 Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):Ghost(gsPointer,mazePointer,playerPointer)
 {
+    // Blinky starts in the maze and always moves right first.
     position = QPoint {13, 14};
-    subposition = QPointF {position.x()+0.5, float(position.y())};
-
+    subposition = QPointF {position.x()+0.5, float(position.y())}; // Add 0.5 to the subposition because the ghost house and maze fields are not aligned.
     direction = QPoint {-1, 0};
     state = Ghost::inMaze;
 
@@ -461,11 +522,11 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPoint
     QObject::connect(stepTick, &QTimer::timeout, this, &Blinky::step);
     stepTick->setInterval(Ghost::stepIntervalNormal / 2);
 
+    // Setup the sprites.
     spriteSideL = QPixmap(":/Sprite/Blinky/BlinkySideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteSideR = QPixmap(":/Sprite/Blinky/BlinkySideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteUp = QPixmap(":/Sprite/Blinky/BlinkyUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteDown = QPixmap(":/Sprite/Blinky/BlinkyDown.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
-
     pixmap = gs->addPixmap(spriteSideL);
     pixmap->setZValue(1);
     clonePixmap = gs->addPixmap(spriteSideL);
@@ -473,41 +534,47 @@ Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPoint
 }
 
 /**
- * @brief Blinky::step
+ * @brief Blinky::step Step function that calls Ghost::step with the appropriate target.
  */
 void Blinky::step(void)
 {
-    if(movement == chase || movement == scatter)
+    if(movement == chase or movement == scatter)
     {
         movement = globalMovement;
     }
 
     switch (movement)
     {
+    // Target the player when in chase mode.
     case chase:
         Ghost::step(player->getField());
         break;
+    // Target scatterTarget when in scatter mode.
     case scatter:
-    case frightened:
         Ghost::step(scatterTarget);
         break;
+    // There is no target in frightened mode -> just set target to (0; 0)
+    case frightened:
+        Ghost::step(QPoint(0, 0));
+        break;
+    // When returning, target three fields above the reset position.
+    // This represents the field on the top left of the ghost house exit.
     case returning:
         Ghost::step(resetPosition + QPoint{0, -3});
     }
 }
 
 /**
- * @brief Pinky::Pinky Creates a Ghost with a chase pattern of Pinky
- * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
- * @param mazePointer A Pointer to the maze where to ghosts operade in
- * @param playerPointer A Pointer to the player so that they can chase him
+ * @brief Pinky::Pinky Creates a Ghost with the chase pattern of Pinky
+ * @param scPointer A Pointer to the GraphicsScene where Pinky will be displayed
+ * @param mazePointer A Pointer to the maze object so Pinky can eat
+ * @param playerPointer A Pointer to the player so Pinky can chase him
  */
 Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):Ghost(gsPointer,mazePointer,playerPointer)
 {
+    // Pinky starts in the center of the ghost house but immediately leaves.
     position = resetPosition;
-    subposition = QPointF {position.x()+0.5, float(position.y())};
-
-    //direction = QPoint {0, -1};
+    subposition = QPointF {position.x()+0.5, float(position.y())}; // Add 0.5 to the subposition because the ghost house and maze fields are not aligned.
     state = Ghost::leavingGhostHouse;
 
 #ifdef DEBUG_TARGETS
@@ -516,9 +583,11 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     debugTarget->setBrush(QBrush(color));
 #endif
 
+    // Connect stepTick and set Interval to 0 so Blinky immediately starts moving.
     QObject::connect(stepTick, &QTimer::timeout, this, &Pinky::step);
     stepTick->setInterval(0);
 
+    // Setup the sprites.
     spriteSideL = QPixmap(":/Sprite/Pinky/PinkySideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteSideR = QPixmap(":/Sprite/Pinky/PinkySideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteUp = QPixmap(":/Sprite/Pinky/PinkyUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
@@ -530,39 +599,46 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
 }
 
 /**
- * @brief Pinky::step
+ * @brief Blinky::step Step function that calls Ghost::step with the appropriate target.
  */
 void Pinky::step(void)
 {
-    if (movement == chase || movement == scatter)
+    if (movement == chase or movement == scatter)
         movement = globalMovement;
 
     switch (movement)
     {
+    // Target four spaces ahead of the player in chase mode.
     case chase:
         Ghost::step(player->getField() + player->getDirection() * 4);
         break;
+    // Target scatterTarget when in scatter mode.
     case scatter:
-    case frightened:
         Ghost::step(scatterTarget);
         break;
+    // There is no target in frightened mode -> just set target to (0; 0)
+    case frightened:
+        Ghost::step(QPoint(0, 0));
+        break;
+    // When returning, target three fields above the reset position.
+    // This represents the field on the top left of the ghost house exit.
     case returning:
         Ghost::step(resetPosition + QPoint{0, -3});
-        break;
     }
 }
 
 /**
- * @brief Inky::Inky Creates a Ghost with a chase pattern of Inky
- * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
- * @param mazePointer A Pointer to the maze where to ghosts operade in
- * @param playerPointer A Pointer to the player so that they can chase him
+ * @brief Inky::Inky Creates a Ghost with the chase pattern of Inky
+ * @param scPointer A Pointer to the GraphicsScene where Inky will be displayed
+ * @param mazePointer A Pointer to the maze object so Inky can eat
+ * @param playerPointer A Pointer to the player so Inky can chase him
+ * @param blinkyPointer A Pointer to Blinky as Inkys targeting depends on Blinkys position
  */
-Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer, Ghost *blinkyPointer):Ghost(gsPointer,mazePointer,playerPointer)
+Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer, Ghost *blinkyPointer):Ghost(gsPointer,mazePointer,playerPointer),blinky{blinkyPointer}
 {
-    blinky = blinkyPointer;
+    // Inky starts to the left of the ghost house and has a dot limit of 30.
     position = resetPosition + QPoint {-2, 0};
-    subposition = QPointF {position.x()+0.5, float(position.y())};
+    subposition = QPointF {position.x()+0.5, float(position.y())}; // Add 0.5 to the subposition because the ghost house and maze fields are not aligned.
     dotLimitGhostHouse = 30;
 
 #ifdef DEBUG_TARGETS
@@ -571,10 +647,11 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer, 
     debugTarget->setBrush(QBrush(color));
 #endif
 
+    // Connect stepTick and set Interval so Inky checks every 100 ms if it should start moving.
     QObject::connect(stepTick, &QTimer::timeout, this, &Inky::step);
+    stepTick->setInterval(100);
 
-    stepTick->setInterval(10);
-
+    // Setup the sprites.
     spriteSideL = QPixmap(":/Sprite/Inky/InkySideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteSideR = QPixmap(":/Sprite/Inky/InkySideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteUp = QPixmap(":/Sprite/Inky/InkyUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
@@ -586,37 +663,45 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer, 
 }
 
 /**
- * @brief Inky::step
+ * @brief Blinky::step Step function that calls Ghost::step with the appropriate target.
  */
 void Inky::step(void)
 {
-    if(movement == chase || movement == scatter)
+    if(movement == chase or movement == scatter)
         movement = globalMovement;
 
     switch (movement)
     {
+    // Target the players position plus the difference between the players and pinkys position.
     case chase:
         Ghost::step(player->getField() + player->getField()-blinky->getField());
         break;
+    // Target scatterTarget when in scatter mode.
     case scatter:
-    case frightened:
         Ghost::step(scatterTarget);
         break;
+    // There is no target in frightened mode -> just set target to (0; 0)
+    case frightened:
+        Ghost::step(QPoint(0, 0));
+        break;
+    // When returning, target three fields above the reset position.
+    // This represents the field on the top left of the ghost house exit.
     case returning:
         Ghost::step(resetPosition + QPoint{0, -3});
     }
 }
 
 /**
- * @brief Clyde::Clyde Creates a Ghost with a chase pattern of Clyde
- * @param scPointer A Pointer to the GraphicScene where the ghosts will be placed
- * @param mazePointer A Pointer to the maze where to ghosts operade in
- * @param playerPointer A Pointer to the player so that they can chase him
+ * @brief Clyde::Clyde Creates a Ghost with the chase pattern of Clyde
+ * @param scPointer A Pointer to the GraphicsScene where Clyde will be displayed
+ * @param mazePointer A Pointer to the maze object so Clyde can eat
+ * @param playerPointer A Pointer to the player so Clyde can chase him
  */
 Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):Ghost(gsPointer,mazePointer,playerPointer)
 {
+    // Clyde starts on the right og the ghost house and has a dot limit of 60
     position = resetPosition + QPoint {2, 0};
-    subposition = QPointF {position.x()+0.5, (float)position.y()};
+    subposition = QPointF {position.x()+0.5, (float)position.y()}; // Add 0.5 to the subposition because the ghost house and maze fields are not aligned.
     dotLimitGhostHouse = 60;
 
 #ifdef DEBUG_TARGETS
@@ -625,9 +710,11 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
     debugTarget->setBrush(QBrush(color));
 #endif
 
+    // Connect stepTick and set Interval so Clyde checks if he should start moving every 100 ms.
     QObject::connect(stepTick, &QTimer::timeout, this, &Clyde::step);
     stepTick->setInterval(10);
 
+    // Setup the sprites.
     spriteSideL = QPixmap(":/Sprite/Clyde/ClydeSideL.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteSideR = QPixmap(":/Sprite/Clyde/ClydeSideR.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
     spriteUp = QPixmap(":/Sprite/Clyde/ClydeUp.PNG").scaledToWidth(maze->getFieldWidth() * scaleFactor);
@@ -639,54 +726,63 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
 }
 
 /**
- * @brief Clyde::step
+ * @brief Blinky::step Step function that calls Ghost::step with the appropriate target.
  */
 void Clyde::step(void)
 {
-    if(movement == chase || movement == scatter)
+    if(movement == chase or movement == scatter)
         movement = globalMovement;
 
     switch (movement)
     {
+    // Calculate the targets that will make Clyde move into the correct direction.
     case chase:
-        if(getDistance(getField(), player->getField()) < 8)
+        // If the distance to the player is more than 8 fields, target the player directly.
+        if(getDistance(getField(), player->getField()) >= 8)
         {
-            QPoint target;
-            // get all possible directions
+
+            Ghost::step(player->getField());
+        }
+        // Otherwise get as far away from the player as possible
+        else
+        {
+            // Get all possible directions.
             std::vector<QPoint> possibleDirs = maze->getMaze(position);
+            // Delete the opposite of the current direction as ghosts can't make 180 degree turns.
             int i = 0;
-            // delete opposite of current direction as no 180 degree turns can be made
             for(QPoint possibleDir : possibleDirs)
             {
+                // If possibleDire is the opposite of the current direction, delete it,
+                // otherwise increment the index to point to the next direction.
                 if(possibleDir == -direction)
-                {
                     possibleDirs.erase(possibleDirs.begin() + i);
-                }
                 else
-                {
                     i++;
-                }
             }
-            // decide where to go to get as far away from the player as possible.
+            // Decide where to go to get as far away from the player as possible.
+            QPoint target = player->getField();
             int largest = 0;
             for(int i = 1; i < possibleDirs.size(); i++){
-                if (getDistance(position+possibleDirs[largest], target) > getDistance(position+possibleDirs[i], target))
+                if (getDistance(position+possibleDirs[largest], target) < getDistance(position+possibleDirs[i], target))
                 {
                     largest = i;
                 }
             }
-            target = possibleDirs[largest] + getField();
+            // Step with the target set to the field that takes Clyde as far away from the player as possible.
+            target = possibleDirs[largest] + position;
             Ghost::step(target);
         }
-        else
-        {
-            Ghost::step(player->getField());
-        }
         break;
+    // Target scatterTarget when in scatter mode.
     case scatter:
-    case frightened:
         Ghost::step(scatterTarget);
         break;
+    // There is no target in frightened mode -> just set target to (0; 0)
+    case frightened:
+        Ghost::step(QPoint(0, 0));
+        break;
+    // When returning, target three fields above the reset position.
+    // This represents the field on the top left of the ghost house exit.
     case returning:
         Ghost::step(resetPosition + QPoint{0, -3});
     }

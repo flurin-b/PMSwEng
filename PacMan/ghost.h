@@ -15,6 +15,10 @@
 #include <QTimer>
 #include <QRandomGenerator>
 
+/**
+ * @brief The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost::paint).
+ *        It also implements functions to pause movement, calculate distances and some more obscure game mechanics.
+ */
 class PACMANLIB_EXPORT Ghost : public QObject
 {
     Q_OBJECT
@@ -97,6 +101,9 @@ protected:
     QGraphicsPixmapItem *pixmap,*clonePixmap;
 };
 
+/**
+ * @brief Blinky targets Player directly.
+ */
 class PACMANLIB_EXPORT Blinky : public Ghost
 {
 public:
@@ -106,6 +113,9 @@ private:
     const QPoint scatterTarget{25, 0};
 };
 
+/**
+ * @brief Pinky targets four fields in front of Player in the Players current movement direction.
+ */
 class PACMANLIB_EXPORT Pinky : public Ghost
 {
 public:
@@ -115,6 +125,9 @@ private:
     const QPoint scatterTarget{2, 0};
 };
 
+/**
+ * @brief Inky uses the current position of Player and Blinky and adds the difference of the two to Players current position to calculate its target.
+ */
 class PACMANLIB_EXPORT Inky : public Ghost
 {
 public:
@@ -125,6 +138,10 @@ private:
     Ghost *blinky;
 };
 
+/**
+ * @brief Clyde moves like Blinky as long as his distance to Player is more than 8 tiles.
+ *        If Clyde is closer, he tries to get away from Player as fast as possible.
+ */
 class PACMANLIB_EXPORT Clyde : public Ghost
 {
 public:
