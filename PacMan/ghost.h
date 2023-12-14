@@ -45,11 +45,29 @@ signals:
     void gameOver(bool won);
 
 protected:
+    /**
+     * @brief The QGraphicsScene the Ghost will be rendered to.
+     */
     QGraphicsScene *gs;
+    /**
+     * @brief The Maze in which the Ghost will move and eat.
+     */
     Maze    *maze;
+    /**
+     * @brief The Player that is in the Maze together with the Ghost.
+     */
     Player  *player;
+    /**
+     * @brief The current position of the ghost in Fields.
+     */
     QPoint  position;
+    /**
+     * @brief The subposition of the ghost in Fields used in Ghost::paint to draw the sprites.
+     */
     QPointF subposition;
+    /**
+     * @brief The direction the ghost is currently moving in.
+     */
     QPoint  direction{0, 0};
 
     #ifdef DEBUG_TARGETS
@@ -57,8 +75,14 @@ protected:
         QColor color;
     #endif
 
+    /**
+     * @brief The position the Ghost will return to after being eaten.
+     */
     const QPoint resetPosition{13, 17};
 
+    /**
+     * @brief The ammout of dots the Player needs to eat before the ghost can leave the ghost house.
+     */
     int dotLimitGhostHouse = 0;
 
     /**
@@ -89,13 +113,46 @@ protected:
         frightened,
         returning,
     } movement_t;
+    /**
+     * @brief The current movement pattern of the ghost.
+     */
     movement_t movement = chase;
+    /**
+     * @brief The global movement of the ghosts. <br>
+     *        This will determine if the ghosts scatter or chase while they're not busy being frightened or returning.
+     */
     movement_t globalMovement = chase;
 
+    // brief in ghost.cpp
     static int nextGhostPoints;
 
-    QTimer *movementTimer, *stepTick, *frightenedSpriteTimer;
-    int movementTimerCache = -1, stepTickCache = -1, frightenedSpriteTimerCache = -1;
+    /**
+     * @brief Switches globalMovement between scatter and chase.
+     */
+    QTimer *movementTimer;
+    /**
+     * @brief Calls the step function.
+     */
+    QTimer *stepTick;
+    /**
+     * @brief Swaps the frightened ghosts sprites when the energizer time is running out.
+     */
+    QTimer  *frightenedSpriteTimer;
+    /**
+     * @brief Stores the movementTimer interval when the game is paused.
+     */
+    int movementTimerCache = -1;
+    /**
+     * @brief Stores the stepTick interval when the game is paused.
+     */
+    int stepTickCache = -1;
+    /**
+     * @brief Stores the frightenedSpriteTimer interval when the game is paused.
+     */
+    int frightenedSpriteTimerCache = -1;
+    /**
+     * @brief Used by nextMovementPattern to determine if the next pattern should be scatter or chase.
+     */
     int movementCounter = 0;
 
     static float getDistance(QPoint field1, QPoint field2);
@@ -111,11 +168,38 @@ protected:
         frightendBlue,
         frightendWhite
     } spriteStatus = frightendBlue;
+    /**
+     * @brief Determines how big the Ghost sprites should be in Fields.
+     */
     const float scaleFactor = 1.3;
-    QPixmap spriteSideL, spriteSideR, spriteUp, spriteDown;
-    QPixmap spriteFrightendBlue, spriteFrightendWhite;
-    QPixmap eyeL, eyeR, eyeUp, eyeDown;
-    QGraphicsPixmapItem *pixmap,*clonePixmap;
+
+    /** @brief Sprite of the ghost going left. */
+    QPixmap spriteSideL;
+    /** @brief Sprite of the ghost going right. */
+    QPixmap spriteSideR;
+    /** @brief Sprite of the ghost going up. */
+    QPixmap spriteUp;
+    /** @brief Sprite of the ghost going down. */
+    QPixmap spriteDown;
+
+     /** @brief Sprite of the ghost while frightened and blue. */
+    QPixmap spriteFrightendBlue;
+    /** @brief Sprite of the ghost while frightened and white. */
+    QPixmap spriteFrightendWhite;
+
+    /** @brief Sprite of the ghost returning and going left. */
+    QPixmap eyeL;
+    /** @brief Sprite of the ghost returning and going right. */
+    QPixmap eyeR;
+    /** @brief Sprite of the ghost returning and going up. */
+    QPixmap eyeUp;
+    /** @brief Sprite of the ghost returning and going down. */
+    QPixmap eyeDown;
+
+    /** @brief Pointer to the object used to display the current sprite. */
+    QGraphicsPixmapItem *pixmap;
+    /** @brief Pointer to the object used to display the current sprites clone. */
+    QGraphicsPixmapItem *clonePixmap;
 };
 
 /**
