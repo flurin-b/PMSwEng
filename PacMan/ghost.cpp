@@ -89,8 +89,8 @@ void Ghost::setPaused(bool paused)
 int Ghost::nextGhostPoints;
 
 /**
- * @brief Ghost::setFrightened Puts the Ghost into firghtened or normal mode if applicable.
- * @param frightened Weather or not the ghosts should be frightened.
+ * @brief Ghost::setFrightened puts the Ghost into firghtened or normal mode if applicable.
+ * @param frightened Wether or not the ghost should be frightened.
  */
 void Ghost::setFrightened(bool frightened)
 {
@@ -142,7 +142,7 @@ void Ghost::setFrightened(bool frightened)
 /**
  * @brief Ghost::toggleFrightenedSprite Swap between the two frightend sprites to show the Player the energized Time is running out.
  */
-void Ghost::toggleFrightenedSprite()
+void Ghost::toggleFrightenedSprite(void)
 {
     if(spriteStatus == frightendBlue)
     {
@@ -388,9 +388,9 @@ void Ghost::step(QPoint target) {
 }
 
 /**
- * @brief Ghost::paint
+ * @brief Ghost::paint paints the ghost onto the GraphigsScene in its current position and state.
  */
-void Ghost::paint()
+void Ghost::paint(void)
 {
     // If not paused, update subposition
     if(stepTick->remainingTime() != -1 && state != Ghost::inGhostHouse)
@@ -500,10 +500,10 @@ void Ghost::paint()
 }
 
 /**
- * @brief Blinky::Blinky Creates a Ghost with the chase pattern of Blinky
- * @param scPointer A Pointer to the GraphicsScene where Blinky will be displayed
- * @param mazePointer A Pointer to the maze object so Blinky can eat
- * @param playerPointer A Pointer to the player so Blinky can chase him
+ * @brief Blinky::Blinky creates a Ghost object with the chase pattern of Blinky.
+ * @param scPointer Pointer to the GraphicsScene where Blinky will be displayed
+ * @param mazePointer Pointer to the Maze object so Blinky can eat and navigate
+ * @param playerPointer Pointer to the Player so Blinky can chase him
  */
 Blinky::Blinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):Ghost(gsPointer,mazePointer,playerPointer)
 {
@@ -567,7 +567,7 @@ void Blinky::step(void)
 /**
  * @brief Pinky::Pinky Creates a Ghost with the chase pattern of Pinky
  * @param scPointer A Pointer to the GraphicsScene where Pinky will be displayed
- * @param mazePointer A Pointer to the maze object so Pinky can eat
+ * @param mazePointer A Pointer to the maze object so Pinky can eat and navigate
  * @param playerPointer A Pointer to the player so Pinky can chase him
  */
 Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):Ghost(gsPointer,mazePointer,playerPointer)
@@ -599,7 +599,7 @@ Pinky::Pinky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
 }
 
 /**
- * @brief Blinky::step Step function that calls Ghost::step with the appropriate target.
+ * @brief Blinky::step calls Ghost::step with the appropriate target.
  */
 void Pinky::step(void)
 {
@@ -629,9 +629,9 @@ void Pinky::step(void)
 
 /**
  * @brief Inky::Inky Creates a Ghost with the chase pattern of Inky
- * @param scPointer A Pointer to the GraphicsScene where Inky will be displayed
- * @param mazePointer A Pointer to the maze object so Inky can eat
- * @param playerPointer A Pointer to the player so Inky can chase him
+ * @param scPointer Pointer to the GraphicsScene where Inky will be displayed
+ * @param mazePointer Pointer to the Maze object so Inky can eat and navigate
+ * @param playerPointer A Pointer to the Player so Inky can chase him
  * @param blinkyPointer A Pointer to Blinky as Inkys targeting depends on Blinkys position
  */
 Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer, Ghost *blinkyPointer):Ghost(gsPointer,mazePointer,playerPointer),blinky{blinkyPointer}
@@ -663,7 +663,7 @@ Inky::Inky(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer, 
 }
 
 /**
- * @brief Blinky::step Step function that calls Ghost::step with the appropriate target.
+ * @brief Blinky::step calls Ghost::step with the appropriate target.
  */
 void Inky::step(void)
 {
@@ -692,10 +692,10 @@ void Inky::step(void)
 }
 
 /**
- * @brief Clyde::Clyde Creates a Ghost with the chase pattern of Clyde
- * @param scPointer A Pointer to the GraphicsScene where Clyde will be displayed
- * @param mazePointer A Pointer to the maze object so Clyde can eat
- * @param playerPointer A Pointer to the player so Clyde can chase him
+ * @brief Clyde::Clyde creates a Ghost with the chase pattern of Clyde.
+ * @param scPointer Pointer to the GraphicsScene where Clyde will be displayed
+ * @param mazePointer Pointer to the Maze object so Clyde can eat and navigate
+ * @param playerPointer Pointer to the Player so Clyde can chase him
  */
 Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer):Ghost(gsPointer,mazePointer,playerPointer)
 {
@@ -726,7 +726,7 @@ Clyde::Clyde(QGraphicsScene *gsPointer, Maze *mazePointer, Player *playerPointer
 }
 
 /**
- * @brief Blinky::step Step function that calls Ghost::step with the appropriate target.
+ * @brief Blinky::step calls Ghost::step with the appropriate target.
  */
 void Clyde::step(void)
 {

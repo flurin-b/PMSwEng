@@ -16,8 +16,8 @@
 #include <QRandomGenerator>
 
 /**
- * @brief The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost::paint).
- *        It also implements functions to pause movement, calculate distances and some more obscure game mechanics.
+ * @brief The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost::paint). <br>
+ *        It also implements functions to pause movement and calculate distances and some more obscure game mechanics.
  */
 class PACMANLIB_EXPORT Ghost : public QObject
 {
@@ -38,6 +38,10 @@ protected slots:
     void toggleFrightenedSprite();
 
 signals:
+    /**
+     * @brief Ghost::gameOver is emitted if the ghost has eaten PacMan.
+     * @param won Wether or not the player has won the game. (Ghost will only emit this signal with won == false.)
+     */
     void gameOver(bool won);
 
 protected:
@@ -114,7 +118,7 @@ private:
 };
 
 /**
- * @brief Pinky targets four fields in front of Player in the Players current movement direction.
+ * @brief Pinky targets four fields in front of the Player in the current movement direction of the Player.
  */
 class PACMANLIB_EXPORT Pinky : public Ghost
 {
@@ -126,7 +130,7 @@ private:
 };
 
 /**
- * @brief Inky uses the current position of Player and Blinky and adds the difference of the two to Players current position to calculate its target.
+ * @brief Inky uses the current position of the Player and Blinky and adds the difference of the two to the Players current position to calculate its target.
  */
 class PACMANLIB_EXPORT Inky : public Ghost
 {
@@ -139,8 +143,8 @@ private:
 };
 
 /**
- * @brief Clyde moves like Blinky as long as his distance to Player is more than 8 tiles.
- *        If Clyde is closer, he tries to get away from Player as fast as possible.
+ * @brief Clyde moves like Blinky as long as his distance to the Player is more than 8 tiles. <br>
+ *        If the Player is closer, he tries to get away from him as fast as possible.
  */
 class PACMANLIB_EXPORT Clyde : public Ghost
 {
