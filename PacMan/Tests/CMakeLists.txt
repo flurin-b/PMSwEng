@@ -13,5 +13,5 @@ function(SETUP_TESTS)
 endfunction()
 
 SETUP_TESTS(
-   Test
+   Ghost
 )

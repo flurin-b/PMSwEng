@@ -156,6 +156,7 @@ protected:
     int movementCounter = 0;
 
     static float getDistance(QPoint field1, QPoint field2);
+    friend class GhostTest;
     int getStepInterval(void);
 
     void step (QPoint target);
