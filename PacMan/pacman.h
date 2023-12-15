@@ -39,7 +39,7 @@ private:
 
 #ifdef ENABLE_FPS_COUNTER
     int fpsCounter = 0, fps = 0;
-    QTimer *fpsTimer;
+    QTimer *fpsTimer = nullptr;
     QGraphicsTextItem *fpsText;
 #endif // ENABLE_FPS_COUNTER
 

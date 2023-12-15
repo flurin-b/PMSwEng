@@ -64,22 +64,17 @@ void PacMan::paint()
     case won:
     case lost:
     {
-        menuText->setFont(pacManFontLarge);
-        menuText->setPlainText(gameState == won ? "Game Over, you win!" : "Game Over, you loose!");
-        menuPrompt->setFont(pacManFont);
-        menuPrompt->setPlainText("Press ENTER to play again.");
-        scoreText->setFont(pacManFont);
-        char buf[14] = "";
-        sprintf(buf, "Score: %06d", maze->getScore());
-        scoreText->setPlainText(buf);
         menuText->setPos((QPoint((menuScene->sceneRect().width() - menuText->boundingRect().width()) / 2, (menuScene->sceneRect().height() - menuText->boundingRect().height()) * 0.3)));
         menuPrompt->setPos((QPoint((menuScene->sceneRect().width() - menuPrompt->boundingRect().width()) / 2, (menuScene->sceneRect().height() - menuPrompt->boundingRect().height()) * 0.35)));
         scoreText->setPos((QPoint((menuScene->sceneRect().width() - scoreText->boundingRect().width()) / 2, (menuScene->sceneRect().height() - scoreText->boundingRect().height()) * 0.40)));
+        menuText->setPlainText(gameState == won ? "Game Over, you win!" : "Game Over, you loose!");
+        char buf[14] = "";
+        sprintf(buf, "Score: %06d", maze->getScore());
+        scoreText->setPlainText(buf);
         break;
     }
     case paused:
         gv->setScene(gameScene);
-        gameStateText->setFont(pacManFont);
         gameStateText->setPlainText("Game Paused, press ENTER to resume.");
         gameStateText->show();
         break;
@@ -89,11 +84,11 @@ void PacMan::paint()
         break;
     case start:
         gv->setScene(gameScene);
-        gameStateText->setFont(pacManFont);
         gameStateText->setPlainText("Press ENTER to start playing.");
         gameStateText->show();
         break;
     }
+
     maze->paint();
     player->paint();
     for(Ghost* ghost : ghosts)
@@ -101,7 +96,6 @@ void PacMan::paint()
 
 #ifdef ENABLE_FPS_COUNTER
     fpsCounter ++;
-    fpsText->setFont(pacManFont);
     fpsText->setPos(QPoint((gameScene->sceneRect().width() - fpsText->boundingRect().width() - 5), 25));
     char buf[9] = "";
     sprintf(buf, "Fps: %04d", fps);
@@ -178,17 +172,22 @@ void PacMan::initGameObjects()
 
     menuText = menuScene->addText("");
     menuText->setDefaultTextColor(Qt::white);
-    menuPrompt = menuScene->addText("");
+    menuText->setFont(pacManFontLarge);
+    menuPrompt = menuScene->addText("Press ENTER to play again.");
     menuPrompt->setDefaultTextColor(Qt::white);
+    menuPrompt->setFont(pacManFont);
     scoreText = menuScene->addText("");
     scoreText->setDefaultTextColor(Qt::white);
+    scoreText->setFont(pacManFont);
 
     gameStateText = gameScene->addText("");
     gameStateText->setDefaultTextColor(Qt::white);
+    gameStateText->setFont(pacManFont);
 
 #ifdef ENABLE_FPS_COUNTER
-    fpsText = gameScene->addText("");
+    fpsText = gameScene->addText("Fps: 0000");
     fpsText->setDefaultTextColor(Qt::white);
+    fpsText->setFont(pacManFont);
     delete fpsTimer;
     fpsTimer = new QTimer();
     fpsTimer->setTimerType(Qt::PreciseTimer);
