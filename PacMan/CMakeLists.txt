@@ -32,7 +32,6 @@ add_library(PacManLib SHARED
     player.h player.cpp # Player movement
     ghost.h ghost.cpp   # Ghost behaviour
     maze.h maze.cpp     # Possible Movement directions and available food
-    Test.h Test.cpp     # Example class for Test
     ResourceSystem.qrc
 )
 target_link_libraries(PacManLib Qt6::Widgets)
