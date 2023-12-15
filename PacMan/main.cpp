@@ -42,13 +42,8 @@ int main(int argc, char *argv[])
     // Setup the frameTimer that triggers the paint loop.
     QTimer frameTimer;
     QObject::connect(&frameTimer, &QTimer::timeout, pm, &PacMan::paint);
-    frameTimer.start(10);   // 10 ms -> 100 fps
-
-//    QThread *thread = QThread::create([&pm]{
-//        while(1)
-//            pm->paint();
-//    });
-//    thread->start();
+    frameTimer.start(0);                            // paint as often as possible but...
+    frameTimer.setTimerType(Qt::VeryCoarseTimer);   // make everything else more important.
 
     // Run the Application and wait for it to stop.
     return a.exec();

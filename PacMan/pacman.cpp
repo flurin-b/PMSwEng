@@ -98,6 +98,15 @@ void PacMan::paint()
     player->paint();
     for(Ghost* ghost : ghosts)
         ghost->paint();
+
+#ifdef ENABLE_FPS_COUNTER
+    fpsCounter ++;
+    fpsText->setFont(pacManFont);
+    fpsText->setPos(QPoint((gameScene->sceneRect().width() - fpsText->boundingRect().width() - 5), 25));
+    char buf[9] = "";
+    sprintf(buf, "Fps: %04d", fps);
+    fpsText->setPlainText(buf);
+#endif // ENABLE_FPS_COUNTER
 }
 
 /**
@@ -176,6 +185,16 @@ void PacMan::initGameObjects()
 
     gameStateText = gameScene->addText("");
     gameStateText->setDefaultTextColor(Qt::white);
+
+#ifdef ENABLE_FPS_COUNTER
+    fpsText = gameScene->addText("");
+    fpsText->setDefaultTextColor(Qt::white);
+    delete fpsTimer;
+    fpsTimer = new QTimer();
+    fpsTimer->setTimerType(Qt::PreciseTimer);
+    connect(fpsTimer, &QTimer::timeout, this, [this]{fps = fpsCounter; fpsCounter = 0;});
+    fpsTimer->start(1000);
+#endif // ENABLE_FPS_COUNTER
 }
 
 /**
