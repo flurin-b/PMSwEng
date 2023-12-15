@@ -17,6 +17,7 @@ var classGhost =
     [ "setPaused", "d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc", null ],
     [ "step", "d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee", null ],
     [ "toggleFrightenedSprite", "d0/d06/classGhost.html#ab9af002e55e7e95949e492c820d92869", null ],
+    [ "GhostTest", "d0/d06/classGhost.html#a27622257f90398b6d12f54c55452dc8c", null ],
     [ "clonePixmap", "d0/d06/classGhost.html#a5c0b4bf7f48e0183406d0ea31bc0fa2e", null ],
     [ "direction", "d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e", null ],
     [ "dotLimitGhostHouse", "d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55", null ],
