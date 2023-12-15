@@ -73,11 +73,7 @@ void Player::paint(void)
     // if not paused, update subposition
     if(stepTick.remainingTime() != -1)
     {
-        float delta = 1.0 - (float)stepTick.remainingTime() / getStepInterval();
-        subposition = direction.toPointF();
-        subposition *= delta;
-        subposition -= direction;
-        subposition += position.toPointF();
+        subposition = position.toPointF() + direction.toPointF() * (-(float)stepTick.remainingTime() / getStepInterval());
     }
 
     // check for 180 degree turns as otherwise the player could eat dots he hasn't touched yet
@@ -85,6 +81,7 @@ void Player::paint(void)
         ate = true;
     lastDirection = direction;
 
+    // If the player hasn't eaten yet and has reached the new field, eat what's in it.
     if (subposition.toPoint() == position){
         if (!ate) {
             eating = maze->getDots(position);
@@ -101,7 +98,7 @@ void Player::paint(void)
         ate = false;
     }
 
-
+    // Set the direction in wich the player pixmap faces.
     if(direction.x() != 0)
     {
         pixmap->setRotation(direction.x() > 0 ? 0 : 180);
@@ -113,28 +110,24 @@ void Player::paint(void)
 
     //Calculate the top left position if the sprite would be as wide as the field and subtract half of the wide pixels that are to wide becuse of the scaling
     float fieldWidth_px = maze->getFieldWidth();
-    float xPosition = subposition.x() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
-    float yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
+    float xPosition = fieldWidth_px * (subposition.x() - ((scaleFactor - 1.0) * 0.5));
+    float yPosition = fieldWidth_px * (subposition.y() - ((scaleFactor - 1.0) * 0.5));
     pixmap->setPos(xPosition, yPosition);
 
-    // Test if the player is in the tunnel if so show clone at the other end of the tunnel for more emersion
-    if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
+    // Test if the player is in the tunnel and if it is show clone at the other end of the tunnel for ✨more emersion✨
+    if (position.x() <= 0 && direction.x() > 0)
     {
+        xPosition = fieldWidth_px * ((subposition.x() + maze->width) - ((scaleFactor - 1.0) * 0.5));
+        clone->setRotation(0);
+        clone->setPos(xPosition,yPosition);
         clone->setVisible(true);
-        if (position.x() == 0)
-        {
-            xPosition = (subposition.x() + maze->width) * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
-            yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
-            clone->setRotation(0);
-            clone->setPos(xPosition,yPosition);
-        }
-        else
-        {
-            xPosition = (subposition.x() - maze->width) * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
-            yPosition = subposition.y() * fieldWidth_px - fieldWidth_px*(scaleFactor - 1.0) * 0.5;
-            clone->setRotation(180);
-            clone->setPos(xPosition,yPosition);
-        }
+    }
+    else if(position.x() >= (maze->width-1) && direction.x() < 0)
+    {
+        xPosition = fieldWidth_px * ((subposition.x() - maze->width) - ((scaleFactor - 1.0) * 0.5));
+        clone->setRotation(180);
+        clone->setPos(xPosition,yPosition);
+        clone->setVisible(true);
     }
     else
     {
