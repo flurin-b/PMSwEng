@@ -66,10 +66,13 @@ void Maze::paint(){
     {
         for (int y = 0; y < height; y++)
         {
-            if(dotSprites[x][y] != nullptr && getDots(QPoint(x, y)) == noItem) {
-                dotSprites[x][y]->setVisible(false);
-                delete dotSprites[x][y];
-                dotSprites[x][y] = nullptr;
+            if(dotSprites[x][y] != nullptr)
+            {
+                if(getDots(QPoint(x, y)) == noItem) {
+                    dotSprites[x][y]->setVisible(false);
+                    delete dotSprites[x][y];
+                    dotSprites[x][y] = nullptr;
+                }
             }
         }
     }

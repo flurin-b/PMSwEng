@@ -1,6 +1,8 @@
 #ifndef PACMAN_H
 #define PACMAN_H
 
+#define ENABLE_FPS_COUNTER
+
 #include "ghost.h"
 #include "player.h"
 #include "maze.h"
@@ -33,6 +35,13 @@ private:
     Maze    *maze      =  nullptr;
     Player  *player    =  nullptr;
     Ghost   *ghosts[4] = {nullptr, nullptr, nullptr, nullptr};
+
+
+#ifdef ENABLE_FPS_COUNTER
+    int fpsCounter = 0, fps = 0;
+    QTimer *fpsTimer = nullptr;
+    QGraphicsTextItem *fpsText;
+#endif // ENABLE_FPS_COUNTER
 
     enum {
         start,

@@ -397,10 +397,7 @@ void Ghost::paint(void)
     {
         // Determine subposition based on the remaining time of the stepTick counter.
         float delta = 1.0 - (float)stepTick->remainingTime() / getStepInterval();
-        subposition = direction.toPointF();
-        subposition *= delta;
-        subposition -= direction;
-        subposition += position.toPointF();
+        subposition = direction.toPointF() * delta - direction + position;
         // Add 0.5 in the x direction because the fields inside the ghost house don't align with the maze fields.
         if (state == Ghost::leavingGhostHouse || state == Ghost::enteringGhostHouse)
         {
@@ -408,7 +405,7 @@ void Ghost::paint(void)
         }
     }
 
-    // Paint the correct sprite based on the current movement move.
+    // Paint the correct sprite based on the current movement pattern.
     switch (movement)
     {
     // Use the normal sprite while chase scatter.
@@ -449,21 +446,20 @@ void Ghost::paint(void)
     pixmap->setPos(xPosition, yPosition);
 
     // Make a second sprite visible if the ghost is in the tunnel so the ghost appears on both ends of the tunnel.
-    if ((position.x() >= 27 && direction.x() < 0) || (position.x() <= 0 && direction.x() > 0))
+    if (position.x() <= 0 && direction.x() > 0)
     {
+        // Add the maze width in pixels to xPosition to make the clone appear on the right side of the screen.
+        xPosition += maze->getFieldWidth() * maze->width;
+        clonePixmap->setPixmap(pixmap->pixmap());
         clonePixmap->setVisible(true);
-        if (position.x() == 0)
-        {
-            // Add the maze width in pixels to xPosition to make the clone appear on the right side of the screen.
-            xPosition += maze->getFieldWidth() * maze->width;
-            clonePixmap->setPixmap(spriteSideL);
-        }
-        else
-        {
-            // Subtract the maze width in pixels to xPosition to make the clone appear on the left side of the screen.
-            xPosition -= maze->getFieldWidth() * maze->width;
-            clonePixmap->setPixmap(spriteSideR);
-        }
+        clonePixmap->setPos(xPosition,yPosition);
+    }
+    else if(position.x() >= 27 && direction.x() < 0)
+    {
+        // Subtract the maze width in pixels to xPosition to make the clone appear on the left side of the screen.
+        xPosition -= maze->getFieldWidth() * maze->width;
+        clonePixmap->setPixmap(pixmap->pixmap());
+        clonePixmap->setVisible(true);
         clonePixmap->setPos(xPosition,yPosition);
     }
     // Hide said clone if the ghost is not in the tunnel.
