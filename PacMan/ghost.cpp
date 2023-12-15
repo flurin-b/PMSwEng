@@ -450,7 +450,7 @@ void Ghost::paint(void)
     {
         // Add the maze width in pixels to xPosition to make the clone appear on the right side of the screen.
         xPosition += maze->getFieldWidth() * maze->width;
-        clonePixmap->setPixmap(spriteSideR);
+        clonePixmap->setPixmap(pixmap->pixmap());
         clonePixmap->setVisible(true);
         clonePixmap->setPos(xPosition,yPosition);
     }
@@ -458,7 +458,7 @@ void Ghost::paint(void)
     {
         // Subtract the maze width in pixels to xPosition to make the clone appear on the left side of the screen.
         xPosition -= maze->getFieldWidth() * maze->width;
-        clonePixmap->setPixmap(spriteSideL);
+        clonePixmap->setPixmap(pixmap->pixmap());
         clonePixmap->setVisible(true);
         clonePixmap->setPos(xPosition,yPosition);
     }
