@@ -11,7 +11,7 @@ Daten vor dem Arbeiten aktualisieren:
 
 Daten nach dem Arbeiten hochladen:
 	git add *
-	git commit					-> Anschliessend muss eine Commit-Message geschrieben werden. Diese umschreibt die gemachten Änderungen.
+	git commit -m "commit"				-> Anschliessend muss eine Commit-Message geschrieben werden. Diese umschreibt die gemachten Änderungen.
 	git push					-> Schiebt die gemachten Anpassungen auf GitHub
 
 Gemachte Änderungen auf den main-branch laden:
