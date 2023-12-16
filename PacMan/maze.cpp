@@ -3,7 +3,7 @@
 #include <QResource>
 
 /**
- * @brief Maze::Maze Creates a Instace of Maze which contains all the eatables and the paths that can be taken from a certain position
+ * @brief Maze::Maze Creates a Instace of Maze. It also initializes all the graphics items.
  * @param scPointer A Pointer to the GraphicScene onto which the items will be placed
  */
 Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, gv{gvPointer}
@@ -44,15 +44,15 @@ Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, g
             }
 #endif /* MAZE_DEBUG_ARROWS */
 
-            switch (getDots(QPoint(x, y)))
+            switch (getItemAt(QPoint(x, y)))
             {
             case noItem:
                 dotSprites[x][y] = nullptr;
                 break;
-            case smallPoint:
+            case dot:
                 dotSprites[x][y] = gs->addEllipse((x+0.5-dot_size/2) * fieldSize_px, (y+0.5-dot_size/2) * fieldSize_px, dot_size * fieldSize_px, dot_size * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
                 break;
-            case bigPoint:
+            case energizer:
                 dotSprites[x][y] = gs->addEllipse((x+0.5-dot_size) * fieldSize_px, (y+0.5-dot_size) * fieldSize_px, dot_size * 3 * fieldSize_px, dot_size * 3 * fieldSize_px,QPen(Qt::yellow),QBrush(Qt::yellow));
                 break;
             }
@@ -60,6 +60,9 @@ Maze::Maze(QGraphicsScene *gsPointer, QGraphicsView *gvPointer):gs{gsPointer}, g
     }
 }
 
+/**
+ * @brief Updates the graphics items to reflect the current game state.
+ */
 void Maze::paint(){
 
     for (int x = 0; x < width; x++)
@@ -68,7 +71,7 @@ void Maze::paint(){
         {
             if(dotSprites[x][y] != nullptr)
             {
-                if(getDots(QPoint(x, y)) == noItem) {
+                if(getItemAt(QPoint(x, y)) == noItem) {
                     dotSprites[x][y]->setVisible(false);
                     delete dotSprites[x][y];
                     dotSprites[x][y] = nullptr;
@@ -84,100 +87,78 @@ void Maze::paint(){
 }
 
 /**
- * @brief Maze::getDots A function for getting the Item contained in a field
- * @param position The field in the maze from which the item want to be known
- * @return Returns the Item that is conatined in posistion of the maze
+ * @brief Returns what Item is in the specified field.
+ * @param The fields coordinates.
+ * @return The item in that field.
  */
-int Maze::getDots(QPoint position)
+Maze::item_t Maze::getItemAt(QPoint position)
 {
-    ///If the requested position is outside of the border from the maze an error is returned otherwise the item contained in the field
-    int contend = error;
-
-    if(position.x() >= 0 && position.x() <= width-1)
-    {
-        if(position.y() >= 0 && position.y() <= height-1)
-        {
-            contend = dots[position.y()][position.x()];
-        }
-    }
-
-    return contend;
+    return dots[position.y()][position.x()];
 }
 
 /**
- * @brief Maze::getDotsEaten Get the amount of small Dots eaten by the Player
- * @return 0-244
+ * @brief Get the amount of small Dots eaten by the Player.
+ * @return The ammount of dots eaten untill now.
  */
 int Maze::getDotsEaten(){
     return dotsEaten;
 }
 
 /**
- * @brief Maze::setDots Change the Item a specific field in the maze contains
- * @param position The point in the maze where the item should be changed
- * @param item The new item that should be placed at the defined position
+ * @brief Set a specific field to contain the specified item.
+ * @param The field in the Maze where the item should be placed.
+ * @param The new item to ne placed.
  */
-void Maze::setDots(QPoint position, item_t item)
+void Maze::setItemAt(QPoint position, item_t item)
 {
     // If a small dot is eaten, increment dotsEaten
-    if(dots[position.y()][position.x()] == smallPoint && item == noItem)
+    if(dots[position.y()][position.x()] == dot && item == noItem)
     {
         dotsEaten += 1;
+        // Check if the Player has eaten all dots.
+        // If he has, end the game.
         if (dotsEaten == dotCount)
         {
             emit gameOver(true);
         }
     }
-
     dots[position.y()][position.x()] = item;
 }
 
 /**
- * @brief Maze::getMaze Gives back all the Points on to which a character can be moved
- * @param position The position in the maze the directions want to be known from
- * @return A vector of QPoint which are located around the specified posistion
+ * @brief Returns all possible directions in wich a Player or Ghost can go starting from the supplied position.
+ * @param The position to query.
+ * @return A vector of QPoints that contains all possible directions.
  */
 std::vector<QPoint> Maze::getMaze(QPoint position)
 {
-    ///If the requested Position doesn't exist No Offset will be given back
-    QPoint errorPosition(0,0);
-    std::vector<QPoint> directions = {errorPosition};
-
-    if(position.x() >= 0 && position.x() <= width-1)
-    {
-        if(position.y() >= 0 && position.y() <= height-1)
-        {
-            directions = maze[position.y()][position.x()];
-        }
-    }
-
-    return directions;
+    // Return possible directions if there are any...
+    if(maze[position.y()][position.x()].size() > 0)
+        return maze[position.y()][position.x()];
+    // ... otherwise just stand still.
+    else
+        return std::vector<QPoint>{QPoint(0, 0)};
 }
 
 /**
- * @brief Maze::getFieldWidth Get the current Width of a Field in the Maze
- * @return The width of a Field in Pixel
+ * @brief Get the current Width of a Field in the Maze.
+ * @return The width of a Field in Pixels.
  */
 float Maze::getFieldWidth(void) {
     return gv->width() / width;
 }
 
 /**
- * @brief Maze::increaseScore Update the score made by the Player
- * @param offset The amount the score should be changed
+ * @brief Inclrease the score by a given ammount.
+ * @param How many points should be added.
  */
 void Maze::increaseScore(int offset)
 {
-    //The score can only ever be increased never decreased
-    if(offset > 0)
-    {
-        score += offset;
-    }
+    score += offset;
 }
 
-
 /**
- * @brief Maze::getScore Get the current score.
+ * @brief Get the current score.
  * @return The current score.
  */
 int Maze::getScore(void) {

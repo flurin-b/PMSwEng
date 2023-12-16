@@ -19,19 +19,12 @@ public:
     Player(QGraphicsScene *scPointer, Maze *mazePointer);
     void setPaused (bool paused);
     void step(void);
-//    QPointF getPosistion(void);
     QPoint getField(void);
     QPoint getDirection(void);
     void changeDirection(QKeyEvent* event);
-    char getStatus(void);
 
+    /** @brief Defines how long an energizer lasts in ms. */
     static const int energizerDuration = 6000;
-
-    typedef enum
-    {
-        normal,
-        energized
-    }status_t;
 
 signals:
     void energizedChanged(bool energized);
@@ -46,26 +39,43 @@ private slots:
 private:
     void eatItem(QPoint location);
 
+    /** @brief The QGraphicsScene to draw to. */
     QGraphicsScene *gs;
+    /** @brief The maze object to navigate and eat in. */
     Maze *maze;
+    /** @brief The players current position in the Maze. */
     QPoint position;
+    /** @brief The direction the Player is currently heading in. */
     QPoint direction;
+    /** @brief The direction the Player will go in at the next opportunity. */
     QPoint pendingDirection;
 
-    // used in setPaused()
-    int stepTickCache = -1, energizerTimeoutCache = -1;//,spriteTimerChache = -1;
+    QTimer *energizerTimeout, stepTick, spriteTimer;
+    /** @brief Stores the current remaining time of stepTick in Ghost::setPaused. */
+    int stepTickCache = -1;
+    /** @brief Stores the current remaining time of enetgizerTimeout in Ghost::setPaused. */
+    int energizerTimeoutCache = -1;
 
-    // used in paint()
+    /** @brief Stores if the Player can eat Ghosts or not. */
+    enum
+    {
+        normal,
+        energized
+    }status;
+
+    /** @brief Stores the current position but as a float value. */
     QPointF subposition;
+    /** @brief Stores if Player has eaten what is in the current field. */
     bool ate = false;
+    /** @brief Used in Player::paint to check if Player has made a 180° turn so he can't eat dots he hast't touched yet. */
     QPoint lastDirection;
 
-    status_t status;                 // marks if a energizer was eaten
-    bool eating;                     // marks if any food is being eaten
-    QTimer *energizerTimeout, stepTick, spriteTimer;
+    /** @brief True when the Player is eating food. */
+    bool eating;
 
     int getStepInterval (void);
 
+    /** @brief Defines how fast the Player moves under different circumstances. */
     enum {
         stepIntervalCoin            = int(Maze::baseStepInterval / 0.71),
         stepIntervalNoCoin          = int(Maze::baseStepInterval / 0.80),
@@ -73,17 +83,23 @@ private:
         stepIntervalEnerfizedNoCoin = int(Maze::baseStepInterval / 0.90),
     };
 
-    typedef enum
+    /** @brief Stores if the Player has his mouth open or closed. */
+    enum
     {
-        spriteIsOpen,
-        spriteIsShut
-    }spriteStatus_t;
+        mouthOpen,
+        mouthClosed,
+    } spriteStatus;
 
+    /** @brief Determines how large the sprite is in Fields */
     const float scaleFactor = 1.3;
-    spriteStatus_t spriteStatus;
+    /** @brief Player sprite with its mouth shut. */
     QPixmap spriteShut;
+    /** @brief Player sprite with its mouth open. */
     QPixmap spriteOpen;
-    QGraphicsPixmapItem *pixmap, *clone;
+    /** @brief QGraphicsItem that displays the Sprite. */
+    QGraphicsPixmapItem *pixmap;
+    /** @brief A Copy of Player::pixmap that is displayed when the Player goes through the tunnel. */
+    QGraphicsPixmapItem *clone;
 };
 
 #endif // PLAYER_H

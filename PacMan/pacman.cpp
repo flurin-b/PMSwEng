@@ -7,7 +7,7 @@
 
 /**
  * @brief PacMan::PacMan Initalize everything needed for a round of Pac-Man
- * @param gvPointer A Pointer to the GraphicsView in which Pac-Man will be displayed
+ * @param A Pointer to the GraphicsView in which Pac-Man will be displayed
  */
 PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
 {
@@ -29,10 +29,68 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
     gv->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     initGameObjects();
+
+    // Setup the frameTimer that triggers the paint loop.
+    QObject::connect(&frameTimer, &QTimer::timeout, this, &PacMan::paint);
+    frameTimer.start(0);                            // paint as often as possible but...
+    frameTimer.setTimerType(Qt::VeryCoarseTimer);   // make everything else more important.
 }
 
 /**
- * @brief PacMan::~PacMan Delets allocated memory during ctor
+ * @brief Initializes all game objects. To start a new round, just call this function again.
+ */
+void PacMan::initGameObjects()
+{
+    gameScene->clear();
+    menuScene->clear();
+
+    delete maze;
+    maze = new Maze(gameScene, gv);
+    QObject::connect(maze, &Maze::gameOver, this, &PacMan::handleGameOver);
+    delete player;
+    player = new Player(gameScene, maze);
+
+    for (Ghost *ghost : ghosts)
+        delete ghost;
+    ghosts[0] = new Blinky (gameScene, maze, player);
+    ghosts[1] = new Pinky  (gameScene, maze, player);
+    ghosts[2] = new Inky   (gameScene, maze, player, ghosts[0]);
+    ghosts[3] = new Clyde  (gameScene, maze, player);
+
+    for(Ghost* ghost : ghosts)
+    {
+        QObject::connect(ghost, &Ghost::gameOver, this, &PacMan::handleGameOver);
+        QObject::connect(player, &Player::energizedChanged, ghost, &Ghost::setFrightened);
+    }
+
+    menuText = menuScene->addText("");
+    menuText->setDefaultTextColor(Qt::white);
+    menuText->setFont(pacManFontLarge);
+    menuPrompt = menuScene->addText("Press ENTER to play again.");
+    menuPrompt->setDefaultTextColor(Qt::white);
+    menuPrompt->setFont(pacManFont);
+    scoreText = menuScene->addText("");
+    scoreText->setDefaultTextColor(Qt::white);
+    scoreText->setFont(pacManFont);
+
+    gameStateText = gameScene->addText("");
+    gameStateText->setDefaultTextColor(Qt::white);
+    gameStateText->setFont(pacManFont);
+
+#ifdef ENABLE_FPS_COUNTER
+    fpsText = gameScene->addText("Fps: 0000");
+    fpsText->setDefaultTextColor(Qt::white);
+    fpsText->setFont(pacManFont);
+    delete fpsTimer;
+    fpsTimer = new QTimer();
+    fpsTimer->setTimerType(Qt::PreciseTimer);
+    connect(fpsTimer, &QTimer::timeout, this, [this]{fps = fpsCounter; fpsCounter = 0;});
+    fpsTimer->start(1000);
+#endif // ENABLE_FPS_COUNTER
+}
+
+/**
+ * @brief Deletes allocated memory.
  */
 PacMan::~PacMan()
 {
@@ -54,7 +112,7 @@ PacMan::~PacMan()
 
 
 /**
- * @brief PacMan::paint Handles the painting of the game
+ * @brief Paints global menu items and calls the paint function of all game objects.
  */
 void PacMan::paint()
 {
@@ -63,29 +121,42 @@ void PacMan::paint()
     case won:
     case lost:
     {
-        gv->setScene(menuScene);
-        menuText->setPos((QPoint((menuScene->sceneRect().width() - menuText->boundingRect().width()) / 2, (menuScene->sceneRect().height() - menuText->boundingRect().height()) * 0.3)));
-        menuPrompt->setPos((QPoint((menuScene->sceneRect().width() - menuPrompt->boundingRect().width()) / 2, (menuScene->sceneRect().height() - menuPrompt->boundingRect().height()) * 0.35)));
-        scoreText->setPos((QPoint((menuScene->sceneRect().width() - scoreText->boundingRect().width()) / 2, (menuScene->sceneRect().height() - scoreText->boundingRect().height()) * 0.40)));
-        menuText->setPlainText(gameState == won ? "Game Over, you win!" : "Game Over, you loose!");
-        char buf[14] = "";
-        sprintf(buf, "Score: %06d", maze->getScore());
-        scoreText->setPlainText(buf);
+        if (gv->scene() != menuScene)
+        {
+            gv->setScene(menuScene);
+            menuText->setPlainText(gameState == won ? "Game Over, you win!" : "Game Over, you loose!");
+            char buf[14] = "";
+            sprintf(buf, "Score: %06d", maze->getScore());
+            scoreText->setPlainText(buf);
+            menuText->setPos((QPoint((menuScene->sceneRect().width() - menuText->boundingRect().width()) / 2, (menuScene->sceneRect().height() - menuText->boundingRect().height()) * 0.3)));
+            menuPrompt->setPos((QPoint((menuScene->sceneRect().width() - menuPrompt->boundingRect().width()) / 2, (menuScene->sceneRect().height() - menuPrompt->boundingRect().height()) * 0.35)));
+            scoreText->setPos((QPoint((menuScene->sceneRect().width() - scoreText->boundingRect().width()) / 2, (menuScene->sceneRect().height() - scoreText->boundingRect().height()) * 0.40)));
+        }
         break;
     }
     case paused:
-        gv->setScene(gameScene);
-        gameStateText->setPlainText("Game Paused, press ENTER to resume.");
-        gameStateText->show();
+        if (gv->scene() != gameScene)
+            gv->setScene(gameScene);
+        if (!gameStateText->isVisible())
+        {
+            gameStateText->setPlainText("Game Paused, press ENTER to resume.");
+            gameStateText->show();
+        }
         break;
     case running:
-        gv->setScene(gameScene);
-        gameStateText->hide();
+        if (gv->scene() != gameScene)
+            gv->setScene(gameScene);
+        if (gameStateText->isVisible())
+            gameStateText->hide();
         break;
     case start:
-        gv->setScene(gameScene);
-        gameStateText->setPlainText("Press ENTER to start playing.");
-        gameStateText->show();
+        if (gv->scene() != gameScene)
+            gv->setScene(gameScene);
+        if (!gameStateText->isVisible())
+        {
+            gameStateText->show();
+            gameStateText->setPlainText("Press ENTER to start playing.");
+        }
         break;
     }
 
@@ -104,8 +175,8 @@ void PacMan::paint()
 }
 
 /**
- * @brief PacMan::handleKeyPress Read the Keyboard Input and forwoard it to the appropriate method
- * @param event The pressed Key
+ * @brief Process the keyboard input and take appropriate action.
+ * @param The QKeyEvent to process.
  */
 void PacMan::handleKeyPress(QKeyEvent* event)
 {
@@ -146,61 +217,11 @@ void PacMan::handleKeyPress(QKeyEvent* event)
     }
 }
 
-void PacMan::initGameObjects()
-{
-    gameScene->clear();
-    menuScene->clear();
-
-    delete maze;
-    maze = new Maze(gameScene, gv);
-    QObject::connect(maze, &Maze::gameOver, this, &PacMan::gameOverHandler);
-    delete player;
-    player = new Player(gameScene, maze);
-
-    for (Ghost *ghost : ghosts)
-        delete ghost;
-    ghosts[0] = new Blinky (gameScene, maze, player);
-    ghosts[1] = new Pinky  (gameScene, maze, player);
-    ghosts[2] = new Inky   (gameScene, maze, player, ghosts[0]);
-    ghosts[3] = new Clyde  (gameScene, maze, player);
-
-    for(Ghost* ghost : ghosts)
-    {
-        QObject::connect(ghost, &Ghost::gameOver, this, &PacMan::gameOverHandler);
-        QObject::connect(player, &Player::energizedChanged, ghost, &Ghost::setFrightened);
-    }
-
-    menuText = menuScene->addText("");
-    menuText->setDefaultTextColor(Qt::white);
-    menuText->setFont(pacManFontLarge);
-    menuPrompt = menuScene->addText("Press ENTER to play again.");
-    menuPrompt->setDefaultTextColor(Qt::white);
-    menuPrompt->setFont(pacManFont);
-    scoreText = menuScene->addText("");
-    scoreText->setDefaultTextColor(Qt::white);
-    scoreText->setFont(pacManFont);
-
-    gameStateText = gameScene->addText("");
-    gameStateText->setDefaultTextColor(Qt::white);
-    gameStateText->setFont(pacManFont);
-
-#ifdef ENABLE_FPS_COUNTER
-    fpsText = gameScene->addText("Fps: 0000");
-    fpsText->setDefaultTextColor(Qt::white);
-    fpsText->setFont(pacManFont);
-    delete fpsTimer;
-    fpsTimer = new QTimer();
-    fpsTimer->setTimerType(Qt::PreciseTimer);
-    connect(fpsTimer, &QTimer::timeout, this, [this]{fps = fpsCounter; fpsCounter = 0;});
-    fpsTimer->start(1000);
-#endif // ENABLE_FPS_COUNTER
-}
-
 /**
- * @brief PacMan::gameOverHandler Handle a GameOver caused bye either a ghost eating the Player or the Player eating every dot in the maze
- * @param won
+ * @brief Handle a GameOver caused by either a Ghost eating the Player or the Player eating every dot in the Maze.
+ * @param If the player has won.
  */
-void PacMan::gameOverHandler(bool won) {
+void PacMan::handleGameOver(bool won) {
     gameState = (won ? PacMan::won : PacMan::lost);
 
     player->setPaused(true);
