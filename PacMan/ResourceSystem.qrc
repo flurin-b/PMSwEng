@@ -26,5 +26,6 @@
         <file>Sprite/Ghost/AugenR.PNG</file>
         <file>Sprite/Ghost/AugenUp.PNG</file>
         <file>Sprite/Font/emulogic.ttf</file>
+        <file>Sprite/Logo/PacMan.ico</file>
     </qresource>
 </RCC>
