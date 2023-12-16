@@ -20,6 +20,7 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
     pacManFontLarge = QFont(QFontDatabase::applicationFontFamilies(id).at(0), 18);
 
     gv->setScene(menuScene);
+    gv->setInteractive(false);
     gv->setFixedSize(Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
     menuScene->setSceneRect(0, 0, Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
     menuScene->setBackgroundBrush(Qt::black);
@@ -57,13 +58,12 @@ PacMan::~PacMan()
  */
 void PacMan::paint()
 {
-    gv->setScene(menuScene);
-
     switch (gameState)
     {
     case won:
     case lost:
     {
+        gv->setScene(menuScene);
         menuText->setPos((QPoint((menuScene->sceneRect().width() - menuText->boundingRect().width()) / 2, (menuScene->sceneRect().height() - menuText->boundingRect().height()) * 0.3)));
         menuPrompt->setPos((QPoint((menuScene->sceneRect().width() - menuPrompt->boundingRect().width()) / 2, (menuScene->sceneRect().height() - menuPrompt->boundingRect().height()) * 0.35)));
         scoreText->setPos((QPoint((menuScene->sceneRect().width() - scoreText->boundingRect().width()) / 2, (menuScene->sceneRect().height() - scoreText->boundingRect().height()) * 0.40)));
