@@ -3,13 +3,12 @@
 #include <QKeyEvent>
 
 /**
- * @brief Player::Player Constructer of the Player entity
- * @param gsPointer Pointer to the GraphicScene where the Player should operate in
- * @param mazePointer Pointer to the Maze where the should operate in
+ * @brief Initializes all attributes, sprites and timer used by a Player object.
+ * @param Pointer to the GraphicScene where the Player should be displayed.
+ * @param Pointer to the Maze where the Player should operate in.
  */
 Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{mazePointer}
 {
-    //playerPosition Start unclear right now, change latter down the line
     position = QPoint{13,26};
     subposition = QPointF{position.x()+0.5, float(position.y())};
     direction = QPoint{-1,0};
@@ -33,12 +32,12 @@ Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{
     pixmap->setTransformOriginPoint((QPoint((fieldWidth_px * scaleFactor)/2,(fieldWidth_px * scaleFactor)/2)));
     clone = gs->addPixmap(spriteOpen);
     clone->setTransformOriginPoint((QPoint((fieldWidth_px * scaleFactor)/2,(fieldWidth_px * scaleFactor)/2)));
-    spriteStatus = spriteIsOpen;
+    spriteStatus = mouthOpen;
 }
 
 /**
- * @brief Player::setPaused Stop the Player logic from updating
- * @param paused Stop if true continue if false
+ * @brief Enables pausing of all logic.
+ * @param Pause if true, resume if false.
  */
 void Player::setPaused(bool paused)
 {
@@ -61,12 +60,13 @@ void Player::setPaused(bool paused)
             energizerTimeout->start(energizerTimeoutCache);
         else
             energizerTimeout->start();
-            spriteTimer.start();
+
+        spriteTimer.start();
     }
 }
 
 /**
- * @brief Player::paint Draw Player at new location and eat Dots if available
+ * @brief Update the Player sprite and eat dots if applicable.
  */
 void Player::paint(void)
 {
@@ -84,7 +84,7 @@ void Player::paint(void)
     // If the player hasn't eaten yet and has reached the new field, eat what's in it.
     if (subposition.toPoint() == position){
         if (!ate) {
-            eating = maze->getDots(position);
+            eating = maze->getItemAt(position);
             if (eating)
             {
                 eatItem(subposition.toPoint());
@@ -136,7 +136,7 @@ void Player::paint(void)
 }
 
 /**
- * @brief Player::step Update Direction and move Player in the new Direction
+ * @brief Update wich direction the player should go in and move the Player in that direction.
  */
 void Player::step(void)
 {
@@ -181,18 +181,17 @@ void Player::step(void)
 }
 
 /**
- * @brief Player::getField Function used for getting the Field the Player is currently in
- * @return A QPoint in the maze with the position of Pac-Man
+ * @brief Used for getting the field the Player is currently in.
+ * @return The players position in the Maze.
  */
 QPoint Player::getField(void)
 {
-    QPointF subposition = direction.toPointF() * ((float)stepTick.remainingTime()/getStepInterval());
-    return position - subposition.toPoint();
+    return subposition.toPoint();
 }
 
 /**
- * @brief Player::getDirection Get the Current Direction the Player is heading as a QPoint
- * @return Up, Down,  Left, Right
+ * @brief Get the Current Direction the Player is heading in.
+ * @return The players direction as a QPoint.
  */
 QPoint Player::getDirection(void)
 {
@@ -200,17 +199,8 @@ QPoint Player::getDirection(void)
 }
 
 /**
- * @brief Player::getStatus Get the Status of Player which depends on if a energizer was eaten
- * @return normal, energized
- */
-char Player::getStatus(void)
-{
-    return status;
-}
-
-/**
- * @brief Player::changeDirection Read the direction inputed via Keyboard without normally changing the direction immediately
- * @param event The pressed Key
+ * @brief Process keyboard inputs and change Player::direction or Player::pendingDirection accordingly.
+ * @param The QKeyEvent to process.
  */
 void Player::changeDirection(QKeyEvent* event)
 {
@@ -248,23 +238,23 @@ void Player::changeDirection(QKeyEvent* event)
 }
 
 /**
- * @brief Player::eatItem Change the contend of a field in the Maze
- * @param location The Field which should be changed
+ * @brief Eat whatever is in the supplied field and react accordingly.
+ * @param The Field that should be eaten.
  */
 void Player::eatItem(QPoint location)
 {
-    char Item = maze->getDots(location);
+    char Item = maze->getItemAt(location);
 
     switch(Item)
     {
     case Maze::noItem:
         break;
-    case Maze::smallPoint:
-        maze->setDots(location,Maze::noItem);
+    case Maze::dot:
+        maze->setItemAt(location,Maze::noItem);
         maze->increaseScore(10);
         break;
-    case Maze::bigPoint:
-        maze->setDots(location,Maze::noItem);
+    case Maze::energizer:
+        maze->setItemAt(location,Maze::noItem);
         maze->increaseScore(50);
         status = Player::energized;
         energizerTimeout->start(energizerDuration);
@@ -274,7 +264,7 @@ void Player::eatItem(QPoint location)
 }
 
 /**
- * @brief Player::resetEnergized Reset the Player status after a set amount of time specified with a timer
+ * @brief Reset the Player status to normal.
  */
 void Player::resetEnergized(void)
 {
@@ -283,7 +273,7 @@ void Player::resetEnergized(void)
 }
 
 /**
- * @brief Player::getStepInterval Get the current Intervall time with which the function Player::step is called
+ * @brief Get the current Intervall with which the function Player::step should be called.
  * @return Time in ms
  */
 int Player::getStepInterval(void)
@@ -296,20 +286,20 @@ int Player::getStepInterval(void)
 }
 
 /**
- * @brief Player::swapSprite Change between two sprite Version to create an eating animation
+ * @brief Change between two sprite Versions to create an eating animation.
  */
 void Player::swapSprite(void)
 {
-    if(spriteStatus == spriteIsOpen)
+    if(spriteStatus == mouthOpen)
     {
         pixmap->setPixmap(spriteShut);
         clone->setPixmap(spriteShut);
-        spriteStatus = spriteIsShut;
+        spriteStatus = mouthClosed;
     }
     else
     {
         pixmap->setPixmap(spriteOpen);
         clone->setPixmap(spriteOpen);
-        spriteStatus = spriteIsOpen;
+        spriteStatus = mouthOpen;
     }
 }

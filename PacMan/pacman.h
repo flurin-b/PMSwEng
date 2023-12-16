@@ -14,26 +14,50 @@
 #include <QFontDatabase>
 #include <QKeyEvent>
 
+/**
+ * @brief The PacMan class brings all the game objects together and exposes them to the user.
+ */
 class PACMANLIB_EXPORT PacMan : public QObject
 {
     Q_OBJECT
 public:
     PacMan(QGraphicsView *gvPointer);
     virtual ~PacMan();
-    void paint();
 
 public slots:
     void handleKeyPress(QKeyEvent *event);
-    void gameOverHandler(bool won);
+    void handleGameOver(bool won);
 
 private:
+    /** @brief Stores the QGraphicsView everything is rendered to. */
     QGraphicsView     *gv;
-    QGraphicsScene    *gameScene, *menuScene;
-    QGraphicsTextItem *menuPrompt = nullptr, *menuText = nullptr, *gameStateText = nullptr, *scoreText = nullptr;
-    QFont              pacManFont, pacManFontLarge;
+    /** @brief Displays the game. */
+    QGraphicsScene    *gameScene;
+    /** @brief Displays the Game Over screen. */
+    QGraphicsScene    *menuScene;
 
+    /** @brief Displays "Game Over". */
+    QGraphicsTextItem *menuText = nullptr;
+    /** @brief Tells the player to press enter after Game Over. */
+    QGraphicsTextItem *menuPrompt = nullptr;
+    /** @brief Displays the score on Game Over. */
+    QGraphicsTextItem *scoreText = nullptr;
+    /** @brief Tells the player to press enter to start the game or resume after pausing. */
+    QGraphicsTextItem *gameStateText = nullptr;
+
+    /** @brief The font normal Text is written in. */
+    QFont   pacManFont;
+    /** @brief The font "Game Over" is written in. */
+    QFont   pacManFontLarge;
+
+    /** @brief Calls PacMan::paint periodically. */
+    QTimer  frameTimer;
+
+    /** @brief A reference to the current Maze object. */
     Maze    *maze      =  nullptr;
+    /** @brief A reference to the current Player object. */
     Player  *player    =  nullptr;
+    /** @brief References to the current Ghost objects. */
     Ghost   *ghosts[4] = {nullptr, nullptr, nullptr, nullptr};
 
 
@@ -43,6 +67,7 @@ private:
     QGraphicsTextItem *fpsText;
 #endif // ENABLE_FPS_COUNTER
 
+    /** @brief Stores the current state of the game */
     enum {
         start,
         running,
@@ -51,7 +76,8 @@ private:
         lost
     } gameState = start;
 
-    void initGameObjects();
+    void initGameObjects(void);
+    void paint(void);
 };
 
 #endif // PACMAN_H
