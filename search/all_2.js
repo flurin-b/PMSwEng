@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['direction_4',['direction',['../d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e',1,'Ghost']]],
-  ['dotlimitghosthouse_5',['dotLimitGhostHouse',['../d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55',1,'Ghost']]]
+  ['direction_5',['direction',['../d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e',1,'Ghost']]],
+  ['dotlimitghosthouse_6',['dotLimitGhostHouse',['../d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55',1,'Ghost']]]
 ];

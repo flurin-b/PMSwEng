@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nextghostpoints_130',['nextGhostPoints',['../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397',1,'Ghost']]]
+  ['height_128',['height',['../d6/d74/classMaze.html#a220dde730736e35b24da9b639ed75823',1,'Maze']]]
 ];

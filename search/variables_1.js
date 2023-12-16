@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['direction_115',['direction',['../d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e',1,'Ghost']]],
-  ['dotlimitghosthouse_116',['dotLimitGhostHouse',['../d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55',1,'Ghost']]]
+  ['clonepixmap_116',['clonePixmap',['../d0/d06/classGhost.html#a5c0b4bf7f48e0183406d0ea31bc0fa2e',1,'Ghost']]]
 ];

@@ -93,6 +93,11 @@ $(document).ready(function(){initNavTree('d6/d74/classMaze.html','../../'); init
 <div class="title">Maze Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a> class stores the current state of the playfield (what food is where), the score, implements the movement of the other game objects and checks if <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> has eaten all the dots.  
+ <a href="../../d6/d74/classMaze.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../dc/db8/maze_8h_source.html">maze.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Maze:</div>
 <div class="dyncontent">
@@ -102,17 +107,18 @@ Inheritance diagram for Maze:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a43d89d36a20a8b5e529958e85552db40"><td class="memItemLeft" align="right" valign="top"><a id="a43d89d36a20a8b5e529958e85552db40"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>item_t</b> { <b>noItem</b>
-, <b>smallPoint</b>
-, <b>bigPoint</b>
-, <b>error</b> = 255
+<tr class="memitem:a43d89d36a20a8b5e529958e85552db40"><td class="memItemLeft" align="right" valign="top"><a id="a43d89d36a20a8b5e529958e85552db40"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a43d89d36a20a8b5e529958e85552db40">item_t</a> { <b>noItem</b>
+, <b>dot</b>
+, <b>energizer</b>
  }</td></tr>
+<tr class="memdesc:a43d89d36a20a8b5e529958e85552db40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Describes the possible contents of a field. <br /></td></tr>
 <tr class="separator:a43d89d36a20a8b5e529958e85552db40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
 <tr class="memitem:afc0db50e7f4b40f15d9334b4a7a0db9b"><td class="memItemLeft" align="right" valign="top"><a id="afc0db50e7f4b40f15d9334b4a7a0db9b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>paint</b> (void)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#afc0db50e7f4b40f15d9334b4a7a0db9b">paint</a> (void)</td></tr>
+<tr class="memdesc:afc0db50e7f4b40f15d9334b4a7a0db9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the graphics items to reflect the current game state. <br /></td></tr>
 <tr class="separator:afc0db50e7f4b40f15d9334b4a7a0db9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
@@ -124,43 +130,48 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>gameOver</b> (bool wo
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a90263d5e7f78ced2c038003e7a816920"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920">Maze</a> (QGraphicsScene *gsPointer, QGraphicsView *gvPointer)</td></tr>
-<tr class="memdesc:a90263d5e7f78ced2c038003e7a816920"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920" title="Maze::Maze Creates a Instace of Maze which contains all the eatables and the paths that can be taken ...">Maze::Maze</a> Creates a Instace of <a class="el" href="../../d6/d74/classMaze.html">Maze</a> which contains all the eatables and the paths that can be taken from a certain position.  <a href="../../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920">More...</a><br /></td></tr>
+<tr class="memdesc:a90263d5e7f78ced2c038003e7a816920"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920" title="Maze::Maze Creates a Instace of Maze. It also initializes all the graphics items.">Maze::Maze</a> Creates a Instace of <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a>. It also initializes all the graphics items.  <a href="../../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920">More...</a><br /></td></tr>
 <tr class="separator:a90263d5e7f78ced2c038003e7a816920"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb26c39c10c9a81dea23abd2c4cbafdd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#adb26c39c10c9a81dea23abd2c4cbafdd">getDots</a> (QPoint position)</td></tr>
-<tr class="memdesc:adb26c39c10c9a81dea23abd2c4cbafdd"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d74/classMaze.html#adb26c39c10c9a81dea23abd2c4cbafdd" title="Maze::getDots A function for getting the Item contained in a field.">Maze::getDots</a> A function for getting the Item contained in a field.  <a href="../../d6/d74/classMaze.html#adb26c39c10c9a81dea23abd2c4cbafdd">More...</a><br /></td></tr>
-<tr class="separator:adb26c39c10c9a81dea23abd2c4cbafdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c0495ab79b8ea8c432194d346196204"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/d74/classMaze.html#a43d89d36a20a8b5e529958e85552db40">item_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a2c0495ab79b8ea8c432194d346196204">getItemAt</a> (QPoint position)</td></tr>
+<tr class="memdesc:a2c0495ab79b8ea8c432194d346196204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns what Item is in the specified field.  <a href="../../d6/d74/classMaze.html#a2c0495ab79b8ea8c432194d346196204">More...</a><br /></td></tr>
+<tr class="separator:a2c0495ab79b8ea8c432194d346196204"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af882cb98c42b9c03a7127be7016effdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#af882cb98c42b9c03a7127be7016effdb">setItemAt</a> (QPoint position, <a class="el" href="../../d6/d74/classMaze.html#a43d89d36a20a8b5e529958e85552db40">item_t</a> item)</td></tr>
+<tr class="memdesc:af882cb98c42b9c03a7127be7016effdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a specific field to contain the specified item.  <a href="../../d6/d74/classMaze.html#af882cb98c42b9c03a7127be7016effdb">More...</a><br /></td></tr>
+<tr class="separator:af882cb98c42b9c03a7127be7016effdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31f523437406ea22b46cd8c2dcf96482"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482">getDotsEaten</a> (void)</td></tr>
-<tr class="memdesc:a31f523437406ea22b46cd8c2dcf96482"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482" title="Maze::getDotsEaten Get the amount of small Dots eaten by the Player.">Maze::getDotsEaten</a> Get the amount of small Dots eaten by the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a>.  <a href="../../d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482">More...</a><br /></td></tr>
+<tr class="memdesc:a31f523437406ea22b46cd8c2dcf96482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the amount of small Dots eaten by the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a>.  <a href="../../d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482">More...</a><br /></td></tr>
 <tr class="separator:a31f523437406ea22b46cd8c2dcf96482"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abec460be061ee3007126dd376bf99532"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#abec460be061ee3007126dd376bf99532">setDots</a> (QPoint position, item_t item)</td></tr>
-<tr class="memdesc:abec460be061ee3007126dd376bf99532"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d74/classMaze.html#abec460be061ee3007126dd376bf99532" title="Maze::setDots Change the Item a specific field in the maze contains.">Maze::setDots</a> Change the Item a specific field in the maze contains.  <a href="../../d6/d74/classMaze.html#abec460be061ee3007126dd376bf99532">More...</a><br /></td></tr>
-<tr class="separator:abec460be061ee3007126dd376bf99532"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3a644406d9b07b8459cd1f2b6600a14"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14">getFieldWidth</a> (void)</td></tr>
-<tr class="memdesc:ad3a644406d9b07b8459cd1f2b6600a14"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14" title="Maze::getFieldWidth Get the current Width of a Field in the Maze.">Maze::getFieldWidth</a> Get the current Width of a Field in the <a class="el" href="../../d6/d74/classMaze.html">Maze</a>.  <a href="../../d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14">More...</a><br /></td></tr>
+<tr class="memdesc:ad3a644406d9b07b8459cd1f2b6600a14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current Width of a Field in the <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a>.  <a href="../../d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14">More...</a><br /></td></tr>
 <tr class="separator:ad3a644406d9b07b8459cd1f2b6600a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03cf92be93cbb63a79693c9a6efff533"><td class="memItemLeft" align="right" valign="top">std::vector&lt; QPoint &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533">getMaze</a> (QPoint position)</td></tr>
-<tr class="memdesc:a03cf92be93cbb63a79693c9a6efff533"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Maze::getMaze Gives back all the Points on to which a character can be moved.">Maze::getMaze</a> Gives back all the Points on to which a character can be moved.  <a href="../../d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533">More...</a><br /></td></tr>
+<tr class="memdesc:a03cf92be93cbb63a79693c9a6efff533"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns all possible directions in wich a <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> or <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> can go starting from the supplied position.  <a href="../../d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533">More...</a><br /></td></tr>
 <tr class="separator:a03cf92be93cbb63a79693c9a6efff533"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a435a73008cf1ebf100ff5142e13fc04f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a435a73008cf1ebf100ff5142e13fc04f">increaseScore</a> (int offset)</td></tr>
-<tr class="memdesc:a435a73008cf1ebf100ff5142e13fc04f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d74/classMaze.html#a435a73008cf1ebf100ff5142e13fc04f" title="Maze::increaseScore Update the score made by the Player.">Maze::increaseScore</a> Update the score made by the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a>.  <a href="../../d6/d74/classMaze.html#a435a73008cf1ebf100ff5142e13fc04f">More...</a><br /></td></tr>
+<tr class="memdesc:a435a73008cf1ebf100ff5142e13fc04f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inclrease the score by a given ammount.  <a href="../../d6/d74/classMaze.html#a435a73008cf1ebf100ff5142e13fc04f">More...</a><br /></td></tr>
 <tr class="separator:a435a73008cf1ebf100ff5142e13fc04f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea3a36e7b680787d8975aa44488ddec9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#aea3a36e7b680787d8975aa44488ddec9">getScore</a> (void)</td></tr>
-<tr class="memdesc:aea3a36e7b680787d8975aa44488ddec9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d6/d74/classMaze.html#aea3a36e7b680787d8975aa44488ddec9" title="Maze::getScore Get the current score.">Maze::getScore</a> Get the current score.  <a href="../../d6/d74/classMaze.html#aea3a36e7b680787d8975aa44488ddec9">More...</a><br /></td></tr>
+<tr class="memdesc:aea3a36e7b680787d8975aa44488ddec9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current score.  <a href="../../d6/d74/classMaze.html#aea3a36e7b680787d8975aa44488ddec9">More...</a><br /></td></tr>
 <tr class="separator:aea3a36e7b680787d8975aa44488ddec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:ae105e09a1256cd7b2f8516be9ce51a47"><td class="memItemLeft" align="right" valign="top"><a id="ae105e09a1256cd7b2f8516be9ce51a47"></a>
-static const int&#160;</td><td class="memItemRight" valign="bottom"><b>baseStepInterval</b> = 100</td></tr>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#ae105e09a1256cd7b2f8516be9ce51a47">baseStepInterval</a> = 100</td></tr>
+<tr class="memdesc:ae105e09a1256cd7b2f8516be9ce51a47"><td class="mdescLeft">&#160;</td><td class="mdescRight">baseStepInterval determines how many ms it takes to travel 1 Field at 100 % speed. <br /></td></tr>
 <tr class="separator:ae105e09a1256cd7b2f8516be9ce51a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe2cf5c4dc8142fdaedd6134024fc01d"><td class="memItemLeft" align="right" valign="top"><a id="abe2cf5c4dc8142fdaedd6134024fc01d"></a>
-static const int&#160;</td><td class="memItemRight" valign="bottom"><b>width</b> = 28</td></tr>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#abe2cf5c4dc8142fdaedd6134024fc01d">width</a> = 28</td></tr>
+<tr class="memdesc:abe2cf5c4dc8142fdaedd6134024fc01d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The widtht of the <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a> in Fields. <br /></td></tr>
 <tr class="separator:abe2cf5c4dc8142fdaedd6134024fc01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a220dde730736e35b24da9b639ed75823"><td class="memItemLeft" align="right" valign="top"><a id="a220dde730736e35b24da9b639ed75823"></a>
-static const int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b> = 36</td></tr>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a220dde730736e35b24da9b639ed75823">height</a> = 36</td></tr>
+<tr class="memdesc:a220dde730736e35b24da9b639ed75823"><td class="mdescLeft">&#160;</td><td class="mdescRight">The height of the <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a> in Fields. <br /></td></tr>
 <tr class="separator:a220dde730736e35b24da9b639ed75823"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a> class stores the current state of the playfield (what food is where), the score, implements the movement of the other game objects and checks if <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> has eaten all the dots. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a90263d5e7f78ced2c038003e7a816920"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a90263d5e7f78ced2c038003e7a816920">&#9670;&nbsp;</a></span>Maze()</h2>
 
@@ -187,7 +198,7 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920" title="Maze::Maze Creates a Instace of Maze which contains all the eatables and the paths that can be taken ...">Maze::Maze</a> Creates a Instace of <a class="el" href="../../d6/d74/classMaze.html">Maze</a> which contains all the eatables and the paths that can be taken from a certain position. </p>
+<p><a class="el" href="../../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920" title="Maze::Maze Creates a Instace of Maze. It also initializes all the graphics items.">Maze::Maze</a> Creates a Instace of <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a>. It also initializes all the graphics items. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">scPointer</td><td>A Pointer to the GraphicScene onto which the items will be placed </td></tr>
@@ -198,34 +209,6 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="adb26c39c10c9a81dea23abd2c4cbafdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb26c39c10c9a81dea23abd2c4cbafdd">&#9670;&nbsp;</a></span>getDots()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Maze::getDots </td>
-          <td>(</td>
-          <td class="paramtype">QPoint&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../d6/d74/classMaze.html#adb26c39c10c9a81dea23abd2c4cbafdd" title="Maze::getDots A function for getting the Item contained in a field.">Maze::getDots</a> A function for getting the Item contained in a field. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>The field in the maze from which the item want to be known </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the Item that is conatined in posistion of the maze </dd></dl>
-<p>If the requested position is outside of the border from the maze an error is returned otherwise the item contained in the field</p>
-
-</div>
-</div>
 <a id="a31f523437406ea22b46cd8c2dcf96482"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31f523437406ea22b46cd8c2dcf96482">&#9670;&nbsp;</a></span>getDotsEaten()</h2>
 
@@ -242,8 +225,8 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482" title="Maze::getDotsEaten Get the amount of small Dots eaten by the Player.">Maze::getDotsEaten</a> Get the amount of small Dots eaten by the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>0-244 </dd></dl>
+<p>Get the amount of small Dots eaten by the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>The ammount of dots eaten untill now. </dd></dl>
 
 </div>
 </div>
@@ -263,8 +246,35 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14" title="Maze::getFieldWidth Get the current Width of a Field in the Maze.">Maze::getFieldWidth</a> Get the current Width of a Field in the <a class="el" href="../../d6/d74/classMaze.html">Maze</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>The width of a Field in Pixel </dd></dl>
+<p>Get the current Width of a Field in the <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>The width of a Field in Pixels. </dd></dl>
+
+</div>
+</div>
+<a id="a2c0495ab79b8ea8c432194d346196204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c0495ab79b8ea8c432194d346196204">&#9670;&nbsp;</a></span>getItemAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d6/d74/classMaze.html#a43d89d36a20a8b5e529958e85552db40">Maze::item_t</a> Maze::getItemAt </td>
+          <td>(</td>
+          <td class="paramtype">QPoint&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns what Item is in the specified field. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">The</td><td>fields coordinates. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The item in that field. </dd></dl>
 
 </div>
 </div>
@@ -284,15 +294,14 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Maze::getMaze Gives back all the Points on to which a character can be moved.">Maze::getMaze</a> Gives back all the Points on to which a character can be moved. </p>
+<p>Returns all possible directions in wich a <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> or <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> can go starting from the supplied position. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>The position in the maze the directions want to be known from </td></tr>
+    <tr><td class="paramname">The</td><td>position to query. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A vector of QPoint which are located around the specified posistion </dd></dl>
-<p>If the requested Position doesn't exist No Offset will be given back</p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of QPoints that contains all possible directions. </dd></dl>
 
 </div>
 </div>
@@ -312,7 +321,7 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d6/d74/classMaze.html#aea3a36e7b680787d8975aa44488ddec9" title="Maze::getScore Get the current score.">Maze::getScore</a> Get the current score. </p>
+<p>Get the current score. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current score. </dd></dl>
 
 </div>
@@ -333,24 +342,24 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d6/d74/classMaze.html#a435a73008cf1ebf100ff5142e13fc04f" title="Maze::increaseScore Update the score made by the Player.">Maze::increaseScore</a> Update the score made by the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a>. </p>
+<p>Inclrease the score by a given ammount. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">offset</td><td>The amount the score should be changed </td></tr>
+    <tr><td class="paramname">How</td><td>many points should be added. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="abec460be061ee3007126dd376bf99532"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abec460be061ee3007126dd376bf99532">&#9670;&nbsp;</a></span>setDots()</h2>
+<a id="af882cb98c42b9c03a7127be7016effdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af882cb98c42b9c03a7127be7016effdb">&#9670;&nbsp;</a></span>setItemAt()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Maze::setDots </td>
+          <td class="memname">void Maze::setItemAt </td>
           <td>(</td>
           <td class="paramtype">QPoint&#160;</td>
           <td class="paramname"><em>position</em>, </td>
@@ -358,7 +367,7 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">item_t&#160;</td>
+          <td class="paramtype"><a class="el" href="../../d6/d74/classMaze.html#a43d89d36a20a8b5e529958e85552db40">item_t</a>&#160;</td>
           <td class="paramname"><em>item</em>&#160;</td>
         </tr>
         <tr>
@@ -369,11 +378,11 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>height</b
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d6/d74/classMaze.html#abec460be061ee3007126dd376bf99532" title="Maze::setDots Change the Item a specific field in the maze contains.">Maze::setDots</a> Change the Item a specific field in the maze contains. </p>
+<p>Set a specific field to contain the specified item. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>The point in the maze where the item should be changed </td></tr>
-    <tr><td class="paramname">item</td><td>The new item that should be placed at the defined position </td></tr>
+    <tr><td class="paramname">The</td><td>field in the <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a> where the item should be placed. </td></tr>
+    <tr><td class="paramname">The</td><td>new item to ne placed. </td></tr>
   </table>
   </dd>
 </dl>

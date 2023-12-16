@@ -90,6 +90,11 @@ $(document).ready(function(){initNavTree('d9/d66/classPacMan.html','../../'); in
 <div class="title">PacMan Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The <a class="el" href="../../d9/d66/classPacMan.html" title="The PacMan class brings all the game objects together and exposes them to the user.">PacMan</a> class brings all the game objects together and exposes them to the user.  
+ <a href="../../d9/d66/classPacMan.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d4/d1e/pacman_8h_source.html">pacman.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for PacMan:</div>
 <div class="dyncontent">
@@ -100,11 +105,11 @@ Inheritance diagram for PacMan:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
 <tr class="memitem:ab15408c1a3a3faa9cfe6dd176d1e0030"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030">handleKeyPress</a> (QKeyEvent *event)</td></tr>
-<tr class="memdesc:ab15408c1a3a3faa9cfe6dd176d1e0030"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030" title="PacMan::handleKeyPress Read the Keyboard Input and forwoard it to the appropriate method.">PacMan::handleKeyPress</a> Read the Keyboard Input and forwoard it to the appropriate method.  <a href="../../d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030">More...</a><br /></td></tr>
+<tr class="memdesc:ab15408c1a3a3faa9cfe6dd176d1e0030"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the keyboard input and take appropriate action.  <a href="../../d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030">More...</a><br /></td></tr>
 <tr class="separator:ab15408c1a3a3faa9cfe6dd176d1e0030"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af29c2660a9166b2d9bf2187f7ff45faf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d66/classPacMan.html#af29c2660a9166b2d9bf2187f7ff45faf">gameOverHandler</a> (bool won)</td></tr>
-<tr class="memdesc:af29c2660a9166b2d9bf2187f7ff45faf"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d66/classPacMan.html#af29c2660a9166b2d9bf2187f7ff45faf" title="PacMan::gameOverHandler Handle a GameOver caused bye either a ghost eating the Player or the Player e...">PacMan::gameOverHandler</a> Handle a GameOver caused bye either a ghost eating the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> or the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> eating every dot in the maze.  <a href="../../d9/d66/classPacMan.html#af29c2660a9166b2d9bf2187f7ff45faf">More...</a><br /></td></tr>
-<tr class="separator:af29c2660a9166b2d9bf2187f7ff45faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c0303552248bf629ff517793d8fd16e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d66/classPacMan.html#a7c0303552248bf629ff517793d8fd16e">handleGameOver</a> (bool won)</td></tr>
+<tr class="memdesc:a7c0303552248bf629ff517793d8fd16e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle a GameOver caused by either a <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> eating the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> or the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> eating every dot in the <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a>.  <a href="../../d9/d66/classPacMan.html#a7c0303552248bf629ff517793d8fd16e">More...</a><br /></td></tr>
+<tr class="separator:a7c0303552248bf629ff517793d8fd16e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -113,14 +118,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a25353808f3f5e2c1ecfa1a57c0452722"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c60749168e26d4dc87aa1323a15e998"><td class="memItemLeft" align="right" valign="top"><a id="a5c60749168e26d4dc87aa1323a15e998"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d66/classPacMan.html#a5c60749168e26d4dc87aa1323a15e998">~PacMan</a> ()</td></tr>
-<tr class="memdesc:a5c60749168e26d4dc87aa1323a15e998"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d66/classPacMan.html#a5c60749168e26d4dc87aa1323a15e998" title="PacMan::~PacMan Delets allocated memory during ctor.">PacMan::~PacMan</a> Delets allocated memory during ctor. <br /></td></tr>
+<tr class="memdesc:a5c60749168e26d4dc87aa1323a15e998"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes allocated memory. <br /></td></tr>
 <tr class="separator:a5c60749168e26d4dc87aa1323a15e998"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cab52526497ad3f306f460de0f92b1b"><td class="memItemLeft" align="right" valign="top"><a id="a9cab52526497ad3f306f460de0f92b1b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d66/classPacMan.html#a9cab52526497ad3f306f460de0f92b1b">paint</a> ()</td></tr>
-<tr class="memdesc:a9cab52526497ad3f306f460de0f92b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d9/d66/classPacMan.html#a9cab52526497ad3f306f460de0f92b1b" title="PacMan::paint Handles the painting of the game.">PacMan::paint</a> Handles the painting of the game. <br /></td></tr>
-<tr class="separator:a9cab52526497ad3f306f460de0f92b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="../../d9/d66/classPacMan.html" title="The PacMan class brings all the game objects together and exposes them to the user.">PacMan</a> class brings all the game objects together and exposes them to the user. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a25353808f3f5e2c1ecfa1a57c0452722"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a25353808f3f5e2c1ecfa1a57c0452722">&#9670;&nbsp;</a></span>PacMan()</h2>
 
@@ -140,7 +143,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 <p><a class="el" href="../../d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac-Man.">PacMan::PacMan</a> Initalize everything needed for a round of Pac-Man. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gvPointer</td><td>A Pointer to the GraphicsView in which Pac-Man will be displayed </td></tr>
+    <tr><td class="paramname">A</td><td>Pointer to the GraphicsView in which Pac-Man will be displayed </td></tr>
   </table>
   </dd>
 </dl>
@@ -148,8 +151,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af29c2660a9166b2d9bf2187f7ff45faf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af29c2660a9166b2d9bf2187f7ff45faf">&#9670;&nbsp;</a></span>gameOverHandler</h2>
+<a id="a7c0303552248bf629ff517793d8fd16e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c0303552248bf629ff517793d8fd16e">&#9670;&nbsp;</a></span>handleGameOver</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -158,7 +161,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void PacMan::gameOverHandler </td>
+          <td class="memname">void PacMan::handleGameOver </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>won</em></td><td>)</td>
@@ -172,10 +175,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d9/d66/classPacMan.html#af29c2660a9166b2d9bf2187f7ff45faf" title="PacMan::gameOverHandler Handle a GameOver caused bye either a ghost eating the Player or the Player e...">PacMan::gameOverHandler</a> Handle a GameOver caused bye either a ghost eating the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> or the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> eating every dot in the maze. </p>
+<p>Handle a GameOver caused by either a <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> eating the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> or the <a class="el" href="../../d2/d4b/classPlayer.html">Player</a> eating every dot in the <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">won</td><td></td></tr>
+    <tr><td class="paramname">If</td><td>the player has won. </td></tr>
   </table>
   </dd>
 </dl>
@@ -206,10 +209,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="../../d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030" title="PacMan::handleKeyPress Read the Keyboard Input and forwoard it to the appropriate method.">PacMan::handleKeyPress</a> Read the Keyboard Input and forwoard it to the appropriate method. </p>
+<p>Process the keyboard input and take appropriate action. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">event</td><td>The pressed Key </td></tr>
+    <tr><td class="paramname">The</td><td>QKeyEvent to process. </td></tr>
   </table>
   </dd>
 </dl>
