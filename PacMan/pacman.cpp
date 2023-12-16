@@ -123,6 +123,7 @@ void PacMan::paint()
     {
         if (gv->scene() != menuScene)
         {
+            gameStateText->hide();
             gv->setScene(menuScene);
             menuText->setPlainText(gameState == won ? "Game Over, you win!" : "Game Over, you loose!");
             char buf[14] = "";
