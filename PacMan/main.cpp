@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 {
     // Application and Widget Objects
     QApplication a(argc, argv);
+    a.setWindowIcon(QIcon("://Sprite/Logo/PacMan.ico"));
     MyWidget w;
     w.setFocusPolicy(Qt::StrongFocus);
 
