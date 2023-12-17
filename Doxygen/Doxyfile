@@ -54,7 +54,13 @@ PROJECT_NUMBER         =
 # for a project that appears at the top of each page and should give viewer a
 # quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          =
+PROJECT_BRIEF          = "This Code implements a Version of the classic computer game Pac-Man. 
+The players goal is to eat all the dots in the maze before he himself gets eaten by any ghosts. If a ghost catches the player, the game is over.
+If the Player eats one of four large dots he temporarily gains the ability to eat ghosts, wich sends them back to their spawnpoint and awards the player points.
+
+The goal of the Project this game was coded for is not the Code or the Game itself, but the use of project management tools like Jira and gaining experience using Qt and Git to complete a project. 
+Therefore it is limited in its function and is not meant to be an exact replica of the original game.
+"
 
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55
