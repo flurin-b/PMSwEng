@@ -18,9 +18,8 @@
  * @mainpage
  * The goal of the game as the player is to eat all the dots in the maze before he himself gets eaten by any ghosts. <br>
  * If a ghost catches the player, the game is over and the player looses. If the player manages to eat all the dots, he wins. <br>
- * If the Player eats one of four large dots called energizers he temporarily gains the ability to eat ghosts, wich sends them back to their spawnpoint and awards the player points.
+ * If the player eats one of four large dots called energizers, he temporarily gains the ability to eat ghosts, wich sends them back to their spawnpoint and awards the player points.
  */
-
 
 /**
  * @brief The PacMan class brings all the game objects together and exposes them to the user.
