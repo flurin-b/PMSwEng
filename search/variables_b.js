@@ -1,15 +1,9 @@
 var searchData=
 [
-  ['scalefactor_139',['scaleFactor',['../d0/d06/classGhost.html#ae8fb708fcd4359a00c0464fc9f86f113',1,'Ghost']]],
-  ['spritedown_140',['spriteDown',['../d0/d06/classGhost.html#a048657d607dc60b0055043da8d6b30b6',1,'Ghost']]],
-  ['spritefrightendblue_141',['spriteFrightendBlue',['../d0/d06/classGhost.html#afa9fd2a9b4985ad8dceef786db923424',1,'Ghost']]],
-  ['spritefrightendwhite_142',['spriteFrightendWhite',['../d0/d06/classGhost.html#a923ec14655d59ccd86ba3afdc22ac641',1,'Ghost']]],
-  ['spritesidel_143',['spriteSideL',['../d0/d06/classGhost.html#ad202e75655d99e7d109fae1fa4acd122',1,'Ghost']]],
-  ['spritesider_144',['spriteSideR',['../d0/d06/classGhost.html#a2d3e296abf4faaca4a7c056099c35e7b',1,'Ghost']]],
-  ['spritestatus_145',['spriteStatus',['../d0/d06/classGhost.html#ad82e1044755828003ee91c2a08e691c0',1,'Ghost']]],
-  ['spriteup_146',['spriteUp',['../d0/d06/classGhost.html#ac12ba8591c2de1e94cd4b5dc5ad5c1eb',1,'Ghost']]],
-  ['state_147',['state',['../d0/d06/classGhost.html#a99ed0ea110ef66eb4204fa0050a27cd0',1,'Ghost']]],
-  ['steptick_148',['stepTick',['../d0/d06/classGhost.html#a2bf3c490ddece9f1fa6f909733be42fb',1,'Ghost']]],
-  ['steptickcache_149',['stepTickCache',['../d0/d06/classGhost.html#af523cad1e07159795c57f1353886ea4b',1,'Ghost']]],
-  ['subposition_150',['subposition',['../d0/d06/classGhost.html#a2a95c784149e5d800e10cb08287a0466',1,'Ghost']]]
+  ['pacmanfont_185',['pacManFont',['../d9/d66/classPacMan.html#a720aa491ef8165053448e54bd2e6a1dd',1,'PacMan']]],
+  ['pacmanfontlarge_186',['pacManFontLarge',['../d9/d66/classPacMan.html#a721e83b55a137e6ffe02fb319aa6feee',1,'PacMan']]],
+  ['pendingdirection_187',['pendingDirection',['../d2/d4b/classPlayer.html#aa2622c6c1717d1b222f8d1e8ab01ce1e',1,'Player']]],
+  ['pixmap_188',['pixmap',['../d0/d06/classGhost.html#a0e43247770458b1cfe874f0120e06df2',1,'Ghost::pixmap()'],['../d2/d4b/classPlayer.html#aa071e39deafbf6faddff6afa3aff536a',1,'Player::pixmap()']]],
+  ['player_189',['player',['../d0/d06/classGhost.html#ab4919b308d77f53f5ca29077633ccb8f',1,'Ghost::player()'],['../d9/d66/classPacMan.html#a58024a680e1fba08ba7b2e4fdbf78336',1,'PacMan::player()']]],
+  ['position_190',['position',['../d0/d06/classGhost.html#acedf20d923bbd63d54f1056c849a17ea',1,'Ghost::position()'],['../d2/d4b/classPlayer.html#a213f72473537affd29419511f6397b66',1,'Player::position()']]]
 ];

@@ -136,11 +136,11 @@ $(document).ready(function(){initNavTree('dc/db8/maze_8h_source.html','../../');
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    QGraphicsSimpleTextItem *scoreText;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    QGraphicsEllipseItem    *dotSprites[width][height];</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">int</span> score = 0;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> dotCount = 240;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">int</span> dotsEaten = 0;</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="../../d6/d74/classMaze.html#ab0aa9637bfe700369f8acb32a3b59d0a">   68</a></span>&#160;    <span class="keywordtype">int</span> score = 0;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="../../d6/d74/classMaze.html#a02b6cf6b38417eca5cea27c23f76dbb4">   72</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> dotCount = 240;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="../../d6/d74/classMaze.html#a40a65594ab5764db9f8a8a3b6b1298ee">   76</a></span>&#160;    <span class="keywordtype">int</span> dotsEaten = 0;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="../../d6/d74/classMaze.html#a43d89d36a20a8b5e529958e85552db40">item_t</a> dots[height][width] = {</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="../../d6/d74/classMaze.html#aec2fa38dbf5e96c93f6d2f52c69c063f">   81</a></span>&#160;    <a class="code" href="../../d6/d74/classMaze.html#a43d89d36a20a8b5e529958e85552db40">item_t</a> dots[height][width] = {</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},</div>
@@ -179,7 +179,7 @@ $(document).ready(function(){initNavTree('dc/db8/maze_8h_source.html','../../');
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        {noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem, noItem},</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        };</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">const</span> std::vector&lt;QPoint&gt; maze[height][width] = {</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="../../d6/d74/classMaze.html#a20fa6b49e7e85a48c7683cb937006f77">  123</a></span>&#160;    <span class="keyword">const</span> std::vector&lt;QPoint&gt; maze[height][width] = {</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}},</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}},</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}},</div>

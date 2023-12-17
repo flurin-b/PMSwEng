@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['increasescore_99',['increaseScore',['../d6/d74/classMaze.html#a435a73008cf1ebf100ff5142e13fc04f',1,'Maze']]],
-  ['inky_100',['Inky',['../d6/d64/classInky.html#abec1c2eafdea79224050fefa8222554e',1,'Inky']]]
+  ['handlegameover_127',['handleGameOver',['../d9/d66/classPacMan.html#a7c0303552248bf629ff517793d8fd16e',1,'PacMan']]],
+  ['handlekeypress_128',['handleKeyPress',['../d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030',1,'PacMan']]]
 ];

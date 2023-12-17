@@ -1,4 +1,4 @@
 <map id="Maze" name="Maze">
-<area shape="rect" id="node1" title="The Maze class stores the current state of the playfield (what food is where), the score,..." alt="" coords="5,131,152,355"/>
+<area shape="rect" id="node1" title="The Maze class stores the current state of the playfield (what food is where), the score,..." alt="" coords="5,131,152,487"/>
 <area shape="rect" id="node2" title=" " alt="" coords="41,5,116,83"/>
 </map>

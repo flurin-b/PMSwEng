@@ -89,6 +89,7 @@ $(document).ready(function(){initNavTree('d6/d74/classMaze.html','../../'); init
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="../../d5/d7f/classMaze-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Maze Class Reference</div>  </div>
@@ -104,7 +105,7 @@ Inheritance diagram for Maze:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../db/de9/classMaze__inherit__graph.png" border="0" usemap="#aMaze_inherit__map" alt="Inheritance graph"/></div>
 <map name="aMaze_inherit__map" id="aMaze_inherit__map">
-<area shape="rect" title="The Maze class stores the current state of the playfield (what food is where), the score,..." alt="" coords="5,131,152,355"/>
+<area shape="rect" title="The Maze class stores the current state of the playfield (what food is where), the score,..." alt="" coords="5,131,152,487"/>
 <area shape="rect" title=" " alt="" coords="41,5,116,83"/>
 </map>
 </div>
@@ -113,8 +114,9 @@ Collaboration diagram for Maze:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d2d/classMaze__coll__graph.png" border="0" usemap="#aMaze_coll__map" alt="Collaboration graph"/></div>
 <map name="aMaze_coll__map" id="aMaze_coll__map">
-<area shape="rect" title="The Maze class stores the current state of the playfield (what food is where), the score,..." alt="" coords="5,131,152,355"/>
-<area shape="rect" title=" " alt="" coords="41,5,116,83"/>
+<area shape="rect" title="The Maze class stores the current state of the playfield (what food is where), the score,..." alt="" coords="41,145,188,487"/>
+<area shape="rect" title=" " alt="" coords="5,5,80,83"/>
+<area shape="rect" title=" " alt="" coords="105,5,269,83"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -181,6 +183,41 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a220dde730736e35b24da9b639ed75823">height</a> = 36</td></tr>
 <tr class="memdesc:a220dde730736e35b24da9b639ed75823"><td class="mdescLeft">&#160;</td><td class="mdescRight">The height of the <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a> in Fields. <br /></td></tr>
 <tr class="separator:a220dde730736e35b24da9b639ed75823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a1414ea726e15a074800172f4ba8aaafe"><td class="memItemLeft" align="right" valign="top"><a id="a1414ea726e15a074800172f4ba8aaafe"></a>
+QGraphicsScene *&#160;</td><td class="memItemRight" valign="bottom"><b>gs</b></td></tr>
+<tr class="separator:a1414ea726e15a074800172f4ba8aaafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c88bf305adf2974abe800aea7b8f74d"><td class="memItemLeft" align="right" valign="top"><a id="a0c88bf305adf2974abe800aea7b8f74d"></a>
+QGraphicsView *&#160;</td><td class="memItemRight" valign="bottom"><b>gv</b></td></tr>
+<tr class="separator:a0c88bf305adf2974abe800aea7b8f74d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab683b092fa9c547f314785c5996db960"><td class="memItemLeft" align="right" valign="top"><a id="ab683b092fa9c547f314785c5996db960"></a>
+QGraphicsSimpleTextItem *&#160;</td><td class="memItemRight" valign="bottom"><b>scoreText</b></td></tr>
+<tr class="separator:ab683b092fa9c547f314785c5996db960"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a442b5ee9d7a4085c0054a8ac773230c2"><td class="memItemLeft" align="right" valign="top"><a id="a442b5ee9d7a4085c0054a8ac773230c2"></a>
+QGraphicsEllipseItem *&#160;</td><td class="memItemRight" valign="bottom"><b>dotSprites</b> [<a class="el" href="../../d6/d74/classMaze.html#abe2cf5c4dc8142fdaedd6134024fc01d">width</a>][<a class="el" href="../../d6/d74/classMaze.html#a220dde730736e35b24da9b639ed75823">height</a>]</td></tr>
+<tr class="separator:a442b5ee9d7a4085c0054a8ac773230c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0aa9637bfe700369f8acb32a3b59d0a"><td class="memItemLeft" align="right" valign="top"><a id="ab0aa9637bfe700369f8acb32a3b59d0a"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#ab0aa9637bfe700369f8acb32a3b59d0a">score</a> = 0</td></tr>
+<tr class="memdesc:ab0aa9637bfe700369f8acb32a3b59d0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the current score. <br /></td></tr>
+<tr class="separator:ab0aa9637bfe700369f8acb32a3b59d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02b6cf6b38417eca5cea27c23f76dbb4"><td class="memItemLeft" align="right" valign="top"><a id="a02b6cf6b38417eca5cea27c23f76dbb4"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a02b6cf6b38417eca5cea27c23f76dbb4">dotCount</a> = 240</td></tr>
+<tr class="memdesc:a02b6cf6b38417eca5cea27c23f76dbb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The total ammoutn of dots on the field used to check if the player has won. <br /></td></tr>
+<tr class="separator:a02b6cf6b38417eca5cea27c23f76dbb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a65594ab5764db9f8a8a3b6b1298ee"><td class="memItemLeft" align="right" valign="top"><a id="a40a65594ab5764db9f8a8a3b6b1298ee"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a40a65594ab5764db9f8a8a3b6b1298ee">dotsEaten</a> = 0</td></tr>
+<tr class="memdesc:a40a65594ab5764db9f8a8a3b6b1298ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores how many dots have been eaten so far. <br /></td></tr>
+<tr class="separator:a40a65594ab5764db9f8a8a3b6b1298ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec2fa38dbf5e96c93f6d2f52c69c063f"><td class="memItemLeft" align="right" valign="top"><a id="aec2fa38dbf5e96c93f6d2f52c69c063f"></a>
+<a class="el" href="../../d6/d74/classMaze.html#a43d89d36a20a8b5e529958e85552db40">item_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#aec2fa38dbf5e96c93f6d2f52c69c063f">dots</a> [<a class="el" href="../../d6/d74/classMaze.html#a220dde730736e35b24da9b639ed75823">height</a>][<a class="el" href="../../d6/d74/classMaze.html#abe2cf5c4dc8142fdaedd6134024fc01d">width</a>]</td></tr>
+<tr class="memdesc:aec2fa38dbf5e96c93f6d2f52c69c063f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A 1:1 mapping of the maze. Each cell stores what kind of item is on the corresponding field in the <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a>. <br /></td></tr>
+<tr class="separator:aec2fa38dbf5e96c93f6d2f52c69c063f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20fa6b49e7e85a48c7683cb937006f77"><td class="memItemLeft" align="right" valign="top"><a id="a20fa6b49e7e85a48c7683cb937006f77"></a>
+const std::vector&lt; QPoint &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d74/classMaze.html#a20fa6b49e7e85a48c7683cb937006f77">maze</a> [<a class="el" href="../../d6/d74/classMaze.html#a220dde730736e35b24da9b639ed75823">height</a>][<a class="el" href="../../d6/d74/classMaze.html#abe2cf5c4dc8142fdaedd6134024fc01d">width</a>]</td></tr>
+<tr class="memdesc:a20fa6b49e7e85a48c7683cb937006f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Codes how <a class="el" href="../../d2/d4b/classPlayer.html" title="The Player class implements the yellow monster controlled by the player.">Player</a> and <a class="el" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...">Ghost</a> can move in the maze. Each std::vector contains the directions that are possible when standing on the corresponding field. <br /></td></tr>
+<tr class="separator:a20fa6b49e7e85a48c7683cb937006f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,...">Maze</a> class stores the current state of the playfield (what food is where), the score, implements the movement of the other game objects and checks if <a class="el" href="../../d2/d4b/classPlayer.html" title="The Player class implements the yellow monster controlled by the player.">Player</a> has eaten all the dots. </p>
@@ -293,20 +330,22 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d74/classMaze_ad3a644406d9b07b8459cd1f2b6600a14_icgraph.png" border="0" usemap="#ad6/d74/classMaze_ad3a644406d9b07b8459cd1f2b6600a14_icgraph" alt=""/></div>
 <map name="ad6/d74/classMaze_ad3a644406d9b07b8459cd1f2b6600a14_icgraph" id="ad6/d74/classMaze_ad3a644406d9b07b8459cd1f2b6600a14_icgraph">
-<area shape="rect" title="Get the current Width of a Field in the Maze." alt="" coords="468,309,623,336"/>
-<area shape="rect" href="../../d9/dfc/classBlinky.html#af998007346726b1df4256b6ce79cf92e" title="Blinky::Blinky creates a Ghost object with the chase pattern of Blinky." alt="" coords="5,5,115,32"/>
-<area shape="rect" href="../../dd/d49/classClyde.html#a5e049eeb6bac7819b89347e2cca31cf3" title="Clyde::Clyde creates a Ghost with the chase pattern of Clyde." alt="" coords="8,259,112,285"/>
-<area shape="rect" href="../../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196" title="Ghost::Ghost creates the base for any specific Ghost ( Blinky / Pinky / Inky / Clyde )" alt="" coords="311,360,417,387"/>
-<area shape="rect" href="../../d6/d64/classInky.html#abec1c2eafdea79224050fefa8222554e" title="Inky::Inky Creates a Ghost with the chase pattern of Inky." alt="" coords="19,157,101,184"/>
-<area shape="rect" href="../../d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e" title="Ghost::paint paints the ghost onto the GraphigsScene in its current position and state." alt="" coords="313,411,415,437"/>
-<area shape="rect" href="../../d2/d4b/classPlayer.html#a8a2fc2c5d18c4601e1e881767d6f8d07" title="Update the Player sprite and eat dots if applicable." alt="" coords="312,461,416,488"/>
-<area shape="rect" href="../../dd/db7/classPinky.html#a0313532cd1c1d7ee0f3ff9f158b87d1d" title="Pinky::Pinky Creates a Ghost with the chase pattern of Pinky." alt="" coords="11,107,109,133"/>
-<area shape="rect" href="../../d2/d4b/classPlayer.html#a25b3344ceb96d7c4cec38db6d026ff93" title="Initializes all attributes, sprites and timer used by a Player object." alt="" coords="308,512,420,539"/>
-<area shape="rect" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step is called periodically to update the ghosts position." alt="" coords="316,157,412,184"/>
-<area shape="rect" href="../../d9/dfc/classBlinky.html#ac656b6857a9dfeb2f890270a2c5e8842" title="Blinky::step Step function that calls Ghost::step with the appropriate target." alt="" coords="163,56,260,83"/>
-<area shape="rect" href="../../dd/db7/classPinky.html#ae154bd3acea5dd2baf724cc2667a5bb3" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="165,107,257,133"/>
-<area shape="rect" href="../../d6/d64/classInky.html#a3df5f3f6ebbde10fe81db79cae3275eb" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="169,157,253,184"/>
-<area shape="rect" href="../../dd/d49/classClyde.html#a76ed124fa629bbccf459ba5562edfdd4" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="164,208,259,235"/>
+<area shape="rect" title="Get the current Width of a Field in the Maze." alt="" coords="505,332,660,359"/>
+<area shape="rect" href="../../d9/dfc/classBlinky.html#af998007346726b1df4256b6ce79cf92e" title="Blinky::Blinky creates a Ghost object with the chase pattern of Blinky." alt="" coords="16,16,125,43"/>
+<area shape="rect" href="../../dd/d49/classClyde.html#a5e049eeb6bac7819b89347e2cca31cf3" title="Clyde::Clyde creates a Ghost with the chase pattern of Clyde." alt="" coords="19,205,123,232"/>
+<area shape="rect" href="../../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196" title="Ghost::Ghost creates the base for any specific Ghost ( Blinky / Pinky / Inky / Clyde )" alt="" coords="348,383,455,409"/>
+<area shape="rect" href="../../d6/d64/classInky.html#abec1c2eafdea79224050fefa8222554e" title="Inky::Inky Creates a Ghost with the chase pattern of Inky." alt="" coords="29,281,112,308"/>
+<area shape="rect" href="../../d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e" title="Ghost::paint paints the ghost onto the GraphigsScene in its current position and state." alt="" coords="351,433,452,460"/>
+<area shape="rect" href="../../d2/d4b/classPlayer.html#a8a2fc2c5d18c4601e1e881767d6f8d07" title="Update the Player sprite and eat dots if applicable." alt="" coords="349,484,453,511"/>
+<area shape="rect" href="../../dd/db7/classPinky.html#a0313532cd1c1d7ee0f3ff9f158b87d1d" title="Pinky::Pinky Creates a Ghost with the chase pattern of Pinky." alt="" coords="21,92,120,119"/>
+<area shape="rect" href="../../d2/d4b/classPlayer.html#a25b3344ceb96d7c4cec38db6d026ff93" title="Initializes all attributes, sprites and timer used by a Player object." alt="" coords="345,535,457,561"/>
+<area shape="rect" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step is called periodically to update the ghosts position." alt="" coords="353,180,449,207"/>
+<area shape="rect" href="../../d9/d66/classPacMan.html#a7c5bcbc1253dde907f9d15e21d498673" title="Paints global menu items and calls the paint function of all game objects." alt="" coords="184,484,297,511"/>
+<area shape="rect" href="../../d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac&#45;Man." alt="" coords="5,484,136,511"/>
+<area shape="rect" href="../../d9/dfc/classBlinky.html#ac656b6857a9dfeb2f890270a2c5e8842" title="Blinky::step Step function that calls Ghost::step with the appropriate target." alt="" coords="192,28,289,55"/>
+<area shape="rect" href="../../dd/db7/classPinky.html#ae154bd3acea5dd2baf724cc2667a5bb3" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="195,129,287,156"/>
+<area shape="rect" href="../../d6/d64/classInky.html#a3df5f3f6ebbde10fe81db79cae3275eb" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="199,231,283,257"/>
+<area shape="rect" href="../../dd/d49/classClyde.html#a76ed124fa629bbccf459ba5562edfdd4" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="193,180,288,207"/>
 </map>
 </div>
 
@@ -341,10 +380,13 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d74/classMaze_a2c0495ab79b8ea8c432194d346196204_icgraph.png" border="0" usemap="#ad6/d74/classMaze_a2c0495ab79b8ea8c432194d346196204_icgraph" alt=""/></div>
 <map name="ad6/d74/classMaze_a2c0495ab79b8ea8c432194d346196204_icgraph" id="ad6/d74/classMaze_a2c0495ab79b8ea8c432194d346196204_icgraph">
-<area shape="rect" title="Returns what Item is in the specified field." alt="" coords="157,56,288,83"/>
-<area shape="rect" href="../../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920" title="Maze::Maze Creates a Instace of Maze. It also initializes all the graphics items." alt="" coords="7,5,107,32"/>
-<area shape="rect" href="../../d6/d74/classMaze.html#afc0db50e7f4b40f15d9334b4a7a0db9b" title="Updates the graphics items to reflect the current game state." alt="" coords="8,56,107,83"/>
-<area shape="rect" href="../../d2/d4b/classPlayer.html#a8a2fc2c5d18c4601e1e881767d6f8d07" title="Update the Player sprite and eat dots if applicable." alt="" coords="5,107,109,133"/>
+<area shape="rect" title="Returns what Item is in the specified field." alt="" coords="668,81,799,108"/>
+<area shape="rect" href="../../d2/d4b/classPlayer.html#ab1aacd9bf85ddc97a089bcbc992704f3" title="Eat whatever is in the supplied field and react accordingly." alt="" coords="497,5,620,32"/>
+<area shape="rect" href="../../d2/d4b/classPlayer.html#a8a2fc2c5d18c4601e1e881767d6f8d07" title="Update the Player sprite and eat dots if applicable." alt="" coords="345,56,449,83"/>
+<area shape="rect" href="../../d6/d74/classMaze.html#a90263d5e7f78ced2c038003e7a816920" title="Maze::Maze Creates a Instace of Maze. It also initializes all the graphics items." alt="" coords="509,107,609,133"/>
+<area shape="rect" href="../../d6/d74/classMaze.html#afc0db50e7f4b40f15d9334b4a7a0db9b" title="Updates the graphics items to reflect the current game state." alt="" coords="348,132,447,159"/>
+<area shape="rect" href="../../d9/d66/classPacMan.html#a7c5bcbc1253dde907f9d15e21d498673" title="Paints global menu items and calls the paint function of all game objects." alt="" coords="184,81,297,108"/>
+<area shape="rect" href="../../d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac&#45;Man." alt="" coords="5,81,136,108"/>
 </map>
 </div>
 
@@ -417,6 +459,16 @@ Here is the caller graph for this function:</div>
 
 <p>Get the current score. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current score. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d6/d74/classMaze_aea3a36e7b680787d8975aa44488ddec9_icgraph.png" border="0" usemap="#ad6/d74/classMaze_aea3a36e7b680787d8975aa44488ddec9_icgraph" alt=""/></div>
+<map name="ad6/d74/classMaze_aea3a36e7b680787d8975aa44488ddec9_icgraph" id="ad6/d74/classMaze_aea3a36e7b680787d8975aa44488ddec9_icgraph">
+<area shape="rect" title="Get the current score." alt="" coords="345,5,468,32"/>
+<area shape="rect" href="../../d9/d66/classPacMan.html#a7c5bcbc1253dde907f9d15e21d498673" title="Paints global menu items and calls the paint function of all game objects." alt="" coords="184,5,297,32"/>
+<area shape="rect" href="../../d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac&#45;Man." alt="" coords="5,5,136,32"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -448,8 +500,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d6/d74/classMaze_a435a73008cf1ebf100ff5142e13fc04f_icgraph.png" border="0" usemap="#ad6/d74/classMaze_a435a73008cf1ebf100ff5142e13fc04f_icgraph" alt=""/></div>
 <map name="ad6/d74/classMaze_a435a73008cf1ebf100ff5142e13fc04f_icgraph" id="ad6/d74/classMaze_a435a73008cf1ebf100ff5142e13fc04f_icgraph">
-<area shape="rect" title="Inclrease the score by a given ammount." alt="" coords="155,5,311,32"/>
-<area shape="rect" href="../../d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e" title="Ghost::paint paints the ghost onto the GraphigsScene in its current position and state." alt="" coords="5,5,107,32"/>
+<area shape="rect" title="Inclrease the score by a given ammount." alt="" coords="668,31,824,57"/>
+<area shape="rect" href="../../d2/d4b/classPlayer.html#ab1aacd9bf85ddc97a089bcbc992704f3" title="Eat whatever is in the supplied field and react accordingly." alt="" coords="497,5,620,32"/>
+<area shape="rect" href="../../d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e" title="Ghost::paint paints the ghost onto the GraphigsScene in its current position and state." alt="" coords="508,56,609,83"/>
+<area shape="rect" href="../../d2/d4b/classPlayer.html#a8a2fc2c5d18c4601e1e881767d6f8d07" title="Update the Player sprite and eat dots if applicable." alt="" coords="345,5,449,32"/>
+<area shape="rect" href="../../d9/d66/classPacMan.html#a7c5bcbc1253dde907f9d15e21d498673" title="Paints global menu items and calls the paint function of all game objects." alt="" coords="184,5,297,32"/>
+<area shape="rect" href="../../d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac&#45;Man." alt="" coords="5,5,136,32"/>
 </map>
 </div>
 
@@ -489,6 +545,18 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d6/d74/classMaze_af882cb98c42b9c03a7127be7016effdb_icgraph.png" border="0" usemap="#ad6/d74/classMaze_af882cb98c42b9c03a7127be7016effdb_icgraph" alt=""/></div>
+<map name="ad6/d74/classMaze_af882cb98c42b9c03a7127be7016effdb_icgraph" id="ad6/d74/classMaze_af882cb98c42b9c03a7127be7016effdb_icgraph">
+<area shape="rect" title="Set a specific field to contain the specified item." alt="" coords="668,5,797,32"/>
+<area shape="rect" href="../../d2/d4b/classPlayer.html#ab1aacd9bf85ddc97a089bcbc992704f3" title="Eat whatever is in the supplied field and react accordingly." alt="" coords="497,5,620,32"/>
+<area shape="rect" href="../../d2/d4b/classPlayer.html#a8a2fc2c5d18c4601e1e881767d6f8d07" title="Update the Player sprite and eat dots if applicable." alt="" coords="345,5,449,32"/>
+<area shape="rect" href="../../d9/d66/classPacMan.html#a7c5bcbc1253dde907f9d15e21d498673" title="Paints global menu items and calls the paint function of all game objects." alt="" coords="184,5,297,32"/>
+<area shape="rect" href="../../d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac&#45;Man." alt="" coords="5,5,136,32"/>
+</map>
+</div>
 
 </div>
 </div>

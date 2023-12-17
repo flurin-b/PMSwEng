@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['energizerduration_7',['energizerDuration',['../d2/d4b/classPlayer.html#a7145400a12d60fa12a6211a80828399d',1,'Player']]],
-  ['eyedown_8',['eyeDown',['../d0/d06/classGhost.html#abd781d6398825a2f484df0ca4ad20d2c',1,'Ghost']]],
-  ['eyel_9',['eyeL',['../d0/d06/classGhost.html#a6881203ad5b2a766b9f5077584096efd',1,'Ghost']]],
-  ['eyer_10',['eyeR',['../d0/d06/classGhost.html#a1aecc58e6eea5c14de2b0809c36f3216',1,'Ghost']]],
-  ['eyeup_11',['eyeUp',['../d0/d06/classGhost.html#a74949c20c3680d47df08361224dd28f8',1,'Ghost']]]
+  ['direction_7',['direction',['../d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e',1,'Ghost::direction()'],['../d2/d4b/classPlayer.html#a1b50b620d8087a7e3f6bfb99f6985799',1,'Player::direction()']]],
+  ['dotcount_8',['dotCount',['../d6/d74/classMaze.html#a02b6cf6b38417eca5cea27c23f76dbb4',1,'Maze']]],
+  ['dotlimitghosthouse_9',['dotLimitGhostHouse',['../d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55',1,'Ghost']]],
+  ['dots_10',['dots',['../d6/d74/classMaze.html#aec2fa38dbf5e96c93f6d2f52c69c063f',1,'Maze']]],
+  ['dotseaten_11',['dotsEaten',['../d6/d74/classMaze.html#a40a65594ab5764db9f8a8a3b6b1298ee',1,'Maze']]]
 ];

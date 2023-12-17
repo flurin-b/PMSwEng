@@ -1,0 +1,6 @@
+<map id="PacMan::handleGameOver" name="PacMan::handleGameOver">
+<area shape="rect" id="node1" title="Handle a GameOver caused by either a Ghost eating the Player or the Player eating every dot in the Ma..." alt="" coords="473,31,668,57"/>
+<area shape="rect" id="node2" href="$d9/d66/classPacMan.html#aeb51d6eed8c4a5ddd6bf36c6c117d24a" title="Initializes all game objects. To start a new round, just call this function again." alt="" coords="236,31,425,57"/>
+<area shape="rect" id="node3" href="$d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030" title="Process the keyboard input and take appropriate action." alt="" coords="5,5,188,32"/>
+<area shape="rect" id="node4" href="$d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac&#45;Man." alt="" coords="31,56,162,83"/>
+</map>

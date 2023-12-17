@@ -1,4 +1,8 @@
 <map id="Maze::increaseScore" name="Maze::increaseScore">
-<area shape="rect" id="node1" title="Inclrease the score by a given ammount." alt="" coords="155,5,311,32"/>
-<area shape="rect" id="node2" href="$d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e" title="Ghost::paint paints the ghost onto the GraphigsScene in its current position and state." alt="" coords="5,5,107,32"/>
+<area shape="rect" id="node1" title="Inclrease the score by a given ammount." alt="" coords="668,31,824,57"/>
+<area shape="rect" id="node2" href="$d2/d4b/classPlayer.html#ab1aacd9bf85ddc97a089bcbc992704f3" title="Eat whatever is in the supplied field and react accordingly." alt="" coords="497,5,620,32"/>
+<area shape="rect" id="node6" href="$d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e" title="Ghost::paint paints the ghost onto the GraphigsScene in its current position and state." alt="" coords="508,56,609,83"/>
+<area shape="rect" id="node3" href="$d2/d4b/classPlayer.html#a8a2fc2c5d18c4601e1e881767d6f8d07" title="Update the Player sprite and eat dots if applicable." alt="" coords="345,5,449,32"/>
+<area shape="rect" id="node4" href="$d9/d66/classPacMan.html#a7c5bcbc1253dde907f9d15e21d498673" title="Paints global menu items and calls the paint function of all game objects." alt="" coords="184,5,297,32"/>
+<area shape="rect" id="node5" href="$d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac&#45;Man." alt="" coords="5,5,136,32"/>
 </map>

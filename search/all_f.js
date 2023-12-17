@@ -1,4 +1,25 @@
 var searchData=
 [
-  ['width_70',['width',['../d6/d74/classMaze.html#abe2cf5c4dc8142fdaedd6134024fc01d',1,'Maze']]]
+  ['scalefactor_76',['scaleFactor',['../d2/d4b/classPlayer.html#a75603daf02c370fb08e5e2ae3df1d5cf',1,'Player::scaleFactor()'],['../d0/d06/classGhost.html#ae8fb708fcd4359a00c0464fc9f86f113',1,'Ghost::scaleFactor()']]],
+  ['score_77',['score',['../d6/d74/classMaze.html#ab0aa9637bfe700369f8acb32a3b59d0a',1,'Maze']]],
+  ['scoretext_78',['scoreText',['../d9/d66/classPacMan.html#af65fb5eff47f740d4e088789eb140bfd',1,'PacMan']]],
+  ['setfrightened_79',['setFrightened',['../d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192',1,'Ghost']]],
+  ['setitemat_80',['setItemAt',['../d6/d74/classMaze.html#af882cb98c42b9c03a7127be7016effdb',1,'Maze']]],
+  ['setpaused_81',['setPaused',['../d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc',1,'Ghost::setPaused()'],['../d2/d4b/classPlayer.html#a069fc8e10cca6508b15de7b6ac8a6923',1,'Player::setPaused()']]],
+  ['spritedown_82',['spriteDown',['../d0/d06/classGhost.html#a048657d607dc60b0055043da8d6b30b6',1,'Ghost']]],
+  ['spritefrightendblue_83',['spriteFrightendBlue',['../d0/d06/classGhost.html#afa9fd2a9b4985ad8dceef786db923424',1,'Ghost']]],
+  ['spritefrightendwhite_84',['spriteFrightendWhite',['../d0/d06/classGhost.html#a923ec14655d59ccd86ba3afdc22ac641',1,'Ghost']]],
+  ['spriteopen_85',['spriteOpen',['../d2/d4b/classPlayer.html#ade20aed03b3dd68bb4bbeb682597adf2',1,'Player']]],
+  ['spriteshut_86',['spriteShut',['../d2/d4b/classPlayer.html#a83bf8b999c2cea9a9b80f3bdc3b10e95',1,'Player']]],
+  ['spritesidel_87',['spriteSideL',['../d0/d06/classGhost.html#ad202e75655d99e7d109fae1fa4acd122',1,'Ghost']]],
+  ['spritesider_88',['spriteSideR',['../d0/d06/classGhost.html#a2d3e296abf4faaca4a7c056099c35e7b',1,'Ghost']]],
+  ['spritestatus_89',['spriteStatus',['../d2/d4b/classPlayer.html#a0a79e909d9862baccaa81b59dbca1294',1,'Player::spriteStatus()'],['../d0/d06/classGhost.html#ad82e1044755828003ee91c2a08e691c0',1,'Ghost::spriteStatus()']]],
+  ['spriteup_90',['spriteUp',['../d0/d06/classGhost.html#ac12ba8591c2de1e94cd4b5dc5ad5c1eb',1,'Ghost']]],
+  ['state_91',['state',['../d0/d06/classGhost.html#a99ed0ea110ef66eb4204fa0050a27cd0',1,'Ghost']]],
+  ['status_92',['status',['../d2/d4b/classPlayer.html#a44d7f2b5a74a809ce4206e296b7e200d',1,'Player']]],
+  ['step_93',['step',['../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee',1,'Ghost::step()'],['../d9/dfc/classBlinky.html#ac656b6857a9dfeb2f890270a2c5e8842',1,'Blinky::step()'],['../dd/db7/classPinky.html#ae154bd3acea5dd2baf724cc2667a5bb3',1,'Pinky::step()'],['../d6/d64/classInky.html#a3df5f3f6ebbde10fe81db79cae3275eb',1,'Inky::step()'],['../dd/d49/classClyde.html#a76ed124fa629bbccf459ba5562edfdd4',1,'Clyde::step()'],['../d2/d4b/classPlayer.html#a2f6ec1dacee0bd16546fd5ece89472ea',1,'Player::step()']]],
+  ['steptick_94',['stepTick',['../d0/d06/classGhost.html#a2bf3c490ddece9f1fa6f909733be42fb',1,'Ghost']]],
+  ['steptickcache_95',['stepTickCache',['../d0/d06/classGhost.html#af523cad1e07159795c57f1353886ea4b',1,'Ghost::stepTickCache()'],['../d2/d4b/classPlayer.html#a56ed8d8d22d223dbfad66f26a5030845',1,'Player::stepTickCache()']]],
+  ['subposition_96',['subposition',['../d0/d06/classGhost.html#a2a95c784149e5d800e10cb08287a0466',1,'Ghost::subposition()'],['../d2/d4b/classPlayer.html#af464ca90897482bd430999028552139c',1,'Player::subposition()']]],
+  ['swapsprite_97',['swapSprite',['../d2/d4b/classPlayer.html#a36db57d94d65012a3280393713d8760b',1,'Player']]]
 ];

@@ -1,4 +1,4 @@
 <map id="PacMan" name="PacMan">
-<area shape="rect" id="node1" title="The PacMan class brings all the game objects together and exposes them to the user." alt="" coords="5,131,167,252"/>
+<area shape="rect" id="node1" title="The PacMan class brings all the game objects together and exposes them to the user." alt="" coords="5,131,167,428"/>
 <area shape="rect" id="node2" title=" " alt="" coords="49,5,123,83"/>
 </map>

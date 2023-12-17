@@ -1,5 +1,5 @@
 <map id="Inky" name="Inky">
-<area shape="rect" id="node1" title="Inky uses the current position of the Player and Blinky and adds the difference of the two to the Pla..." alt="" coords="65,564,140,656"/>
+<area shape="rect" id="node1" title="Inky uses the current position of the Player and Blinky and adds the difference of the two to the Pla..." alt="" coords="45,564,161,671"/>
 <area shape="rect" id="node2" href="$d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost..." alt="" coords="5,131,200,516"/>
 <area shape="rect" id="node3" title=" " alt="" coords="65,5,140,83"/>
 </map>

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['setfrightened_108',['setFrightened',['../d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192',1,'Ghost']]],
-  ['setitemat_109',['setItemAt',['../d6/d74/classMaze.html#af882cb98c42b9c03a7127be7016effdb',1,'Maze']]],
-  ['setpaused_110',['setPaused',['../d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc',1,'Ghost::setPaused()'],['../d2/d4b/classPlayer.html#a069fc8e10cca6508b15de7b6ac8a6923',1,'Player::setPaused()']]],
-  ['step_111',['step',['../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee',1,'Ghost::step()'],['../d9/dfc/classBlinky.html#ac656b6857a9dfeb2f890270a2c5e8842',1,'Blinky::step()'],['../dd/db7/classPinky.html#ae154bd3acea5dd2baf724cc2667a5bb3',1,'Pinky::step()'],['../d6/d64/classInky.html#a3df5f3f6ebbde10fe81db79cae3275eb',1,'Inky::step()'],['../dd/d49/classClyde.html#a76ed124fa629bbccf459ba5562edfdd4',1,'Clyde::step()'],['../d2/d4b/classPlayer.html#a2f6ec1dacee0bd16546fd5ece89472ea',1,'Player::step()']]]
+  ['pacman_135',['PacMan',['../d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722',1,'PacMan']]],
+  ['paint_136',['paint',['../d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e',1,'Ghost::paint()'],['../d6/d74/classMaze.html#afc0db50e7f4b40f15d9334b4a7a0db9b',1,'Maze::paint()'],['../d9/d66/classPacMan.html#a7c5bcbc1253dde907f9d15e21d498673',1,'PacMan::paint()'],['../d2/d4b/classPlayer.html#a8a2fc2c5d18c4601e1e881767d6f8d07',1,'Player::paint()']]],
+  ['pinky_137',['Pinky',['../dd/db7/classPinky.html#a0313532cd1c1d7ee0f3ff9f158b87d1d',1,'Pinky']]],
+  ['player_138',['Player',['../d2/d4b/classPlayer.html#a25b3344ceb96d7c4cec38db6d026ff93',1,'Player']]]
 ];

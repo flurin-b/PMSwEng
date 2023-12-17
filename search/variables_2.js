@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['direction_117',['direction',['../d0/d06/classGhost.html#af317d171c1cfb49c1ba06047ee53a54e',1,'Ghost']]],
-  ['dotlimitghosthouse_118',['dotLimitGhostHouse',['../d0/d06/classGhost.html#ae4b273bc2439e38cdba4ce3176f41a55',1,'Ghost']]]
+  ['clone_150',['clone',['../d2/d4b/classPlayer.html#a28d8c5c823fdacb5de838165e146b788',1,'Player']]],
+  ['clonepixmap_151',['clonePixmap',['../d0/d06/classGhost.html#a5c0b4bf7f48e0183406d0ea31bc0fa2e',1,'Ghost']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['nextghostpoints_43',['nextGhostPoints',['../d0/d06/classGhost.html#ad096262becd61adf877ad799371cb397',1,'Ghost']]],
-  ['nextmovementpattern_44',['nextMovementPattern',['../d0/d06/classGhost.html#a5e76d2458c22abb211544afb6ac76d78',1,'Ghost']]]
+  ['lastdirection_50',['lastDirection',['../d2/d4b/classPlayer.html#a70593624da8336b5c18656ca3fa724ba',1,'Player']]]
 ];

@@ -115,23 +115,23 @@ $(document).ready(function(){initNavTree('d4/d1e/pacman_8h_source.html','../../'
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> handleGameOver(<span class="keywordtype">bool</span> won);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    QGraphicsView     *gv;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    QGraphicsScene    *gameScene;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    QGraphicsScene    *menuScene;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#aabdea8a4a359b512221341d315487b13">   40</a></span>&#160;    QGraphicsView     *<a class="code" href="../../d9/d66/classPacMan.html#aabdea8a4a359b512221341d315487b13">gv</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#a8fdb8583837adc74b1abece166b3080c">   42</a></span>&#160;    QGraphicsScene    *<a class="code" href="../../d9/d66/classPacMan.html#a8fdb8583837adc74b1abece166b3080c">gameScene</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#ab675beae5c6d4d234132ab5f02d69a15">   44</a></span>&#160;    QGraphicsScene    *<a class="code" href="../../d9/d66/classPacMan.html#ab675beae5c6d4d234132ab5f02d69a15">menuScene</a>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    QGraphicsTextItem *menuText = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    QGraphicsTextItem *menuPrompt = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    QGraphicsTextItem *scoreText = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    QGraphicsTextItem *gameStateText = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#ac7dd45c9ef96c61c93253be27323e6cd">   47</a></span>&#160;    QGraphicsTextItem *menuText = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#aa2755f6133b79d1d6d616d4937b0610e">   49</a></span>&#160;    QGraphicsTextItem *menuPrompt = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#af65fb5eff47f740d4e088789eb140bfd">   51</a></span>&#160;    QGraphicsTextItem *scoreText = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#a9514c2600a2615a6304a4443a8d0cb86">   53</a></span>&#160;    QGraphicsTextItem *gameStateText = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    QFont   pacManFont;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    QFont   pacManFontLarge;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#a720aa491ef8165053448e54bd2e6a1dd">   56</a></span>&#160;    QFont   <a class="code" href="../../d9/d66/classPacMan.html#a720aa491ef8165053448e54bd2e6a1dd">pacManFont</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#a721e83b55a137e6ffe02fb319aa6feee">   58</a></span>&#160;    QFont   <a class="code" href="../../d9/d66/classPacMan.html#a721e83b55a137e6ffe02fb319aa6feee">pacManFontLarge</a>;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    QTimer  frameTimer;</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#a531ec3b7b512c9d6b1af696e83305b7c">   61</a></span>&#160;    QTimer  <a class="code" href="../../d9/d66/classPacMan.html#a531ec3b7b512c9d6b1af696e83305b7c">frameTimer</a>;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="../../d6/d74/classMaze.html">Maze</a>    *maze      =  <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="../../d2/d4b/classPlayer.html">Player</a>  *player    =  <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="../../d0/d06/classGhost.html">Ghost</a>   *ghosts[4] = {<span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#acd9d28b940e1f4f1402d0f6a99a25710">   64</a></span>&#160;    <a class="code" href="../../d6/d74/classMaze.html">Maze</a>    *maze      =  <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#a58024a680e1fba08ba7b2e4fdbf78336">   66</a></span>&#160;    <a class="code" href="../../d2/d4b/classPlayer.html">Player</a>  *player    =  <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#a53b9ef8b007957e5fcff9117a74411db">   68</a></span>&#160;    <a class="code" href="../../d0/d06/classGhost.html">Ghost</a>   *ghosts[4] = {<span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>};</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#ifdef ENABLE_FPS_COUNTER</span></div>
@@ -146,7 +146,7 @@ $(document).ready(function(){initNavTree('d4/d1e/pacman_8h_source.html','../../'
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        paused,</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        won,</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        lost</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    } gameState = start;</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="../../d9/d66/classPacMan.html#ad5233ed3b43d13414cb2f2f5ef38cd59">   84</a></span>&#160;    } gameState = start;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> initGameObjects(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> paint(<span class="keywordtype">void</span>);</div>
@@ -156,6 +156,12 @@ $(document).ready(function(){initNavTree('d4/d1e/pacman_8h_source.html','../../'
 <div class="ttc" id="aclassGhost_html"><div class="ttname"><a href="../../d0/d06/classGhost.html">Ghost</a></div><div class="ttdoc">The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost...</div><div class="ttdef"><b>Definition:</b> ghost.h:23</div></div>
 <div class="ttc" id="aclassMaze_html"><div class="ttname"><a href="../../d6/d74/classMaze.html">Maze</a></div><div class="ttdoc">The Maze class stores the current state of the playfield (what food is where), the score,...</div><div class="ttdef"><b>Definition:</b> maze.h:16</div></div>
 <div class="ttc" id="aclassPacMan_html"><div class="ttname"><a href="../../d9/d66/classPacMan.html">PacMan</a></div><div class="ttdoc">The PacMan class brings all the game objects together and exposes them to the user.</div><div class="ttdef"><b>Definition:</b> pacman.h:28</div></div>
+<div class="ttc" id="aclassPacMan_html_a531ec3b7b512c9d6b1af696e83305b7c"><div class="ttname"><a href="../../d9/d66/classPacMan.html#a531ec3b7b512c9d6b1af696e83305b7c">PacMan::frameTimer</a></div><div class="ttdeci">QTimer frameTimer</div><div class="ttdoc">Calls PacMan::paint periodically.</div><div class="ttdef"><b>Definition:</b> pacman.h:61</div></div>
+<div class="ttc" id="aclassPacMan_html_a720aa491ef8165053448e54bd2e6a1dd"><div class="ttname"><a href="../../d9/d66/classPacMan.html#a720aa491ef8165053448e54bd2e6a1dd">PacMan::pacManFont</a></div><div class="ttdeci">QFont pacManFont</div><div class="ttdoc">The font normal Text is written in.</div><div class="ttdef"><b>Definition:</b> pacman.h:56</div></div>
+<div class="ttc" id="aclassPacMan_html_a721e83b55a137e6ffe02fb319aa6feee"><div class="ttname"><a href="../../d9/d66/classPacMan.html#a721e83b55a137e6ffe02fb319aa6feee">PacMan::pacManFontLarge</a></div><div class="ttdeci">QFont pacManFontLarge</div><div class="ttdoc">The font &quot;Game Over&quot; is written in.</div><div class="ttdef"><b>Definition:</b> pacman.h:58</div></div>
+<div class="ttc" id="aclassPacMan_html_a8fdb8583837adc74b1abece166b3080c"><div class="ttname"><a href="../../d9/d66/classPacMan.html#a8fdb8583837adc74b1abece166b3080c">PacMan::gameScene</a></div><div class="ttdeci">QGraphicsScene * gameScene</div><div class="ttdoc">Displays the game.</div><div class="ttdef"><b>Definition:</b> pacman.h:42</div></div>
+<div class="ttc" id="aclassPacMan_html_aabdea8a4a359b512221341d315487b13"><div class="ttname"><a href="../../d9/d66/classPacMan.html#aabdea8a4a359b512221341d315487b13">PacMan::gv</a></div><div class="ttdeci">QGraphicsView * gv</div><div class="ttdoc">Stores the QGraphicsView everything is rendered to.</div><div class="ttdef"><b>Definition:</b> pacman.h:40</div></div>
+<div class="ttc" id="aclassPacMan_html_ab675beae5c6d4d234132ab5f02d69a15"><div class="ttname"><a href="../../d9/d66/classPacMan.html#ab675beae5c6d4d234132ab5f02d69a15">PacMan::menuScene</a></div><div class="ttdeci">QGraphicsScene * menuScene</div><div class="ttdoc">Displays the Game Over screen.</div><div class="ttdef"><b>Definition:</b> pacman.h:44</div></div>
 <div class="ttc" id="aclassPlayer_html"><div class="ttname"><a href="../../d2/d4b/classPlayer.html">Player</a></div><div class="ttdoc">The Player class implements the yellow monster controlled by the player.</div><div class="ttdef"><b>Definition:</b> player.h:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

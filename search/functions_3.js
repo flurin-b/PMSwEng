@@ -1,5 +1,14 @@
 var searchData=
 [
-  ['handlegameover_97',['handleGameOver',['../d9/d66/classPacMan.html#a7c0303552248bf629ff517793d8fd16e',1,'PacMan']]],
-  ['handlekeypress_98',['handleKeyPress',['../d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030',1,'PacMan']]]
+  ['gameover_116',['gameOver',['../d0/d06/classGhost.html#a3414af266c4bdcb026dc25c33797f3a7',1,'Ghost']]],
+  ['getdirection_117',['getDirection',['../d2/d4b/classPlayer.html#acfda0d215ecd76427076e3b8769325e0',1,'Player']]],
+  ['getdistance_118',['getDistance',['../d0/d06/classGhost.html#af1ba5f21140bd8d7009fbf5e9106b0d8',1,'Ghost']]],
+  ['getdotseaten_119',['getDotsEaten',['../d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482',1,'Maze']]],
+  ['getfield_120',['getField',['../d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f',1,'Ghost::getField()'],['../d2/d4b/classPlayer.html#aaeeb4d10ec379defe1e655840ffb610e',1,'Player::getField()']]],
+  ['getfieldwidth_121',['getFieldWidth',['../d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14',1,'Maze']]],
+  ['getitemat_122',['getItemAt',['../d6/d74/classMaze.html#a2c0495ab79b8ea8c432194d346196204',1,'Maze']]],
+  ['getmaze_123',['getMaze',['../d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533',1,'Maze']]],
+  ['getscore_124',['getScore',['../d6/d74/classMaze.html#aea3a36e7b680787d8975aa44488ddec9',1,'Maze']]],
+  ['getstepinterval_125',['getStepInterval',['../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4',1,'Ghost::getStepInterval()'],['../d2/d4b/classPlayer.html#a0557c4b62b8801137e12d2f5be5defc8',1,'Player::getStepInterval()']]],
+  ['ghost_126',['Ghost',['../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196',1,'Ghost']]]
 ];

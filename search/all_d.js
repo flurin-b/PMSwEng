@@ -1,19 +1,13 @@
 var searchData=
 [
-  ['scalefactor_53',['scaleFactor',['../d0/d06/classGhost.html#ae8fb708fcd4359a00c0464fc9f86f113',1,'Ghost']]],
-  ['setfrightened_54',['setFrightened',['../d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192',1,'Ghost']]],
-  ['setitemat_55',['setItemAt',['../d6/d74/classMaze.html#af882cb98c42b9c03a7127be7016effdb',1,'Maze']]],
-  ['setpaused_56',['setPaused',['../d0/d06/classGhost.html#a8af48a7f68176b5f10e798b39dc88abc',1,'Ghost::setPaused()'],['../d2/d4b/classPlayer.html#a069fc8e10cca6508b15de7b6ac8a6923',1,'Player::setPaused()']]],
-  ['spritedown_57',['spriteDown',['../d0/d06/classGhost.html#a048657d607dc60b0055043da8d6b30b6',1,'Ghost']]],
-  ['spritefrightendblue_58',['spriteFrightendBlue',['../d0/d06/classGhost.html#afa9fd2a9b4985ad8dceef786db923424',1,'Ghost']]],
-  ['spritefrightendwhite_59',['spriteFrightendWhite',['../d0/d06/classGhost.html#a923ec14655d59ccd86ba3afdc22ac641',1,'Ghost']]],
-  ['spritesidel_60',['spriteSideL',['../d0/d06/classGhost.html#ad202e75655d99e7d109fae1fa4acd122',1,'Ghost']]],
-  ['spritesider_61',['spriteSideR',['../d0/d06/classGhost.html#a2d3e296abf4faaca4a7c056099c35e7b',1,'Ghost']]],
-  ['spritestatus_62',['spriteStatus',['../d0/d06/classGhost.html#ad82e1044755828003ee91c2a08e691c0',1,'Ghost']]],
-  ['spriteup_63',['spriteUp',['../d0/d06/classGhost.html#ac12ba8591c2de1e94cd4b5dc5ad5c1eb',1,'Ghost']]],
-  ['state_64',['state',['../d0/d06/classGhost.html#a99ed0ea110ef66eb4204fa0050a27cd0',1,'Ghost']]],
-  ['step_65',['step',['../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee',1,'Ghost::step()'],['../d9/dfc/classBlinky.html#ac656b6857a9dfeb2f890270a2c5e8842',1,'Blinky::step()'],['../dd/db7/classPinky.html#ae154bd3acea5dd2baf724cc2667a5bb3',1,'Pinky::step()'],['../d6/d64/classInky.html#a3df5f3f6ebbde10fe81db79cae3275eb',1,'Inky::step()'],['../dd/d49/classClyde.html#a76ed124fa629bbccf459ba5562edfdd4',1,'Clyde::step()'],['../d2/d4b/classPlayer.html#a2f6ec1dacee0bd16546fd5ece89472ea',1,'Player::step()']]],
-  ['steptick_66',['stepTick',['../d0/d06/classGhost.html#a2bf3c490ddece9f1fa6f909733be42fb',1,'Ghost']]],
-  ['steptickcache_67',['stepTickCache',['../d0/d06/classGhost.html#af523cad1e07159795c57f1353886ea4b',1,'Ghost']]],
-  ['subposition_68',['subposition',['../d0/d06/classGhost.html#a2a95c784149e5d800e10cb08287a0466',1,'Ghost']]]
+  ['pacman_64',['PacMan',['../d9/d66/classPacMan.html',1,'PacMan'],['../d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722',1,'PacMan::PacMan(QGraphicsView *gvPointer)']]],
+  ['pacmanfont_65',['pacManFont',['../d9/d66/classPacMan.html#a720aa491ef8165053448e54bd2e6a1dd',1,'PacMan']]],
+  ['pacmanfontlarge_66',['pacManFontLarge',['../d9/d66/classPacMan.html#a721e83b55a137e6ffe02fb319aa6feee',1,'PacMan']]],
+  ['paint_67',['paint',['../d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e',1,'Ghost::paint()'],['../d6/d74/classMaze.html#afc0db50e7f4b40f15d9334b4a7a0db9b',1,'Maze::paint()'],['../d9/d66/classPacMan.html#a7c5bcbc1253dde907f9d15e21d498673',1,'PacMan::paint()'],['../d2/d4b/classPlayer.html#a8a2fc2c5d18c4601e1e881767d6f8d07',1,'Player::paint(void)']]],
+  ['pendingdirection_68',['pendingDirection',['../d2/d4b/classPlayer.html#aa2622c6c1717d1b222f8d1e8ab01ce1e',1,'Player']]],
+  ['pinky_69',['Pinky',['../dd/db7/classPinky.html',1,'Pinky'],['../dd/db7/classPinky.html#a0313532cd1c1d7ee0f3ff9f158b87d1d',1,'Pinky::Pinky()']]],
+  ['pixmap_70',['pixmap',['../d0/d06/classGhost.html#a0e43247770458b1cfe874f0120e06df2',1,'Ghost::pixmap()'],['../d2/d4b/classPlayer.html#aa071e39deafbf6faddff6afa3aff536a',1,'Player::pixmap()']]],
+  ['player_71',['Player',['../d2/d4b/classPlayer.html',1,'Player'],['../d2/d4b/classPlayer.html#a25b3344ceb96d7c4cec38db6d026ff93',1,'Player::Player()']]],
+  ['player_72',['player',['../d0/d06/classGhost.html#ab4919b308d77f53f5ca29077633ccb8f',1,'Ghost::player()'],['../d9/d66/classPacMan.html#a58024a680e1fba08ba7b2e4fdbf78336',1,'PacMan::player()']]],
+  ['position_73',['position',['../d0/d06/classGhost.html#acedf20d923bbd63d54f1056c849a17ea',1,'Ghost::position()'],['../d2/d4b/classPlayer.html#a213f72473537affd29419511f6397b66',1,'Player::position()']]]
 ];

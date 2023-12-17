@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['changedirection_2',['changeDirection',['../d2/d4b/classPlayer.html#a2b741215fa7d519044540672abaa4676',1,'Player']]],
-  ['clonepixmap_3',['clonePixmap',['../d0/d06/classGhost.html#a5c0b4bf7f48e0183406d0ea31bc0fa2e',1,'Ghost']]],
-  ['clyde_4',['Clyde',['../dd/d49/classClyde.html',1,'Clyde'],['../dd/d49/classClyde.html#a5e049eeb6bac7819b89347e2cca31cf3',1,'Clyde::Clyde()']]]
+  ['basestepinterval_1',['baseStepInterval',['../d6/d74/classMaze.html#ae105e09a1256cd7b2f8516be9ce51a47',1,'Maze']]],
+  ['blinky_2',['Blinky',['../d9/dfc/classBlinky.html',1,'Blinky'],['../d9/dfc/classBlinky.html#af998007346726b1df4256b6ce79cf92e',1,'Blinky::Blinky()']]]
 ];

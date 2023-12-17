@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['togglefrightenedsprite_112',['toggleFrightenedSprite',['../d0/d06/classGhost.html#ab9af002e55e7e95949e492c820d92869',1,'Ghost']]]
+  ['resetenergized_139',['resetEnergized',['../d2/d4b/classPlayer.html#ae21b9270aa4fd6ff015765d186a431bd',1,'Player']]]
 ];

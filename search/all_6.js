@@ -1,6 +1,22 @@
 var searchData=
 [
-  ['handlegameover_28',['handleGameOver',['../d9/d66/classPacMan.html#a7c0303552248bf629ff517793d8fd16e',1,'PacMan']]],
-  ['handlekeypress_29',['handleKeyPress',['../d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030',1,'PacMan']]],
-  ['height_30',['height',['../d6/d74/classMaze.html#a220dde730736e35b24da9b639ed75823',1,'Maze']]]
+  ['gameover_23',['gameOver',['../d0/d06/classGhost.html#a3414af266c4bdcb026dc25c33797f3a7',1,'Ghost']]],
+  ['gamescene_24',['gameScene',['../d9/d66/classPacMan.html#a8fdb8583837adc74b1abece166b3080c',1,'PacMan']]],
+  ['gamestate_25',['gameState',['../d9/d66/classPacMan.html#ad5233ed3b43d13414cb2f2f5ef38cd59',1,'PacMan']]],
+  ['gamestatetext_26',['gameStateText',['../d9/d66/classPacMan.html#a9514c2600a2615a6304a4443a8d0cb86',1,'PacMan']]],
+  ['getdirection_27',['getDirection',['../d2/d4b/classPlayer.html#acfda0d215ecd76427076e3b8769325e0',1,'Player']]],
+  ['getdistance_28',['getDistance',['../d0/d06/classGhost.html#af1ba5f21140bd8d7009fbf5e9106b0d8',1,'Ghost']]],
+  ['getdotseaten_29',['getDotsEaten',['../d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482',1,'Maze']]],
+  ['getfield_30',['getField',['../d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f',1,'Ghost::getField()'],['../d2/d4b/classPlayer.html#aaeeb4d10ec379defe1e655840ffb610e',1,'Player::getField()']]],
+  ['getfieldwidth_31',['getFieldWidth',['../d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14',1,'Maze']]],
+  ['getitemat_32',['getItemAt',['../d6/d74/classMaze.html#a2c0495ab79b8ea8c432194d346196204',1,'Maze']]],
+  ['getmaze_33',['getMaze',['../d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533',1,'Maze']]],
+  ['getscore_34',['getScore',['../d6/d74/classMaze.html#aea3a36e7b680787d8975aa44488ddec9',1,'Maze']]],
+  ['getstepinterval_35',['getStepInterval',['../d2/d4b/classPlayer.html#a0557c4b62b8801137e12d2f5be5defc8',1,'Player::getStepInterval()'],['../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4',1,'Ghost::getStepInterval(void)']]],
+  ['ghost_36',['Ghost',['../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196',1,'Ghost::Ghost()'],['../d0/d06/classGhost.html',1,'Ghost']]],
+  ['ghosts_37',['ghosts',['../d9/d66/classPacMan.html#a53b9ef8b007957e5fcff9117a74411db',1,'PacMan']]],
+  ['ghosttest_38',['GhostTest',['../de/d0d/classGhostTest.html',1,'']]],
+  ['globalmovement_39',['globalMovement',['../d0/d06/classGhost.html#abe1b57ac222bab6f05b5f1ac1077f648',1,'Ghost']]],
+  ['gs_40',['gs',['../d0/d06/classGhost.html#a3dc8412b0d407180d484510f7fcb4923',1,'Ghost::gs()'],['../d2/d4b/classPlayer.html#a6a14c2ce4109b60cc1ecb107eb37f379',1,'Player::gs()']]],
+  ['gv_41',['gv',['../d9/d66/classPacMan.html#aabdea8a4a359b512221341d315487b13',1,'PacMan']]]
 ];

@@ -1,7 +1,12 @@
 <map id="PacMan::handleKeyPress" name="PacMan::handleKeyPress">
-<area shape="rect" id="node1" title="Process the keyboard input and take appropriate action." alt="" coords="5,31,188,57"/>
-<area shape="rect" id="node2" href="$d2/d4b/classPlayer.html#a2b741215fa7d519044540672abaa4676" title="Process keyboard inputs and change Player::direction or Player::pendingDirection accordingly." alt="" coords="236,5,413,32"/>
-<area shape="rect" id="node5" href="$d2/d4b/classPlayer.html#a069fc8e10cca6508b15de7b6ac8a6923" title="Enables pausing of all logic." alt="" coords="256,56,393,83"/>
-<area shape="rect" id="node3" href="$d2/d4b/classPlayer.html#a2f6ec1dacee0bd16546fd5ece89472ea" title="Update wich direction the player should go in and move the Player in that direction." alt="" coords="461,5,560,32"/>
-<area shape="rect" id="node4" href="$d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Returns all possible directions in wich a Player or Ghost can go starting from the supplied position." alt="" coords="608,5,729,32"/>
+<area shape="rect" id="node1" title="Process the keyboard input and take appropriate action." alt="" coords="5,132,188,159"/>
+<area shape="rect" id="node2" href="$d2/d4b/classPlayer.html#a2b741215fa7d519044540672abaa4676" title="Process keyboard inputs and change Player::direction or Player::pendingDirection accordingly." alt="" coords="242,56,419,83"/>
+<area shape="rect" id="node6" href="$d9/d66/classPacMan.html#aeb51d6eed8c4a5ddd6bf36c6c117d24a" title="Initializes all game objects. To start a new round, just call this function again." alt="" coords="236,132,425,159"/>
+<area shape="rect" id="node8" href="$d2/d4b/classPlayer.html#a069fc8e10cca6508b15de7b6ac8a6923" title="Enables pausing of all logic." alt="" coords="733,183,870,209"/>
+<area shape="rect" id="node3" href="$d2/d4b/classPlayer.html#a0557c4b62b8801137e12d2f5be5defc8" title="Get the current Intervall with which the function Player::step should be called." alt="" coords="716,56,887,83"/>
+<area shape="rect" id="node4" href="$d2/d4b/classPlayer.html#a2f6ec1dacee0bd16546fd5ece89472ea" title="Update wich direction the player should go in and move the Player in that direction." alt="" coords="521,5,620,32"/>
+<area shape="rect" id="node5" href="$d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Returns all possible directions in wich a Player or Ghost can go starting from the supplied position." alt="" coords="741,5,862,32"/>
+<area shape="rect" id="node7" href="$d9/d66/classPacMan.html#a7c0303552248bf629ff517793d8fd16e" title="Handle a GameOver caused by either a Ghost eating the Player or the Player eating every dot in the Ma..." alt="" coords="473,157,668,184"/>
+<area shape="rect" id="node9" href="$d0/d06/classGhost.html#a572aa783158f8cd97e3ddb6ac0721192" title="Ghost::setFrightened puts the Ghost into firghtened or normal mode if applicable." alt="" coords="492,107,649,133"/>
+<area shape="rect" id="node10" href="$d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4" title="Ghost::getStepInterval returns the current Time between step calls." alt="" coords="717,107,885,133"/>
 </map>
