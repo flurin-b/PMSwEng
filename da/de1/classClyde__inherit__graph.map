@@ -1,5 +1,5 @@
 <map id="Clyde" name="Clyde">
 <area shape="rect" id="node1" title="Clyde moves like Blinky as long as his distance to the Player is more than 8 tiles...." alt="" coords="61,564,145,656"/>
 <area shape="rect" id="node2" href="$d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost..." alt="" coords="5,131,200,516"/>
-<area shape="rect" id="node3" href="$d9/d5b/classQObject.html" title=" " alt="" coords="65,5,140,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="65,5,140,83"/>
 </map>

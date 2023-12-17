@@ -86,8 +86,6 @@ var NAVTREEINDEX0 =
 "d6/d74/classMaze.html#af882cb98c42b9c03a7127be7016effdb":[0,0,5,10],
 "d6/d74/classMaze.html#afc0db50e7f4b40f15d9334b4a7a0db9b":[0,0,5,9],
 "d8/d3c/pacmanlib__global_8h_source.html":[1,0,0,5],
-"d8/ded/classQWidget.html":[0,0,11],
-"d9/d5b/classQObject.html":[0,0,10],
 "d9/d66/classPacMan.html":[0,0,7],
 "d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722":[0,0,7,0],
 "d9/d66/classPacMan.html#a5c60749168e26d4dc87aa1323a15e998":[0,0,7,1],

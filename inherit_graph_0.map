@@ -1,12 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d9/d5b/classQObject.html" title=" " alt="" coords="5,183,80,209"/>
-<area shape="rect" id="node2" href="$d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost..." alt="" coords="141,81,201,108"/>
-<area shape="rect" id="node7" href="$de/d0d/classGhostTest.html" title=" " alt="" coords="128,132,215,159"/>
-<area shape="rect" id="node8" href="$d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,..." alt="" coords="143,183,200,209"/>
-<area shape="rect" id="node9" href="$d9/d66/classPacMan.html" title="The PacMan class brings all the game objects together and exposes them to the user." alt="" coords="135,233,207,260"/>
-<area shape="rect" id="node10" href="$d2/d4b/classPlayer.html" title=" " alt="" coords="140,284,203,311"/>
-<area shape="rect" id="node3" href="$d9/dfc/classBlinky.html" title="Blinky targets Player directly." alt="" coords="263,5,325,32"/>
-<area shape="rect" id="node4" href="$dd/d49/classClyde.html" title="Clyde moves like Blinky as long as his distance to the Player is more than 8 tiles...." alt="" coords="265,56,323,83"/>
-<area shape="rect" id="node5" href="$d6/d64/classInky.html" title="Inky uses the current position of the Player and Blinky and adds the difference of the two to the Pla..." alt="" coords="269,107,319,133"/>
-<area shape="rect" id="node6" href="$dd/db7/classPinky.html" title="Pinky targets four fields in front of the Player in the current movement direction of the Player." alt="" coords="265,157,323,184"/>
+<area shape="rect" id="node1" href="$d9/dfc/classBlinky.html" title="Blinky targets Player directly." alt="" coords="5,132,68,159"/>
+<area shape="rect" id="node2" href="$d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost..." alt="" coords="129,56,189,83"/>
+<area shape="rect" id="node6" href="$de/d0d/classGhostTest.html" title=" " alt="" coords="116,107,203,133"/>
+<area shape="rect" id="node7" href="$d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,..." alt="" coords="131,157,188,184"/>
+<area shape="rect" id="node8" href="$d9/d66/classPacMan.html" title="The PacMan class brings all the game objects together and exposes them to the user." alt="" coords="123,208,195,235"/>
+<area shape="rect" id="node9" href="$d2/d4b/classPlayer.html" title="The Player class implements the yellow monster controlled by the player." alt="" coords="128,259,191,285"/>
+<area shape="rect" id="node3" href="$dd/d49/classClyde.html" title="Clyde moves like Blinky as long as his distance to the Player is more than 8 tiles...." alt="" coords="251,5,309,32"/>
+<area shape="rect" id="node4" href="$d6/d64/classInky.html" title="Inky uses the current position of the Player and Blinky and adds the difference of the two to the Pla..." alt="" coords="255,56,305,83"/>
+<area shape="rect" id="node5" href="$dd/db7/classPinky.html" title="Pinky targets four fields in front of the Player in the current movement direction of the Player." alt="" coords="251,107,309,133"/>
 </map>

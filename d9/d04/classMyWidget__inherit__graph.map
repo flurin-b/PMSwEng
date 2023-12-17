@@ -1,4 +1,4 @@
 <map id="MyWidget" name="MyWidget">
 <area shape="rect" id="node1" title="The MyWidget class is used to redirect keyboard inputs to the PacMan class." alt="" coords="5,131,148,208"/>
-<area shape="rect" id="node2" href="$d8/ded/classQWidget.html" title=" " alt="" coords="37,5,116,83"/>
+<area shape="rect" id="node2" title=" " alt="" coords="37,5,116,83"/>
 </map>

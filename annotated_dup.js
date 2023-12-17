@@ -9,7 +9,5 @@ var annotated_dup =
     [ "MyWidget", "d4/d8f/classMyWidget.html", "d4/d8f/classMyWidget" ],
     [ "PacMan", "d9/d66/classPacMan.html", "d9/d66/classPacMan" ],
     [ "Pinky", "dd/db7/classPinky.html", "dd/db7/classPinky" ],
-    [ "Player", "d2/d4b/classPlayer.html", "d2/d4b/classPlayer" ],
-    [ "QObject", "d9/d5b/classQObject.html", null ],
-    [ "QWidget", "d8/ded/classQWidget.html", null ]
+    [ "Player", "d2/d4b/classPlayer.html", "d2/d4b/classPlayer" ]
 ];
