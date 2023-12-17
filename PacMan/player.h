@@ -11,7 +11,9 @@
 #include <QTimer>
 
 
-
+/**
+ * @brief The Player class implements the yellow monster controlled by the player.
+ */
 class PACMANLIB_EXPORT Player : public QObject
 {
     Q_OBJECT
