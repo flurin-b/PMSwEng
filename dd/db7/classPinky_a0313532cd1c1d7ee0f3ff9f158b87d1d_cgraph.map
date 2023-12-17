@@ -1,0 +1,13 @@
+<map id="Pinky::Pinky" name="Pinky::Pinky">
+<area shape="rect" id="node1" title="Pinky::Pinky Creates a Ghost with the chase pattern of Pinky." alt="" coords="5,56,104,83"/>
+<area shape="rect" id="node2" href="$d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14" title="Get the current Width of a Field in the Maze." alt="" coords="497,5,652,32"/>
+<area shape="rect" id="node3" href="$dd/db7/classPinky.html#ae154bd3acea5dd2baf724cc2667a5bb3" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="152,81,244,108"/>
+<area shape="rect" id="node4" href="$d2/d4b/classPlayer.html#acfda0d215ecd76427076e3b8769325e0" title="Get the Current Direction the Player is heading in." alt="" coords="292,56,443,83"/>
+<area shape="rect" id="node5" href="$d2/d4b/classPlayer.html#aaeeb4d10ec379defe1e655840ffb610e" title="Used for getting the field the Player is currently in." alt="" coords="306,107,429,133"/>
+<area shape="rect" id="node6" href="$d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step is called periodically to update the ghosts position." alt="" coords="319,157,415,184"/>
+<area shape="rect" id="node7" href="$d0/d06/classGhost.html#af1ba5f21140bd8d7009fbf5e9106b0d8" title="Ghost::getDistance calculates and returns the distance from one field to another." alt="" coords="501,56,648,83"/>
+<area shape="rect" id="node8" href="$d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482" title="Get the amount of small Dots eaten by the Player." alt="" coords="498,107,651,133"/>
+<area shape="rect" id="node9" href="$d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f" title="Ghost::getField Get the field in which the Ghost is currently in." alt="" coords="515,157,635,184"/>
+<area shape="rect" id="node10" href="$d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Returns all possible directions in wich a Player or Ghost can go starting from the supplied position." alt="" coords="514,208,635,235"/>
+<area shape="rect" id="node11" href="$d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4" title="Ghost::getStepInterval returns the current Time between step calls." alt="" coords="491,259,659,285"/>
+</map>

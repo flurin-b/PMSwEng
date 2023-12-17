@@ -1,0 +1,5 @@
+<map id="Pinky" name="Pinky">
+<area shape="rect" id="node1" title="Pinky targets four fields in front of the Player in the current movement direction of the Player." alt="" coords="61,564,144,656"/>
+<area shape="rect" id="node2" href="$d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost..." alt="" coords="5,131,200,516"/>
+<area shape="rect" id="node3" href="$d9/d5b/classQObject.html" title=" " alt="" coords="65,5,140,83"/>
+</map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['width_70',['width',['../d6/d74/classMaze.html#abe2cf5c4dc8142fdaedd6134024fc01d',1,'Maze']]]
+  ['togglefrightenedsprite_71',['toggleFrightenedSprite',['../d0/d06/classGhost.html#ab9af002e55e7e95949e492c820d92869',1,'Ghost']]]
 ];

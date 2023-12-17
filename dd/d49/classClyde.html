@@ -28,6 +28,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">PacMan
    </div>
+   <div id="projectbrief">This Code implements a Version of the classic computer game Pac-Man.</div>
   </td>
  </tr>
  </tbody>
@@ -98,12 +99,36 @@ $(document).ready(function(){initNavTree('dd/d49/classClyde.html','../../'); ini
 <div class="dynheader">
 Inheritance diagram for Clyde:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="../../dd/d49/classClyde.png" usemap="#Clyde_map" alt=""/>
-  <map id="Clyde_map" name="Clyde_map">
-<area href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost..." alt="Ghost" shape="rect" coords="0,56,59,80"/>
-  </map>
-</div></div>
+<div class="center"><img src="../../da/de1/classClyde__inherit__graph.png" border="0" usemap="#aClyde_inherit__map" alt="Inheritance graph"/></div>
+<map name="aClyde_inherit__map" id="aClyde_inherit__map">
+<area shape="rect" title="Clyde moves like Blinky as long as his distance to the Player is more than 8 tiles...." alt="" coords="61,564,145,656"/>
+<area shape="rect" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost..." alt="" coords="5,131,200,516"/>
+<area shape="rect" href="../../d9/d5b/classQObject.html" title=" " alt="" coords="65,5,140,83"/>
+</map>
+</div>
+<div class="dynheader">
+Collaboration diagram for Clyde:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dc/d6b/classClyde__coll__graph.png" border="0" usemap="#aClyde_coll__map" alt="Collaboration graph"/></div>
+<map name="aClyde_coll__map" id="aClyde_coll__map">
+<area shape="rect" title="Clyde moves like Blinky as long as his distance to the Player is more than 8 tiles...." alt="" coords="955,867,1039,959"/>
+<area shape="rect" href="../../d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost..." alt="" coords="899,593,1094,817"/>
+<area shape="rect" href="../../d9/d5b/classQObject.html" title=" " alt="" coords="1174,5,1249,83"/>
+<area shape="rect" href="../../d2/d4b/classPlayer.html" title=" " alt="" coords="1549,189,1703,355"/>
+<area shape="rect" href="../../d6/d74/classMaze.html" title="The Maze class stores the current state of the playfield (what food is where), the score,..." alt="" coords="1142,175,1281,369"/>
+<area shape="rect" title=" " alt="" coords="81,233,219,311"/>
+<area shape="rect" title=" " alt="" coords="244,233,317,311"/>
+<area shape="rect" title=" " alt="" coords="342,233,489,311"/>
+<area shape="rect" title=" " alt="" coords="513,233,691,311"/>
+<area shape="rect" title=" " alt="" coords="716,233,797,311"/>
+<area shape="rect" title=" " alt="" coords="821,233,1012,311"/>
+<area shape="rect" title=" " alt="" coords="1036,233,1117,311"/>
+<area shape="rect" title=" " alt="" coords="1607,5,1645,83"/>
+<area shape="rect" title=" " alt="" coords="1305,233,1395,311"/>
+<area shape="rect" title=" " alt="" coords="1420,233,1525,311"/>
+<area shape="rect" title=" " alt="" coords="1727,233,1792,311"/>
+</map>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -374,6 +399,23 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
   </table>
   </dd>
 </dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d49/classClyde_a5e049eeb6bac7819b89347e2cca31cf3_cgraph.png" border="0" usemap="#add/d49/classClyde_a5e049eeb6bac7819b89347e2cca31cf3_cgraph" alt=""/></div>
+<map name="add/d49/classClyde_a5e049eeb6bac7819b89347e2cca31cf3_cgraph" id="add/d49/classClyde_a5e049eeb6bac7819b89347e2cca31cf3_cgraph">
+<area shape="rect" title="Clyde::Clyde creates a Ghost with the chase pattern of Clyde." alt="" coords="5,81,109,108"/>
+<area shape="rect" href="../../d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14" title="Get the current Width of a Field in the Maze." alt="" coords="477,5,632,32"/>
+<area shape="rect" href="../../dd/d49/classClyde.html#a76ed124fa629bbccf459ba5562edfdd4" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="157,132,252,159"/>
+<area shape="rect" href="../../d0/d06/classGhost.html#af1ba5f21140bd8d7009fbf5e9106b0d8" title="Ghost::getDistance calculates and returns the distance from one field to another." alt="" coords="481,56,628,83"/>
+<area shape="rect" href="../../d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f" title="Ghost::getField Get the field in which the Ghost is currently in." alt="" coords="495,208,615,235"/>
+<area shape="rect" href="../../d2/d4b/classPlayer.html#aaeeb4d10ec379defe1e655840ffb610e" title="Used for getting the field the Player is currently in." alt="" coords="300,208,423,235"/>
+<area shape="rect" href="../../d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Returns all possible directions in wich a Player or Ghost can go starting from the supplied position." alt="" coords="494,259,615,285"/>
+<area shape="rect" href="../../d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step is called periodically to update the ghosts position." alt="" coords="313,107,409,133"/>
+<area shape="rect" href="../../d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482" title="Get the amount of small Dots eaten by the Player." alt="" coords="478,107,631,133"/>
+<area shape="rect" href="../../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4" title="Ghost::getStepInterval returns the current Time between step calls." alt="" coords="471,157,639,184"/>
+</map>
+</div>
 
 </div>
 </div>

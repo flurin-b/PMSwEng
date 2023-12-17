@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['resetposition_52',['resetPosition',['../d0/d06/classGhost.html#ad925df9709f49313d2529ae5bd6ecc62',1,'Ghost']]]
+  ['qobject_52',['QObject',['../d9/d5b/classQObject.html',1,'']]],
+  ['qwidget_53',['QWidget',['../d8/ded/classQWidget.html',1,'']]]
 ];

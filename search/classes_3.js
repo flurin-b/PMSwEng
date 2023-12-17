@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['inky_77',['Inky',['../d6/d64/classInky.html',1,'']]]
+  ['inky_79',['Inky',['../d6/d64/classInky.html',1,'']]]
 ];

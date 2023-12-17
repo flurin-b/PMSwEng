@@ -1,0 +1,5 @@
+<map id="Maze::Maze" name="Maze::Maze">
+<area shape="rect" id="node1" title="Maze::Maze Creates a Instace of Maze. It also initializes all the graphics items." alt="" coords="5,31,105,57"/>
+<area shape="rect" id="node2" href="$d6/d74/classMaze.html#a2c0495ab79b8ea8c432194d346196204" title="Returns what Item is in the specified field." alt="" coords="153,5,284,32"/>
+<area shape="rect" id="node3" href="$d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Returns all possible directions in wich a Player or Ghost can go starting from the supplied position." alt="" coords="158,56,279,83"/>
+</map>

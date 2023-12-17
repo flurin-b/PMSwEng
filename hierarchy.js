@@ -1,6 +1,6 @@
 var hierarchy =
 [
-    [ "QObject", null, [
+    [ "QObject", "d9/d5b/classQObject.html", [
       [ "Ghost", "d0/d06/classGhost.html", [
         [ "Blinky", "d9/dfc/classBlinky.html", null ],
         [ "Clyde", "dd/d49/classClyde.html", null ],
@@ -12,7 +12,7 @@ var hierarchy =
       [ "PacMan", "d9/d66/classPacMan.html", null ],
       [ "Player", "d2/d4b/classPlayer.html", null ]
     ] ],
-    [ "QWidget", null, [
+    [ "QWidget", "d8/ded/classQWidget.html", [
       [ "MyWidget", "d4/d8f/classMyWidget.html", null ]
     ] ]
 ];

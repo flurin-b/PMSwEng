@@ -1,0 +1,8 @@
+<map id="Ghost" name="Ghost">
+<area shape="rect" id="node1" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost..." alt="" coords="113,131,307,516"/>
+<area shape="rect" id="node3" href="$d9/dfc/classBlinky.html" title="Blinky targets Player directly." alt="" coords="5,564,92,656"/>
+<area shape="rect" id="node4" href="$dd/d49/classClyde.html" title="Clyde moves like Blinky as long as his distance to the Player is more than 8 tiles...." alt="" coords="116,564,200,656"/>
+<area shape="rect" id="node5" href="$d6/d64/classInky.html" title="Inky uses the current position of the Player and Blinky and adds the difference of the two to the Pla..." alt="" coords="225,564,299,656"/>
+<area shape="rect" id="node6" href="$dd/db7/classPinky.html" title="Pinky targets four fields in front of the Player in the current movement direction of the Player." alt="" coords="323,564,406,656"/>
+<area shape="rect" id="node2" href="$d9/d5b/classQObject.html" title=" " alt="" coords="173,5,247,83"/>
+</map>

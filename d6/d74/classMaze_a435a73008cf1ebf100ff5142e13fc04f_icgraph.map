@@ -1,0 +1,4 @@
+<map id="Maze::increaseScore" name="Maze::increaseScore">
+<area shape="rect" id="node1" title="Inclrease the score by a given ammount." alt="" coords="155,5,311,32"/>
+<area shape="rect" id="node2" href="$d0/d06/classGhost.html#a062b8159339f25f517a14511833fa05e" title="Ghost::paint paints the ghost onto the GraphigsScene in its current position and state." alt="" coords="5,5,107,32"/>
+</map>

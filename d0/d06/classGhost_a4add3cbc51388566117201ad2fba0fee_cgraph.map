@@ -1,0 +1,9 @@
+<map id="Ghost::step" name="Ghost::step">
+<area shape="rect" id="node1" title="Ghost::step is called periodically to update the ghosts position." alt="" coords="5,132,101,159"/>
+<area shape="rect" id="node2" href="$d0/d06/classGhost.html#af1ba5f21140bd8d7009fbf5e9106b0d8" title="Ghost::getDistance calculates and returns the distance from one field to another." alt="" coords="160,5,307,32"/>
+<area shape="rect" id="node3" href="$d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482" title="Get the amount of small Dots eaten by the Player." alt="" coords="157,56,310,83"/>
+<area shape="rect" id="node4" href="$d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f" title="Ghost::getField Get the field in which the Ghost is currently in." alt="" coords="173,107,293,133"/>
+<area shape="rect" id="node5" href="$d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14" title="Get the current Width of a Field in the Maze." alt="" coords="156,157,311,184"/>
+<area shape="rect" id="node6" href="$d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Returns all possible directions in wich a Player or Ghost can go starting from the supplied position." alt="" coords="173,208,294,235"/>
+<area shape="rect" id="node7" href="$d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4" title="Ghost::getStepInterval returns the current Time between step calls." alt="" coords="149,259,317,285"/>
+</map>

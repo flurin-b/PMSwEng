@@ -1,0 +1,5 @@
+<map id="Player::getDirection" name="Player::getDirection">
+<area shape="rect" id="node1" title="Get the Current Direction the Player is heading in." alt="" coords="292,5,443,32"/>
+<area shape="rect" id="node2" href="$dd/db7/classPinky.html#ae154bd3acea5dd2baf724cc2667a5bb3" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="152,5,244,32"/>
+<area shape="rect" id="node3" href="$dd/db7/classPinky.html#a0313532cd1c1d7ee0f3ff9f158b87d1d" title="Pinky::Pinky Creates a Ghost with the chase pattern of Pinky." alt="" coords="5,5,104,32"/>
+</map>

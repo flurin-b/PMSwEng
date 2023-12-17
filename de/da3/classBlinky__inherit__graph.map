@@ -1,0 +1,5 @@
+<map id="Blinky" name="Blinky">
+<area shape="rect" id="node1" title="Blinky targets Player directly." alt="" coords="59,564,146,656"/>
+<area shape="rect" id="node2" href="$d0/d06/classGhost.html" title="The Ghost class implements a basic movement function (Ghost::step) as well as a paint function (Ghost..." alt="" coords="5,131,200,516"/>
+<area shape="rect" id="node3" href="$d9/d5b/classQObject.html" title=" " alt="" coords="65,5,140,83"/>
+</map>

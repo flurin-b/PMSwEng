@@ -1,0 +1,7 @@
+<map id="PacMan::handleKeyPress" name="PacMan::handleKeyPress">
+<area shape="rect" id="node1" title="Process the keyboard input and take appropriate action." alt="" coords="5,31,188,57"/>
+<area shape="rect" id="node2" href="$d2/d4b/classPlayer.html#a2b741215fa7d519044540672abaa4676" title="Process keyboard inputs and change Player::direction or Player::pendingDirection accordingly." alt="" coords="236,5,413,32"/>
+<area shape="rect" id="node5" href="$d2/d4b/classPlayer.html#a069fc8e10cca6508b15de7b6ac8a6923" title="Enables pausing of all logic." alt="" coords="256,56,393,83"/>
+<area shape="rect" id="node3" href="$d2/d4b/classPlayer.html#a2f6ec1dacee0bd16546fd5ece89472ea" title="Update wich direction the player should go in and move the Player in that direction." alt="" coords="461,5,560,32"/>
+<area shape="rect" id="node4" href="$d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Returns all possible directions in wich a Player or Ghost can go starting from the supplied position." alt="" coords="608,5,729,32"/>
+</map>

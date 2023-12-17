@@ -1,0 +1,4 @@
+<map id="PacMan::handleGameOver" name="PacMan::handleGameOver">
+<area shape="rect" id="node1" title="Handle a GameOver caused by either a Ghost eating the Player or the Player eating every dot in the Ma..." alt="" coords="5,5,200,32"/>
+<area shape="rect" id="node2" href="$d2/d4b/classPlayer.html#a069fc8e10cca6508b15de7b6ac8a6923" title="Enables pausing of all logic." alt="" coords="248,5,385,32"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Player::Player" name="Player::Player">
+<area shape="rect" id="node1" title="Initializes all attributes, sprites and timer used by a Player object." alt="" coords="5,31,117,57"/>
+<area shape="rect" id="node2" href="$d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14" title="Get the current Width of a Field in the Maze." alt="" coords="165,5,320,32"/>
+<area shape="rect" id="node3" href="$d2/d4b/classPlayer.html#a2f6ec1dacee0bd16546fd5ece89472ea" title="Update wich direction the player should go in and move the Player in that direction." alt="" coords="193,56,292,83"/>
+<area shape="rect" id="node4" href="$d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Returns all possible directions in wich a Player or Ghost can go starting from the supplied position." alt="" coords="368,56,489,83"/>
+</map>

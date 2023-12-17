@@ -1,0 +1,12 @@
+<map id="Clyde::Clyde" name="Clyde::Clyde">
+<area shape="rect" id="node1" title="Clyde::Clyde creates a Ghost with the chase pattern of Clyde." alt="" coords="5,81,109,108"/>
+<area shape="rect" id="node2" href="$d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14" title="Get the current Width of a Field in the Maze." alt="" coords="477,5,632,32"/>
+<area shape="rect" id="node3" href="$dd/d49/classClyde.html#a76ed124fa629bbccf459ba5562edfdd4" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="157,132,252,159"/>
+<area shape="rect" id="node4" href="$d0/d06/classGhost.html#af1ba5f21140bd8d7009fbf5e9106b0d8" title="Ghost::getDistance calculates and returns the distance from one field to another." alt="" coords="481,56,628,83"/>
+<area shape="rect" id="node5" href="$d0/d06/classGhost.html#acd1bd47ee90195f67baeb64946a4f10f" title="Ghost::getField Get the field in which the Ghost is currently in." alt="" coords="495,208,615,235"/>
+<area shape="rect" id="node6" href="$d2/d4b/classPlayer.html#aaeeb4d10ec379defe1e655840ffb610e" title="Used for getting the field the Player is currently in." alt="" coords="300,208,423,235"/>
+<area shape="rect" id="node7" href="$d6/d74/classMaze.html#a03cf92be93cbb63a79693c9a6efff533" title="Returns all possible directions in wich a Player or Ghost can go starting from the supplied position." alt="" coords="494,259,615,285"/>
+<area shape="rect" id="node8" href="$d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step is called periodically to update the ghosts position." alt="" coords="313,107,409,133"/>
+<area shape="rect" id="node9" href="$d6/d74/classMaze.html#a31f523437406ea22b46cd8c2dcf96482" title="Get the amount of small Dots eaten by the Player." alt="" coords="478,107,631,133"/>
+<area shape="rect" id="node10" href="$d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4" title="Ghost::getStepInterval returns the current Time between step calls." alt="" coords="471,157,639,184"/>
+</map>

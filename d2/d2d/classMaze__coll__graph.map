@@ -1,0 +1,5 @@
+<map id="Maze" name="Maze">
+<area shape="rect" id="node1" title="The Maze class stores the current state of the playfield (what food is where), the score,..." alt="" coords="13,175,152,369"/>
+<area shape="rect" id="node2" href="$d9/d5b/classQObject.html" title=" " alt="" coords="5,5,80,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="105,5,143,83"/>
+</map>

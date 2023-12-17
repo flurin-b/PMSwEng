@@ -1,0 +1,5 @@
+<map id="Player::setPaused" name="Player::setPaused">
+<area shape="rect" id="node1" title="Enables pausing of all logic." alt="" coords="248,31,385,57"/>
+<area shape="rect" id="node2" href="$d9/d66/classPacMan.html#a7c0303552248bf629ff517793d8fd16e" title="Handle a GameOver caused by either a Ghost eating the Player or the Player eating every dot in the Ma..." alt="" coords="5,5,200,32"/>
+<area shape="rect" id="node3" href="$d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030" title="Process the keyboard input and take appropriate action." alt="" coords="11,56,194,83"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Ghost::setFrightened" name="Ghost::setFrightened">
+<area shape="rect" id="node1" title="Ghost::setFrightened puts the Ghost into firghtened or normal mode if applicable." alt="" coords="5,5,163,32"/>
+<area shape="rect" id="node2" href="$d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4" title="Ghost::getStepInterval returns the current Time between step calls." alt="" coords="211,5,379,32"/>
+</map>

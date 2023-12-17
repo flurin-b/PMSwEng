@@ -1,0 +1,6 @@
+<map id="Ghost::Ghost" name="Ghost::Ghost">
+<area shape="rect" id="node1" title="Ghost::Ghost creates the base for any specific Ghost ( Blinky / Pinky / Inky / Clyde )" alt="" coords="5,56,112,83"/>
+<area shape="rect" id="node2" href="$d6/d74/classMaze.html#ad3a644406d9b07b8459cd1f2b6600a14" title="Get the current Width of a Field in the Maze." alt="" coords="191,5,345,32"/>
+<area shape="rect" id="node3" href="$d0/d06/classGhost.html#a5e76d2458c22abb211544afb6ac76d78" title="Ghost::nextMovementPattern Sets the next movement pattern and restarts the movementTimer for the next..." alt="" coords="161,56,375,83"/>
+<area shape="rect" id="node4" href="$d0/d06/classGhost.html#ab9af002e55e7e95949e492c820d92869" title="Ghost::toggleFrightenedSprite Swap between the two frightend sprites to show the player the energized..." alt="" coords="160,107,376,133"/>
+</map>
