@@ -43,6 +43,14 @@ target_compile_definitions(LocalLib PRIVATE ${LIBDEF})
 target_compile_definitions(PacManLib PRIVATE ${LIBDEF})
 
 # Create Main Executable
+
+if(MINGW)
+    set(CMAKE_RC_COMPILER_INIT windres)
+    ENABLE_LANGUAGE(RC)
+    SET(CMAKE_RC_COMPILE_OBJECT
+    "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
+endif(MINGW)
+
 add_executable(PacMan WIN32 main.cpp icon.rc)
 target_link_libraries(PacMan LocalLib PacManLib)
 
