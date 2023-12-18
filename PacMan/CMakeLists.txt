@@ -33,6 +33,7 @@ add_library(PacManLib SHARED
     ghost.h ghost.cpp   # Ghost behaviour
     maze.h maze.cpp     # Possible Movement directions and available food
     ResourceSystem.qrc
+    icon.rc
 )
 target_link_libraries(PacManLib Qt6::Widgets)
 
@@ -42,7 +43,7 @@ target_compile_definitions(LocalLib PRIVATE ${LIBDEF})
 target_compile_definitions(PacManLib PRIVATE ${LIBDEF})
 
 # Create Main Executable
-add_executable(PacMan WIN32 main.cpp)
+add_executable(PacMan WIN32 main.cpp icon.rc)
 target_link_libraries(PacMan LocalLib PacManLib)
 
 # Add Tests
