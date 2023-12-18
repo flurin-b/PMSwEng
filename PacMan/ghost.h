@@ -156,6 +156,10 @@ protected:
     int movementCounter = 0;
 
     static float getDistance(QPoint field1, QPoint field2);
+    /**
+     * @brief Befriends the Test Class for getDistance. <br>
+     *        This is necessary because otherwise a protected methoded can't be tested
+     */
     friend class GhostTest;
     int getStepInterval(void);
 
