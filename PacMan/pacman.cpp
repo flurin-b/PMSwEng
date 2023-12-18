@@ -73,7 +73,7 @@ void PacMan::initGameObjects()
     scoreText->setDefaultTextColor(Qt::white);
     scoreText->setFont(pacManFont);
 
-    gameStateText = gameScene->addText("");
+    gameStateText = gameScene->addText("Press ENTER to start playing.");
     gameStateText->setDefaultTextColor(Qt::white);
     gameStateText->setFont(pacManFont);
 
