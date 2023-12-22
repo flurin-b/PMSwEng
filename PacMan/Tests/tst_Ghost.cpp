@@ -29,7 +29,7 @@ void GhostTest::getDistanceTest()
     QFETCH(QPoint, field2);
     QFETCH(float, distance);
 
-    //The Output value is a float thus a diffrence up to 0.1 is accepted
+    //The Output value is a float thus a diffrence up to 0.01 is accepted
     QCOMPARE_LE(Ghost::getDistance(field1,field2) - distance,0.01f);
 }
 

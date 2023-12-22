@@ -6,19 +6,22 @@
 
 
 /**
- * @brief PacMan::PacMan Initalize everything needed for a round of Pac-Man
+ * @brief PacMan::PacMan Initalize the base needed for a round of Pac-Man
  * @param A Pointer to the GraphicsView in which Pac-Man will be displayed
  */
 PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
 {
+    //With 20px per field the game is playable from a 1080p display up to a 4k. A scalabe resolution will maybe be implemented later on
     int fieldSize_px = 20;
     menuScene = new QGraphicsScene();
     gameScene = new QGraphicsScene();
 
+    //Set the font for the Text in the game
     int id = QFontDatabase::addApplicationFont(":/Sprite/Font/emulogic.ttf");
     pacManFont      = QFont(QFontDatabase::applicationFontFamilies(id).at(0), 10);
     pacManFontLarge = QFont(QFontDatabase::applicationFontFamilies(id).at(0), 18);
 
+    //Setup the two seprate scene for playing and starting/ending the game
     gv->setScene(menuScene);
     gv->setInteractive(false);
     gv->setFixedSize(Maze::width*fieldSize_px + 1, Maze::height*fieldSize_px);
@@ -41,9 +44,11 @@ PacMan::PacMan(QGraphicsView *gvPointer):gv{gvPointer}
  */
 void PacMan::initGameObjects()
 {
+    //Hide everything in the Scene before deleting the items for a better expirence
     gameScene->clear();
     menuScene->clear();
 
+    //Remove the old Maze,Player and Ghosts which all contain information from the past game, and create new ones
     delete maze;
     maze = new Maze(gameScene, gv);
     QObject::connect(maze, &Maze::gameOver, this, &PacMan::handleGameOver);
@@ -63,6 +68,7 @@ void PacMan::initGameObjects()
         QObject::connect(player, &Player::energizedChanged, ghost, &Ghost::setFrightened);
     }
 
+    //Create the Text for playing a new round
     menuText = menuScene->addText("");
     menuText->setDefaultTextColor(Qt::white);
     menuText->setFont(pacManFontLarge);
@@ -73,10 +79,12 @@ void PacMan::initGameObjects()
     scoreText->setDefaultTextColor(Qt::white);
     scoreText->setFont(pacManFont);
 
+    //Create the Text for informing the Player how to start the game
     gameStateText = gameScene->addText("Press ENTER to start playing.");
     gameStateText->setDefaultTextColor(Qt::white);
     gameStateText->setFont(pacManFont);
 
+//Create a new fpsCounter for the new round
 #ifdef ENABLE_FPS_COUNTER
     fpsText = gameScene->addText("Fps: 0000");
     fpsText->setDefaultTextColor(Qt::white);
@@ -116,11 +124,13 @@ PacMan::~PacMan()
  */
 void PacMan::paint()
 {
+    //Switch between the diffrent Text that appears depending on the gameState
     switch (gameState)
     {
     case won:
     case lost:
     {
+        //Handle the information flow after a game has been won or lost
         if (gv->scene() != menuScene)
         {
             gameStateText->hide();
@@ -136,6 +146,7 @@ void PacMan::paint()
         break;
     }
     case paused:
+        //Handle the information flow while a game is paused
         if (gv->scene() != gameScene)
             gv->setScene(gameScene);
         if (!gameStateText->isVisible())
@@ -145,12 +156,14 @@ void PacMan::paint()
         }
         break;
     case running:
+        //Handle the information flow while the game is running
         if (gv->scene() != gameScene)
             gv->setScene(gameScene);
         if (gameStateText->isVisible())
             gameStateText->hide();
         break;
     case start:
+        //This will only ever be displayed at the start of a round to inform the Player how to start
         if (gv->scene() != gameScene)
             gv->setScene(gameScene);
         if (!gameStateText->isVisible())
@@ -161,18 +174,20 @@ void PacMan::paint()
         break;
     }
 
+    //Display all the parts of the game the player actively interacts with
     maze->paint();
     player->paint();
     for(Ghost* ghost : ghosts)
         ghost->paint();
 
-#ifdef ENABLE_FPS_COUNTER
-    fpsCounter ++;
-    fpsText->setPos(QPoint((gameScene->sceneRect().width() - fpsText->boundingRect().width() - 5), 25));
-    char buf[9] = "";
-    sprintf(buf, "Fps: %04d", fps);
-    fpsText->setPlainText(buf);
-#endif // ENABLE_FPS_COUNTER
+    //Show the current Frames per Second(FPS) aka. how often the Paint functionn of the Objects are called per second
+    #ifdef ENABLE_FPS_COUNTER
+        fpsCounter ++;
+        fpsText->setPos(QPoint((gameScene->sceneRect().width() - fpsText->boundingRect().width() - 5), 25));
+        char buf[9] = "";
+        sprintf(buf, "Fps: %04d", fps);
+        fpsText->setPlainText(buf);
+    #endif // ENABLE_FPS_COUNTER
 }
 
 /**
@@ -183,6 +198,7 @@ void PacMan::handleKeyPress(QKeyEvent* event)
 {
     switch (event->key())
     {
+    //The Arrow key are only used for controlling the player thus they are forwareded to him
     case Qt::Key_Up:
     case Qt::Key_Down:
     case Qt::Key_Left:
@@ -190,6 +206,7 @@ void PacMan::handleKeyPress(QKeyEvent* event)
         if (gameState == running || gameState == start)
             player->changeDirection(event);
         break;
+    //Both the enter key on the keyboard and on the numpad can be used to start/pause the game
     case Qt::Key_Enter:
     case Qt::Key_Return:
         switch (gameState) {
