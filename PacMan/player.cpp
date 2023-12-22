@@ -9,26 +9,34 @@
  */
 Player::Player(QGraphicsScene *gsPointer, Maze *mazePointer):gs{gsPointer},maze{mazePointer}
 {
+    //Set the start Position from the Player
     position = QPoint{13,26};
     subposition = QPointF{position.x()+0.5, float(position.y())};
     direction = QPoint{-1,0};
+
+    //Create a Timer which will reset the energizer status after the defined time in the variable energizerDuration
     energizerTimeout = new QTimer();
     energizerTimeout->setSingleShot(true);
     QObject::connect(energizerTimeout, &QTimer::timeout, this, &Player::resetEnergized);
 
+    // Timer that calls the periodic step function.
+    // This Timer is set to be a Precise Timer because it determines the movement speed of the Player.
     stepTick.setTimerType(Qt::PreciseTimer);
     QObject::connect(&stepTick, &QTimer::timeout, this, &Player::step);
     stepTick.setInterval(stepIntervalNoCoin/2);
 
+    //Timer that calls the method which "animates" the Player by swapping between two sprites
     spriteTimer.setTimerType(Qt::PreciseTimer);
     QObject::connect(&spriteTimer, &QTimer::timeout, this, &Player::swapSprite);
     spriteTimer.setInterval(150);
 
+    //Load the two Sprites from the ResourceSystem into variables for easy access in the Code later
     float fieldWidth_px = maze->getFieldWidth();
     spriteShut = QPixmap(":/Sprite/Player/PlayerShut.png").scaledToWidth(fieldWidth_px * scaleFactor);
     spriteOpen = QPixmap(":/Sprite/Player/PlayerOpen.png").scaledToWidth(fieldWidth_px * scaleFactor);
     pixmap = gs->addPixmap(spriteOpen);
     pixmap->setZValue(1);
+    //Move the center for rotation into the middle of the pixmap
     pixmap->setTransformOriginPoint((QPoint((fieldWidth_px * scaleFactor)/2,(fieldWidth_px * scaleFactor)/2)));
     clone = gs->addPixmap(spriteOpen);
     clone->setTransformOriginPoint((QPoint((fieldWidth_px * scaleFactor)/2,(fieldWidth_px * scaleFactor)/2)));
@@ -43,8 +51,10 @@ void Player::setPaused(bool paused)
 {
     if(paused)
     {
+        // Load the timer caches with the current timer values.
         stepTickCache = stepTick.remainingTime();
         energizerTimeoutCache = energizerTimeout->remainingTime();
+        // Stop the timers.
         stepTick.stop();
         energizerTimeout->stop();
         spriteTimer.stop();
@@ -52,15 +62,27 @@ void Player::setPaused(bool paused)
     else
     {
         if (stepTickCache != -1)
+        {
+            // Reload the timers to the previous period if there is a cached value.
             stepTick.start(stepTickCache);
+        }
         else
+        {
+            // If there are no cached values, just start the timers.
             stepTick.start();
+        }
 
         if(energizerTimeoutCache != -1)
+        {
+            // Reload the timers to the previous period if there is a cached value.
             energizerTimeout->start(energizerTimeoutCache);
+        }
         else
+        {
+            // If there are no cached values, just start the timers.
             energizerTimeout->start();
-
+        }
+        //Start the Timer for the Player animation always when changing from paused to some other state
         spriteTimer.start();
     }
 }
@@ -108,7 +130,9 @@ void Player::paint(void)
         pixmap->setRotation(direction.y() > 0 ? 90 : -90);
     }
 
-    //Calculate the top left position if the sprite would be as wide as the field and subtract half of the wide pixels that are to wide becuse of the scaling
+    // Calculate the sprites position to make it appear centered over its current position.
+    //   To do this, the subposition is multiplied with the field width to get the top left corner of the current "subfield" in pixels.
+    //   To correct for the Pixmap being bigger than a field, the length in Fields the Sprite is bigger than a field (scaleFactor - 1) is halved and subtracted from the subposition.
     float fieldWidth_px = maze->getFieldWidth();
     float xPosition = fieldWidth_px * (subposition.x() - ((scaleFactor - 1.0) * 0.5));
     float yPosition = fieldWidth_px * (subposition.y() - ((scaleFactor - 1.0) * 0.5));
@@ -173,7 +197,7 @@ void Player::step(void)
     position += direction;
     stepTick.setInterval(getStepInterval());
 
-    //Move to the otherside of the tunnel
+    //Move to the otherside of the tunnel when the end is reached
     if(position.x() < 0 || position.x() > 27)
     {
         position.setX((position.x()+maze->width) % maze->width);
@@ -228,11 +252,13 @@ void Player::changeDirection(QKeyEvent* event)
     {
         position -= direction;
         direction = pendingDirection;
+        //Set the time when the next step is made to the time it was already traveling in this field, as it made a 180° turn
         if(stepTick.remainingTime() != -1)
             stepTick.setInterval(getStepInterval()-stepTick.remainingTime());
     }
     if (direction == QPoint{0, 0})
     {
+        //Call step() if not moving at the moment, as otherwise nothing would call step() and get the Playe moving again
         step();
     }
 }
@@ -256,6 +282,7 @@ void Player::eatItem(QPoint location)
     case Maze::energizer:
         maze->setItemAt(location,Maze::noItem);
         maze->increaseScore(50);
+        //Let the Ghost know they should be frightend now
         status = Player::energized;
         energizerTimeout->start(energizerDuration);
         emit Player::energizedChanged(true);
@@ -268,6 +295,7 @@ void Player::eatItem(QPoint location)
  */
 void Player::resetEnergized(void)
 {
+    //Let the Ghost know they can hunt the Player again without fear
     status = normal;
     emit Player::energizedChanged(false);
 }
@@ -278,7 +306,7 @@ void Player::resetEnergized(void)
  */
 int Player::getStepInterval(void)
 {
-
+    //Return the Intervall time depending on the status of the Player and if he is eatinng a dot in this field
     if(status == energized)
         return eating ? stepIntervalEnergizedCoin : stepIntervalEnerfizedNoCoin;
     else
