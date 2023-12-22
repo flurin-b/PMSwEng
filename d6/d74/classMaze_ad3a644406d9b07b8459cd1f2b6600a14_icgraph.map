@@ -10,7 +10,7 @@
 <area shape="rect" id="node11" href="$d2/d4b/classPlayer.html#a25b3344ceb96d7c4cec38db6d026ff93" title="Initializes all attributes, sprites and timer used by a Player object." alt="" coords="345,535,457,561"/>
 <area shape="rect" id="node12" href="$d0/d06/classGhost.html#a4add3cbc51388566117201ad2fba0fee" title="Ghost::step is called periodically to update the ghosts position." alt="" coords="353,180,449,207"/>
 <area shape="rect" id="node8" href="$d9/d66/classPacMan.html#a7c5bcbc1253dde907f9d15e21d498673" title="Paints global menu items and calls the paint function of all game objects." alt="" coords="184,484,297,511"/>
-<area shape="rect" id="node9" href="$d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac&#45;Man." alt="" coords="5,484,136,511"/>
+<area shape="rect" id="node9" href="$d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize the base needed for a round of Pac&#45;Man." alt="" coords="5,484,136,511"/>
 <area shape="rect" id="node13" href="$d9/dfc/classBlinky.html#ac656b6857a9dfeb2f890270a2c5e8842" title="Blinky::step Step function that calls Ghost::step with the appropriate target." alt="" coords="192,28,289,55"/>
 <area shape="rect" id="node14" href="$dd/db7/classPinky.html#ae154bd3acea5dd2baf724cc2667a5bb3" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="195,129,287,156"/>
 <area shape="rect" id="node15" href="$d6/d64/classInky.html#a3df5f3f6ebbde10fe81db79cae3275eb" title="Blinky::step calls Ghost::step with the appropriate target." alt="" coords="199,231,283,257"/>

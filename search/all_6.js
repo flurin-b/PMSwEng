@@ -15,7 +15,7 @@ var searchData=
   ['getstepinterval_35',['getStepInterval',['../d2/d4b/classPlayer.html#a0557c4b62b8801137e12d2f5be5defc8',1,'Player::getStepInterval()'],['../d0/d06/classGhost.html#abb9c9b3a950606ae5b4f52b2f387d5f4',1,'Ghost::getStepInterval(void)']]],
   ['ghost_36',['Ghost',['../d0/d06/classGhost.html#a4c87807626e6a25df960a5f3ffa69196',1,'Ghost::Ghost()'],['../d0/d06/classGhost.html',1,'Ghost']]],
   ['ghosts_37',['ghosts',['../d9/d66/classPacMan.html#a53b9ef8b007957e5fcff9117a74411db',1,'PacMan']]],
-  ['ghosttest_38',['GhostTest',['../de/d0d/classGhostTest.html',1,'']]],
+  ['ghosttest_38',['GhostTest',['../de/d0d/classGhostTest.html',1,'GhostTest'],['../d0/d06/classGhost.html#a27622257f90398b6d12f54c55452dc8c',1,'Ghost::GhostTest()']]],
   ['globalmovement_39',['globalMovement',['../d0/d06/classGhost.html#abe1b57ac222bab6f05b5f1ac1077f648',1,'Ghost']]],
   ['gs_40',['gs',['../d0/d06/classGhost.html#a3dc8412b0d407180d484510f7fcb4923',1,'Ghost::gs()'],['../d2/d4b/classPlayer.html#a6a14c2ce4109b60cc1ecb107eb37f379',1,'Player::gs()']]],
   ['gv_41',['gv',['../d9/d66/classPacMan.html#aabdea8a4a359b512221341d315487b13',1,'PacMan']]]

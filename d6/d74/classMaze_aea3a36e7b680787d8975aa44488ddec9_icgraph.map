@@ -1,5 +1,5 @@
 <map id="Maze::getScore" name="Maze::getScore">
 <area shape="rect" id="node1" title="Get the current score." alt="" coords="345,5,468,32"/>
 <area shape="rect" id="node2" href="$d9/d66/classPacMan.html#a7c5bcbc1253dde907f9d15e21d498673" title="Paints global menu items and calls the paint function of all game objects." alt="" coords="184,5,297,32"/>
-<area shape="rect" id="node3" href="$d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac&#45;Man." alt="" coords="5,5,136,32"/>
+<area shape="rect" id="node3" href="$d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize the base needed for a round of Pac&#45;Man." alt="" coords="5,5,136,32"/>
 </map>

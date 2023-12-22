@@ -3,5 +3,5 @@
 <area shape="rect" id="node2" href="$d9/d66/classPacMan.html#a7c0303552248bf629ff517793d8fd16e" title="Handle a GameOver caused by either a Ghost eating the Player or the Player eating every dot in the Ma..." alt="" coords="473,5,668,32"/>
 <area shape="rect" id="node4" href="$d9/d66/classPacMan.html#ab15408c1a3a3faa9cfe6dd176d1e0030" title="Process the keyboard input and take appropriate action." alt="" coords="5,56,188,83"/>
 <area shape="rect" id="node3" href="$d9/d66/classPacMan.html#aeb51d6eed8c4a5ddd6bf36c6c117d24a" title="Initializes all game objects. To start a new round, just call this function again." alt="" coords="236,5,425,32"/>
-<area shape="rect" id="node5" href="$d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize everything needed for a round of Pac&#45;Man." alt="" coords="31,5,162,32"/>
+<area shape="rect" id="node5" href="$d9/d66/classPacMan.html#a25353808f3f5e2c1ecfa1a57c0452722" title="PacMan::PacMan Initalize the base needed for a round of Pac&#45;Man." alt="" coords="31,5,162,32"/>
 </map>
